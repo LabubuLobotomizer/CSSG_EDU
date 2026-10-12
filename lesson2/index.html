@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>CS + SG · HTML &amp; CSS from Zero</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="All lessons"><span class="brand-mark">&lt;/&gt;</span><span>CS + SG <small>LESSON 2 · HTML &amp; CSS</small></span></a>
+    <nav class="mode-tabs" aria-label="Workshop mode">
+      <button class="mode-tab active" data-mode="slides">Slides</button>
+      <button class="mode-tab" data-mode="playground">Playground</button>
+      <button class="mode-tab" data-mode="assignment">Assignment</button>
+    </nav>
+    <div class="top-meta"><span id="totalTime"></span><span>← → NAVIGATE</span></div>
+  </header>
+  <div class="progress-track"><div id="progress"></div></div>
+
+  <div class="layout" id="slidesMode">
+    <aside class="sidebar">
+      <div class="side-heading">TODAY <span id="routeCount"></span></div>
+      <nav id="sectionNav" aria-label="Lesson slides"></nav>
+      <div class="sidebar-note"><b>Teacher copy</b><p>Slides stay short. Open “Teacher notes” on each slide for what to say. Notes hide in Present mode.</p></div>
+    </aside>
+    <main id="main" tabindex="-1">
+      <div class="slide-top"><span id="sectionLabel" class="eyebrow"></span><span id="sectionTime" class="time-pill"></span></div>
+      <article id="slide"></article>
+      <footer class="slide-footer"><span id="slideIndex"></span><div class="footer-controls"><button id="prev" class="arrow-button" aria-label="Previous slide">←</button><button id="present" class="arrow-button" aria-label="Toggle full screen presentation">⛶ <span>Present</span></button><button id="next" class="next-button">Next <span>→</span></button></div></footer>
+    </main>
+  </div>
+
+  <main class="pg-page" id="playgroundMode" hidden>
+    <div class="pg-page-head">
+      <div><div class="eyebrow">TRY ANYTHING · NOTHING CAN BREAK</div><h1>HTML playground</h1></div>
+      <label>Start from:
+        <select id="pgSample">
+          <option value="blank">A blank page</option>
+          <option value="style">Cascade practice (which color wins?)</option>
+          <option value="club">The finished club page</option>
+        </select>
+      </label>
+    </div>
+    <div id="pgHolder"></div>
+  </main>
+
+  <main class="assignment-page" id="assignmentMode" hidden>
+    <div class="eyebrow">ON YOUR OWN OR IN PAIRS · ABOUT 45 MINUTES</div>
+    <h1>Build your <span class="accent">About Me</span> page.</h1>
+    <p class="lead">Use the club page as a model, but write every line yourself. Check a box when it works in your browser, not just when you typed it.</p>
+    <p><a href="club-page/starter/index.html" target="_blank" rel="noreferrer">Open the starter file ↗</a> · <a href="club-page/completed/index.html" target="_blank" rel="noreferrer">Open the finished club page ↗</a></p>
+    <div class="task-grid">
+      <section class="task"><div class="task-number">01</div><div><span class="tag">5 MIN · FILES</span><h2>Make the project folder</h2>
+        <pre>about-me/
+├── index.html
+├── style.css
+└── images/
+    └── (one picture)</pre>
+        <label><input type="checkbox"> I made the folder and the three items above.</label>
+        <label><input type="checkbox"> File names are lowercase with no spaces.</label>
+        <label><input type="checkbox"> Opening <code>index.html</code> shows a page in my browser.</label>
+      </div></section>
+      <section class="task"><div class="task-number">02</div><div><span class="tag">10 MIN · SKELETON + STRUCTURE</span><h2>Build the bones</h2>
+        <label><input type="checkbox"> <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code>, <code>body</code></label>
+        <label><input type="checkbox"> A <code>&lt;title&gt;</code> that shows in the browser tab</label>
+        <label><input type="checkbox"> <code>header</code> with your name in an <code>h1</code></label>
+        <label><input type="checkbox"> <code>main</code> with at least two <code>section</code>s, each with an <code>id</code></label>
+        <label><input type="checkbox"> <code>footer</code> at the bottom</label>
+      </div></section>
+      <section class="task"><div class="task-number">03</div><div><span class="tag">10 MIN · CONTENT</span><h2>Fill it in</h2>
+        <label><input type="checkbox"> A paragraph using <code>strong</code> or <code>em</code></label>
+        <label><input type="checkbox"> An image from your <code>images</code> folder with useful <code>alt</code> text</label>
+        <label><input type="checkbox"> A list (<code>ul</code> or <code>ol</code>) — hobbies, favorite songs, goals…</label>
+        <label><input type="checkbox"> A <code>nav</code> whose links jump to your sections (<code>href="#hobbies"</code>)</label>
+        <label><input type="checkbox"> One link to another website</label>
+      </div></section>
+      <section class="task"><div class="task-number">04</div><div><span class="tag">5 MIN · THE TREE</span><h2>Draw your tree</h2>
+        <p>On paper, draw the tree for your <code>header</code> and one <code>section</code>. Then open DevTools (right-click → Inspect) and compare.</p>
+        <label><input type="checkbox"> My drawing matches the Elements panel.</label>
+        <label><input type="checkbox"> I can point to a parent, a child, and two siblings.</label>
+      </div></section>
+      <section class="task"><div class="task-number">05</div><div><span class="tag">10 MIN · CSS</span><h2>Add your rules</h2>
+        <label><input type="checkbox"> <code>style.css</code> is linked from the <code>head</code></label>
+        <label><input type="checkbox"> A <code>body</code> rule sets the font and background</label>
+        <label><input type="checkbox"> One class used on two or more elements</label>
+        <label><input type="checkbox"> I wrote two rules that disagree, <b>predicted</b> the winner, then checked in DevTools</label>
+      </div></section>
+      <section class="task"><div class="task-number">06</div><div><span class="tag">5 MIN · CAN I USE IT?</span><h2>Check one feature</h2>
+        <p>Find one CSS property you used for the first time today. Look it up on <a href="https://caniuse.com" target="_blank" rel="noreferrer">caniuse.com</a> and on <a href="https://developer.mozilla.org" target="_blank" rel="noreferrer">MDN</a>.</p>
+        <label><input type="checkbox"> I know whether it works in Chrome, Firefox, and Safari.</label>
+        <label><input type="checkbox"> I wrote that down in a comment in my CSS.</label>
+      </div></section>
+      <section class="task wide"><div class="task-number">★</div><div><span class="tag">STRETCH · IF YOU FINISH EARLY</span><h2>Go further</h2>
+        <label><input type="checkbox"> Add a <code>table</code> (your class schedule) with <code>th</code> headings</label>
+        <label><input type="checkbox"> Make nav links smooth-scroll (<code>scroll-behavior</code>)</label>
+        <label><input type="checkbox"> Swap a <code>div</code> you used for a better semantic element</label>
+        <label><input type="checkbox"> Trade pages with a partner: can they explain why each color is the color it is?</label>
+      </div></section>
+    </div>
+    <p class="progress-note"><span id="checkCount"></span> · saved in this browser only</p>
+  </main>
+</div>
+
+<div id="slideTemplates" hidden>
+
+<!-- ================= START ================= -->
+<template data-part="Start" data-title="Welcome" data-time="2 MIN" data-label="START · WELCOME">
+  <div class="title-slide">
+    <div>
+      <div class="eyebrow">LESSON 2 · NO EXPERIENCE NEEDED</div>
+      <h1>HTML &amp; CSS<br>from <span class="accent">zero</span>.</h1>
+      <p class="lead">Today we learn how a webpage is put together, why browsers read it as a tree, and how CSS decides what everything looks like. Then we build a real page together.</p>
+    </div>
+    <div class="title-art">&lt;h1&gt;Hello!&lt;/h1&gt;
+&lt;p&gt;You will be able to
+   read this by the end.&lt;/p&gt;
+
+p {
+  color: green;
+}</div>
+  </div>
+  <div class="agenda">
+    <span><b>01</b>HTML basics</span><span><b>02</b>The tree</span><span><b>03</b>The elements</span><span><b>04</b>CSS rules</span><span><b>05</b>caniuse.com</span><span><b>06</b>Build it together</span>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · set expectations</summary>
+    <p>Say clearly: nobody is expected to know any of this already. We will name every new thing before using it. The goal is to understand how a page works, not to memorize tags — you can always look tags up.</p>
+    <p>The Playground tab (top) is a safe place to try anything. The Assignment tab is what they build at the end.</p>
+  </details>
+</template>
+
+<template data-part="Start" data-title="Three jobs on a webpage" data-time="3 MIN" data-label="START · HTML, CSS, JS">
+  <div class="eyebrow">A QUICK REMINDER FROM LESSON 1</div>
+  <h2>A webpage is built by <span class="accent">three languages</span>.</h2>
+  <div class="house">
+    <div><div class="pic"><svg width="120" height="96" viewBox="0 0 120 96" aria-hidden="true"><path d="M10 46 L60 8 L110 46" fill="none" stroke="#965d35" stroke-width="3"/><rect x="20" y="44" width="80" height="48" fill="none" stroke="#965d35" stroke-width="3"/><line x1="60" y1="44" x2="60" y2="92" stroke="#965d35" stroke-width="2" stroke-dasharray="4 3"/><line x1="20" y1="68" x2="100" y2="68" stroke="#965d35" stroke-width="2" stroke-dasharray="4 3"/></svg></div><b>HTML</b><small>the frame</small><p>What is on the page and what each thing <b>is</b>: a heading, a paragraph, a link, a picture.</p></div>
+    <div><div class="pic"><svg width="120" height="96" viewBox="0 0 120 96" aria-hidden="true"><path d="M10 46 L60 8 L110 46 Z" fill="#a74e48"/><rect x="20" y="44" width="80" height="48" fill="#e7c98f"/><rect x="34" y="56" width="18" height="16" fill="#9cc3d9"/><rect x="68" y="58" width="18" height="34" fill="#52775f"/></svg></div><b>CSS</b><small>the paint &amp; furniture</small><p>What it <b>looks like</b>: colors, fonts, sizes, spacing, layout.</p></div>
+    <div><div class="pic"><svg width="120" height="96" viewBox="0 0 120 96" aria-hidden="true"><path d="M10 46 L60 8 L110 46 Z" fill="#a74e48"/><rect x="20" y="44" width="80" height="48" fill="#e7c98f"/><rect x="34" y="56" width="18" height="16" fill="#f3d55b"/><path d="M76 20 l-8 14 h8 l-6 14" fill="none" stroke="#8a6d1f" stroke-width="3"/></svg></div><b>JavaScript</b><small>the electricity</small><p>What it <b>does</b>: react to clicks, change things, run games.</p></div>
+  </div>
+  <div class="one-line">Today is about the first two. <b>HTML first</b> — CSS only makes sense once you know what it is styling.</div>
+  <details class="speaker-notes"><summary>Teacher notes · the house</summary>
+    <p>Lesson 1 used all three to build Minesweeper. Today we slow down and properly learn HTML and CSS. Ask: “If you deleted all the CSS from a website, what would be left?” (The content, plain and unstyled.) “If you deleted all the HTML?” (Nothing — CSS has nothing to style.)</p>
+  </details>
+</template>
+
+<template data-part="Start" data-title="What happens when a page loads?" data-time="3 MIN" data-label="START · THE BROWSER">
+  <div class="eyebrow">THE BROWSER IS A READER, NOT A PHOTOCOPIER</div>
+  <h2>The browser <span class="accent">reads</span> your HTML, then draws it.</h2>
+  <div class="flow">
+    <div><b>1 · Get the file</b><small>The browser asks for <code>index.html</code> (from a server, or from your own computer).</small></div><i>→</i>
+    <div><b>2 · Read the tags</b><small>It reads the text from top to bottom and finds every tag.</small></div><i>→</i>
+    <div><b>3 · Build a tree</b><small>It works out what is inside what. This tree is called the <b>DOM</b>.</small></div><i>→</i>
+    <div><b>4 · Apply CSS</b><small>It decides how every piece of the tree should look.</small></div><i>→</i>
+    <div><b>5 · Draw</b><small>It paints the result on screen.</small></div>
+  </div>
+  <div class="one-line">You never see the tags. You see what the browser <b>built</b> from them.</div>
+  <details class="speaker-notes"><summary>Teacher notes · reading, not displaying</summary>
+    <p>Key idea for the whole lesson: HTML is instructions, not a picture. The browser interprets it. That is why a typo can make a whole section disappear, and why the same file can look different in different browsers.</p>
+    <p>DOM stands for Document Object Model. Students only need “the tree the browser builds from your HTML.”</p>
+  </details>
+</template>
+
+<!-- ================= HTML BASICS ================= -->
+<template data-part="HTML basics" data-title="HTML is just a text file" data-time="3 MIN" data-label="HTML 01 · FIRST FILE">
+  <div class="eyebrow">NO SPECIAL SOFTWARE NEEDED</div>
+  <h2>An HTML file is plain text with <span class="accent">tags</span>.</h2>
+  <p class="lead">Write it in any code editor, save it as <code>index.html</code>, and open it in a browser.</p>
+  <script type="text/plain" data-pair data-big data-arrow="browser draws">
+    <h1>My first page</h1>
+    <p>This is a paragraph.</p>
+    <p>This is another one.</p>
+  </script>
+  <div class="one-line">The words inside <code>&lt;</code> <code>&gt;</code> are <b>tags</b>. They tell the browser what each piece of text is. The tags themselves are never shown.</div>
+  <details class="speaker-notes"><summary>Teacher notes · live demo</summary>
+    <p>Do this live: open VS Code (or any editor), make <code>index.html</code>, type these three lines, save, double-click the file. Then change a word, save, refresh. Point out the loop: <b>edit → save → refresh</b>. Forgetting to save is the #1 beginner bug.</p>
+    <p><b>HTML</b> = HyperText Markup Language. “Markup” means we mark up plain text with labels.</p>
+  </details>
+</template>
+
+<template data-part="HTML basics" data-title="Anatomy of an element" data-time="4 MIN" data-label="HTML 02 · ELEMENTS">
+  <div class="eyebrow">THE ONE PATTERN YOU WILL SEE EVERYWHERE</div>
+  <h2>Opening tag, content, <span class="accent">closing tag</span>.</h2>
+  <div class="anatomy">
+    <div class="anatomy-row">
+      <div class="anatomy-part part-open"><span>&lt;p&gt;</span><small>opening tag</small></div>
+      <div class="anatomy-part part-content"><span>Hello, world!</span><small>content</small></div>
+      <div class="anatomy-part part-close"><span>&lt;/p&gt;</span><small>closing tag · note the <b>/</b></small></div>
+    </div>
+    <div class="anatomy-total">all three together = one <b>element</b></div>
+  </div>
+  <div class="cards">
+    <div><b>Tag name</b><p><code>p</code> is the tag name. It means “paragraph.” Each name has a meaning.</p></div>
+    <div><b>Opening tag</b><p>Says “a paragraph starts here.”</p></div>
+    <div><b>Closing tag</b><p>Same name with a slash: “the paragraph ends here.”</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · tag vs element</summary>
+    <p>People mix up “tag” and “element” all the time and that is OK — but precisely: a <i>tag</i> is the bit in angle brackets; an <i>element</i> is the whole thing (opening tag + content + closing tag).</p>
+    <p>Ask: what do you think happens if you forget the closing tag? (Browsers guess. Sometimes they guess right, sometimes the rest of the page ends up inside your paragraph.)</p>
+  </details>
+</template>
+
+<template data-part="HTML basics" data-title="Attributes: extra information" data-time="3 MIN" data-label="HTML 03 · ATTRIBUTES">
+  <div class="eyebrow">SETTINGS THAT LIVE INSIDE THE OPENING TAG</div>
+  <h2>Attributes give an element <span class="accent">extra details</span>.</h2>
+  <div class="anatomy">
+    <div class="anatomy-row">
+      <div class="anatomy-part part-open"><span>&lt;a</span><small>tag name</small></div>
+      <div class="anatomy-part part-attr"><span>&nbsp;href</span><small>attribute name</small></div>
+      <div class="anatomy-part part-plain"><span>=</span></div>
+      <div class="anatomy-part part-name"><span>"https://caniuse.com"</span><small>value · in quotes</small></div>
+      <div class="anatomy-part part-open"><span>&gt;</span></div>
+      <div class="anatomy-part part-content"><span>Can I use</span><small>content</small></div>
+      <div class="anatomy-part part-close"><span>&lt;/a&gt;</span><small>closing tag</small></div>
+    </div>
+  </div>
+  <div class="cards">
+    <div><b>Pattern</b><p><code>name="value"</code>, always in the <b>opening</b> tag, never the closing one.</p></div>
+    <div><b>Many allowed</b><p><code>&lt;img src="cat.jpg" alt="A cat"&gt;</code> — separate them with spaces.</p></div>
+    <div><b>Two you will use a lot</b><p><code>id</code> (one unique name) and <code>class</code> (a group name). CSS uses both.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · attributes</summary>
+    <p>Analogy: the tag says <i>what</i> the thing is (a link); attributes say <i>which one</i> or <i>how</i> (where it goes). A link without <code>href</code> is a link to nowhere.</p>
+    <p>Mention the quotes — missing quotes is a classic bug once values contain spaces.</p>
+  </details>
+</template>
+
+<template data-part="HTML basics" data-title="Empty elements" data-time="2 MIN" data-label="HTML 04 · NO CLOSING TAG">
+  <div class="eyebrow">A FEW ELEMENTS HAVE NOTHING INSIDE</div>
+  <h2>Some elements are <span class="accent">empty</span>.</h2>
+  <p class="lead">An image has no text content — everything it needs is in its attributes. So it gets no closing tag.</p>
+  <table class="tag-table">
+    <tr><th>ELEMENT</th><th>WHAT IT DOES</th></tr>
+    <tr><td>&lt;img src="…" alt="…"&gt;</td><td>Shows a picture</td></tr>
+    <tr><td>&lt;br&gt;</td><td>Line break inside text</td></tr>
+    <tr><td>&lt;hr&gt;</td><td>A dividing line between topics</td></tr>
+    <tr><td>&lt;input&gt;</td><td>A box the user can type into</td></tr>
+    <tr><td>&lt;meta&gt;, &lt;link&gt;</td><td>Information about the page (inside <code>head</code>)</td></tr>
+  </table>
+  <div class="one-line">You may see <code>&lt;br /&gt;</code> with a slash in older code. Both work; we will write <code>&lt;br&gt;</code>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · void elements</summary>
+    <p>The official name is “void elements.” Don't make students memorize the list; they will learn these few naturally.</p>
+  </details>
+</template>
+
+<template data-part="HTML basics" data-title="Nesting: boxes inside boxes" data-time="4 MIN" data-label="HTML 05 · NESTING">
+  <div class="eyebrow">ELEMENTS CAN CONTAIN OTHER ELEMENTS</div>
+  <h2>Nesting is putting <span class="accent">boxes inside boxes</span>.</h2>
+  <div class="grid2">
+    <script type="text/plain" data-label="index.html" data-big>
+      <section>
+        <h2>Pets</h2>
+        <p>I have a <strong>very</strong> loud dog.</p>
+      </section>
+    </script>
+    <div class="boxes" data-tag="section">
+      <div class="boxes b2" data-tag="h2"><span class="txt">Pets</span></div>
+      <div class="boxes b2" data-tag="p"><span class="txt">I have a <span class="boxes b3" data-tag="strong" style="display:inline-block;padding:20px 6px 4px">very</span> loud dog.</span></div>
+    </div>
+  </div>
+  <div class="compare">
+    <div class="good"><b>✓ Close in the opposite order you opened</b><pre>&lt;p&gt;&lt;strong&gt;Hi&lt;/strong&gt;&lt;/p&gt;</pre></div>
+    <div class="bad"><b>✗ Boxes can't overlap</b><pre>&lt;p&gt;&lt;strong&gt;Hi&lt;/p&gt;&lt;/strong&gt;</pre></div>
+  </div>
+  <div class="one-line">Indenting the inner element makes the boxes easy to see. The browser doesn't care about spaces — <b>people</b> do.</div>
+  <details class="speaker-notes"><summary>Teacher notes · last opened, first closed</summary>
+    <p>Physical analogy: put a small box in a big box. You must close the small box before you can close the big one. Rule: <b>last opened, first closed.</b></p>
+    <p>Indentation: two spaces per level is our team standard. Most editors have “Format Document.”</p>
+  </details>
+</template>
+
+<!-- ================= THE TREE ================= -->
+<template data-part="The tree" data-title="HTML is a tree" data-time="4 MIN" data-label="TREE 01 · THE DOM">
+  <div class="eyebrow">NESTING + MORE NESTING = A TREE</div>
+  <h2>The browser turns your file into a <span class="accent">tree</span>.</h2>
+  <div class="grid2">
+    <script type="text/plain" data-label="index.html" data-big>
+      <body>
+        <h1>Hello</h1>
+        <p>Welcome to <em>my</em> page!</p>
+        <ul>
+          <li>Games</li>
+          <li>Music</li>
+        </ul>
+      </body>
+    </script>
+    <script type="text/plain" data-tree data-big data-label="THE TREE (DOM)">
+      <body>
+        <h1>Hello</h1>
+        <p>Welcome to <em>my</em> page!</p>
+        <ul>
+          <li>Games</li>
+          <li>Music</li>
+        </ul>
+      </body>
+    </script>
+  </div>
+  <div class="one-line">Every element is a <b>node</b>. Text is a node too (the dashed boxes). It's an upside-down tree: the root is at the top.</div>
+  <details class="speaker-notes"><summary>Teacher notes · why a tree?</summary>
+    <p>Walk through it: body contains three things — h1, p, ul. The ul contains two li. Notice the text “Welcome to” and “page!” are separate text nodes, with <code>em</code> between them.</p>
+    <p>Why care? Because CSS and JavaScript both work on this tree, not on your text file. CSS rules flow <i>down</i> the tree (we'll see that soon), and DevTools shows you this exact tree.</p>
+  </details>
+</template>
+
+<template data-part="The tree" data-title="Family words" data-time="3 MIN" data-label="TREE 02 · RELATIONSHIPS">
+  <div class="eyebrow">WE DESCRIBE THE TREE LIKE A FAMILY TREE</div>
+  <h2>Parents, children, and <span class="accent">siblings</span>.</h2>
+  <div class="grid2">
+    <script type="text/plain" data-tree data-big data-label="THE TREE">
+      <body><header><h1>Club</h1><nav><a>Home</a><a>Join</a></nav></header><main><p>Hi!</p></main></body>
+    </script>
+    <div>
+      <div class="family">
+        <div><b>Parent</b>The element directly around you. <code>nav</code> is the parent of both <code>a</code>s.</div>
+        <div><b>Child</b>An element directly inside. <code>h1</code> is a child of <code>header</code>.</div>
+        <div><b>Siblings</b>Same parent. <code>header</code> and <code>main</code> are siblings.</div>
+        <div><b>Ancestors</b>Parent, grandparent, and up. <code>body</code> is an ancestor of every <code>a</code>.</div>
+        <div><b>Descendants</b>Children, grandchildren, and down.</div>
+      </div>
+      <div class="quiz">
+        <div class="q">What is the parent of <code>p</code>?</div>
+        <div class="options">
+          <button data-why="body is the grandparent. Its child main is directly around p."><code>body</code></button>
+          <button data-ok data-why="main wraps p directly."><code>main</code></button>
+          <button data-why="header is a sibling of main — it's beside p's parent, not around p."><code>header</code></button>
+        </div>
+        <div class="feedback"></div>
+      </div>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · vocabulary pays off</summary>
+    <p>These words come back in CSS (“the rule is inherited from the parent”) and in every web tutorial. Ask a few more out loud: siblings of the first <code>a</code>? (the other <code>a</code>) Ancestors of <code>h1</code>? (header, body)</p>
+  </details>
+</template>
+
+<template data-part="The tree" data-title="Try it: watch the tree grow" data-time="5 MIN" data-label="TREE 03 · LIVE">
+  <div class="eyebrow">TYPE ON THE LEFT · WATCH BOTH SIDES CHANGE</div>
+  <h2>Change the HTML. See the page <span class="accent">and</span> the tree.</h2>
+  <script type="text/plain" data-playground data-tree>
+    <h1>My favorite things</h1>
+    <p>I like <strong>pizza</strong> and games.</p>
+    <ul>
+      <li>Minecraft</li>
+      <li>Chess</li>
+    </ul>
+  </script>
+  <details class="speaker-notes"><summary>Teacher notes · class challenges</summary>
+    <ul>
+      <li>Add a third <code>li</code>. Where does it appear in the tree?</li>
+      <li>Wrap <code>games</code> in <code>&lt;em&gt;</code>. What new node appears?</li>
+      <li>Delete the <code>&lt;/strong&gt;</code> closing tag. What does the browser guess? (Look at how far the bold goes.)</li>
+      <li>Put a <code>ul</code> inside an <code>li</code> to make a list inside a list.</li>
+    </ul>
+  </details>
+</template>
+
+<!-- ================= THE ELEMENTS ================= -->
+<template data-part="The elements" data-title="Every page's skeleton" data-time="4 MIN" data-label="ELEMENTS 01 · DOCUMENT">
+  <div class="eyebrow">EVERY REAL PAGE STARTS THE SAME WAY</div>
+  <h2>The <span class="accent">head</span> is about the page. The <span class="accent">body</span> is the page.</h2>
+  <div class="skeleton-map">
+    <script type="text/plain" data-label="index.html" data-mark="1,4-5">
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <title>My Page</title>
+        </head>
+        <body>
+          <h1>Hello!</h1>
+          <p>Everything you see goes here.</p>
+        </body>
+      </html>
+    </script>
+    <div class="skel">
+      <div class="zone"><b>&lt;!DOCTYPE html&gt;</b>“This is a modern HTML page.” Always the first line.</div>
+      <div class="zone"><b>&lt;html lang="en"&gt;</b>The root: the whole tree hangs off it. <code>lang</code> tells screen readers the language.</div>
+      <div class="zone head"><b>&lt;head&gt; · invisible info</b><code>meta charset</code> = which letters (so emoji and é work) · <code>title</code> = text on the browser tab · CSS links go here too.</div>
+      <div class="zone body"><b>&lt;body&gt; · visible content</b>Headings, text, images, links — everything a visitor sees.</div>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · type it from memory</summary>
+    <p>Show the tree for this in the Playground (choose “A blank page”) — html has exactly two children: head and body.</p>
+    <p>Tip: in VS Code, typing <code>!</code> then Tab writes this skeleton for you. Still have them type it by hand once.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="Headings & paragraphs" data-time="3 MIN" data-label="ELEMENTS 02 · TEXT">
+  <div class="eyebrow">THE MOST COMMON ELEMENTS ON THE WEB</div>
+  <h2>Headings make an <span class="accent">outline</span>. Paragraphs hold text.</h2>
+  <script type="text/plain" data-pair data-label="text elements">
+    <h1>Main title (one per page)</h1>
+    <h2>A section</h2>
+    <h3>A smaller part of that section</h3>
+    <p>A paragraph with <strong>important</strong> words
+    and <em>emphasized</em> words.<br>This line was broken.</p>
+  </script>
+  <div class="cards">
+    <div><b>h1 → h6</b><p>Levels of an outline, not font sizes. Pick by <b>meaning</b>; CSS changes the size.</p></div>
+    <div><b>strong / em</b><p>Important / emphasized. Bold and italic are just how they look by default.</p></div>
+    <div><b>Spaces collapse</b><p>Ten spaces or a new line in your file show as one space. Use a new <code>p</code> instead.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · meaning over looks</summary>
+    <p>Common mistake: using <code>h4</code> because “h1 is too big.” Screen readers and search engines use headings as a table of contents. Choose the level that matches the outline; make it small with CSS later.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="Links" data-time="3 MIN" data-label="ELEMENTS 03 · ANCHORS">
+  <div class="eyebrow">THE “HYPER” IN HYPERTEXT</div>
+  <h2>A link is an <code style="font-size:.8em">a</code> element with an <span class="accent">href</span>.</h2>
+  <script type="text/plain" data-label="three kinds of links" data-big>
+    <!-- 1. Another website: a full address (absolute URL) -->
+    <a href="https://caniuse.com">Can I use…</a>
+
+    <!-- 2. Another file in your project (relative path) -->
+    <a href="about.html">About me</a>
+
+    <!-- 3. A spot on the same page: # + an element's id -->
+    <a href="#contact">Jump to contact</a>
+    <section id="contact">...</section>
+  </script>
+  <div class="one-line"><code>a</code> stands for <b>anchor</b>. <code>href</code> = “hypertext reference”: where the link goes.</div>
+  <details class="speaker-notes"><summary>Teacher notes · absolute vs relative</summary>
+    <p>An absolute URL starts with <code>https://</code> and works from anywhere. A relative path is directions from the current file — next slide. The <code>#id</code> kind is what our club page's nav will use.</p>
+    <p>Optional: <code>target="_blank"</code> opens a new tab. Don't overuse it.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="File paths" data-time="4 MIN" data-label="ELEMENTS 04 · PATHS">
+  <div class="eyebrow">DIRECTIONS FROM WHERE YOU ARE STANDING</div>
+  <h2>A relative path starts from <span class="accent">the current file</span>.</h2>
+  <div class="path-demo">
+<div class="folder-tree">📁 <b>my-site</b>
+├── 📄 <span class="you">index.html</span>   ← you are here
+├── 📄 about.html
+├── 📁 <b>images</b>
+│   └── 🖼 cat.jpg
+└── 📁 <b>blog</b>
+    └── 📄 first-post.html</div>
+    <div class="path-list">
+      <div><code>about.html</code><small>Same folder: just the name.</small></div>
+      <div><code>images/cat.jpg</code><small>Go into <b>images</b>, then find cat.jpg.</small></div>
+      <div><code>blog/first-post.html</code><small>Go into <b>blog</b>, then the file.</small></div>
+      <div><code>../index.html</code><small>From inside <b>blog</b>: <code>..</code> means “go up one folder.”</small></div>
+      <div><code>https://example.com/cat.jpg</code><small>Absolute: a full web address. Same from anywhere.</small></div>
+    </div>
+  </div>
+  <div class="warn-line"><b>Paths are picky.</b> On most web servers <code>Cat.JPG</code> ≠ <code>cat.jpg</code>. Use lowercase names with no spaces: <code>my-photo.jpg</code>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · tie back to lesson 1</summary>
+    <p>This is the same idea as <code>cd</code> in the terminal from lesson 1: <code>cd images</code> goes down, <code>cd ..</code> goes up. Ask: from <code>blog/first-post.html</code>, what path reaches cat.jpg? (<code>../images/cat.jpg</code>)</p>
+    <p>“It works on my laptop but not on the server” is very often a capital letter in a file name (Windows and Mac usually ignore case; Linux servers don't).</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="Images" data-time="3 MIN" data-label="ELEMENTS 05 · IMG">
+  <div class="eyebrow">AN EMPTY ELEMENT WITH TWO IMPORTANT ATTRIBUTES</div>
+  <h2>Images need a <span class="accent">src</span> and an <span class="accent">alt</span>.</h2>
+  <script type="text/plain" data-pair data-label="index.html">
+    <img src="club-page/completed/images/logo.svg"
+         alt="Club logo: a green code bracket"
+         width="120">
+    <p>Broken path? The alt text shows instead:</p>
+    <img src="images/oops.png" alt="Photo of our team at the hackathon">
+  </script>
+  <div class="cards">
+    <div><b>src</b><p>The <b>source</b>: path or URL of the picture file.</p></div>
+    <div><b>alt</b><p><b>Alternative</b> text. Read aloud by screen readers; shown if the image fails. Describe what it shows.</p></div>
+    <div><b>width / height</b><p>Optional size in pixels. Usually better done in CSS.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · alt is not optional</summary>
+    <p>Blind and low-vision users hear the alt text. “image” or “photo123” is useless; “Team photo at the hackathon” is useful. Purely decorative image? Use <code>alt=""</code> (empty) so screen readers skip it.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="Lists" data-time="3 MIN" data-label="ELEMENTS 06 · LISTS">
+  <div class="eyebrow">BULLETS AND NUMBERS</div>
+  <h2>A list is a parent with <span class="accent">li</span> children.</h2>
+  <script type="text/plain" data-pair data-label="index.html">
+    <h3>Shopping (order doesn't matter)</h3>
+    <ul>
+      <li>Milk</li>
+      <li>Bread</li>
+    </ul>
+    <h3>Recipe (order matters)</h3>
+    <ol>
+      <li>Mix</li>
+      <li>Bake
+        <ul><li>at 180°C</li></ul>
+      </li>
+    </ol>
+  </script>
+  <div class="one-line"><code>ul</code> = unordered (bullets) · <code>ol</code> = ordered (numbers) · <code>li</code> = list item. A list inside a list goes <b>inside an li</b>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · lists everywhere</summary>
+    <p>Navigation menus on real sites are very often a <code>ul</code> of links, styled to look like a horizontal bar. Lists are about structure, not about how they look.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="div & span · block vs inline" data-time="4 MIN" data-label="ELEMENTS 07 · GROUPING">
+  <div class="eyebrow">TWO WAYS ELEMENTS SIT ON THE PAGE</div>
+  <h2>Block elements stack. Inline elements <span class="accent">flow</span>.</h2>
+  <div class="grid2">
+    <div>
+      <div class="block-inline">
+        <span class="blk"><span class="lbl">h2 · block</span>A heading</span>
+        <span class="blk"><span class="lbl">p · block</span>A paragraph with a <span class="inl">link</span> and <span class="inl">bold words</span> that flow along the line.</span>
+        <span class="blk"><span class="lbl">div · block</span>A div: a plain box</span>
+        <span class="blk"><span class="lbl">p · block</span>Some <span class="inl">span</span> text.</span>
+      </div>
+      <div class="legend"><span><i style="background:#eef4ec;outline:2px solid #64806a"></i>block: full width, new line</span><span><i style="background:#fbeee2;outline:2px solid #965d35"></i>inline: only as wide as its words</span></div>
+    </div>
+    <div class="cards" style="margin-top:0;grid-template-columns:1fr">
+      <div><b>&lt;div&gt; · a plain block box</b><p>Groups elements together, usually so CSS can style or position the group.</p></div>
+      <div><b>&lt;span&gt; · a plain inline box</b><p>Wraps a few words inside text, so CSS can style just those words.</p></div>
+      <div><b>Block: h1–h6, p, ul, li, div, section…</b><p>Inline: a, strong, em, span, img…</p></div>
+    </div>
+  </div>
+  <div class="one-line"><code>div</code> and <code>span</code> mean <b>nothing</b> on their own. They are just hooks for CSS.</div>
+  <details class="speaker-notes"><summary>Teacher notes · show it for real</summary>
+    <p>In DevTools, hovering an element highlights its box. Show a <code>p</code> stretching the whole width even when its text is short. CSS can change this later with <code>display</code>.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="Semantic elements" data-time="4 MIN" data-label="ELEMENTS 08 · SEMANTIC HTML">
+  <div class="eyebrow">ELEMENTS THAT SAY WHAT THEY ARE</div>
+  <h2>Use names that <span class="accent">mean something</span>.</h2>
+  <div class="page-layout">
+    <div class="wire">
+      <div class="w-header">&lt;header&gt; logo, site title</div>
+      <div class="w-nav">&lt;nav&gt; main links</div>
+      <div class="w-main">&lt;main&gt;<span>&lt;section&gt; / &lt;article&gt;</span><span>&lt;section&gt;</span></div>
+      <div class="w-aside">&lt;aside&gt; extras</div>
+      <div class="w-footer">&lt;footer&gt; contact, copyright</div>
+    </div>
+    <div class="compare" style="grid-template-columns:1fr;margin:0">
+      <div class="bad"><b>Structural only: just boxes</b><pre>&lt;div class="top"&gt;…&lt;/div&gt;
+&lt;div class="links"&gt;…&lt;/div&gt;
+&lt;div class="content"&gt;…&lt;/div&gt;</pre></div>
+      <div class="good"><b>Semantic: boxes with meaning</b><pre>&lt;header&gt;…&lt;/header&gt;
+&lt;nav&gt;…&lt;/nav&gt;
+&lt;main&gt;…&lt;/main&gt;</pre></div>
+    </div>
+  </div>
+  <div class="cards">
+    <div><b>Screen readers</b><p>can jump straight to <code>nav</code> or <code>main</code>.</p></div>
+    <div><b>Search engines</b><p>understand which part is the real content (SEO).</p></div>
+    <div><b>Your teammates</b><p>can read the file and know what each part is.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · they look identical</summary>
+    <p>On screen, <code>&lt;header&gt;</code> and <code>&lt;div&gt;</code> look exactly the same — both are plain block boxes. The difference is meaning. Rule of thumb: reach for a semantic element first; use <code>div</code> when nothing else fits.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="More elements you'll meet" data-time="2 MIN" data-label="ELEMENTS 09 · A QUICK TOUR">
+  <div class="eyebrow">YOU DON'T NEED TO MEMORIZE THESE</div>
+  <h2>There are about 100 elements. You'll use <span class="accent">20</span>.</h2>
+  <table class="tag-table">
+    <tr><th>ELEMENT</th><th>WHAT IT IS</th><th>EXAMPLE USE</th></tr>
+    <tr><td>table, tr, th, td</td><td>A grid of data: rows, header cells, cells</td><td>A class schedule</td></tr>
+    <tr><td>form, label, input</td><td>Collect information from the user</td><td>A sign-up box</td></tr>
+    <tr><td>button</td><td>Something to click that does an action</td><td>“New game” in lesson 1</td></tr>
+    <tr><td>blockquote</td><td>A quotation from somewhere else</td><td>A testimonial</td></tr>
+    <tr><td>code, pre</td><td>Computer code · text that keeps its spaces</td><td>Tutorials</td></tr>
+    <tr><td>video, audio</td><td>Media with play controls</td><td>A demo video</td></tr>
+  </table>
+  <div class="one-line">Don't know an element? Search “<b>MDN</b> &lt;element name&gt;”. MDN is the web's dictionary: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" target="_blank" rel="noreferrer">developer.mozilla.org</a></div>
+  <details class="speaker-notes"><summary>Teacher notes · teach looking things up</summary>
+    <p>Open the MDN element list live and scroll it to show how many there are. The skill is knowing they exist and where to look, not memorizing. Avoid w3schools-style copy-paste habits; MDN explains <i>why</i>.</p>
+  </details>
+</template>
+
+<template data-part="The elements" data-title="Checkpoint: pick the element" data-time="4 MIN" data-label="ELEMENTS 10 · CHECK">
+  <div class="eyebrow">DISCUSS WITH A PARTNER FIRST</div>
+  <h2>Which element would <span class="accent">you</span> use?</h2>
+  <div class="quiz-grid">
+    <div class="quiz"><div class="q">The steps to install Git, in order.</div><div class="options">
+      <button data-why="ul is for lists where order doesn't matter."><code>ul</code></button>
+      <button data-ok data-why="Order matters, so ordered list."><code>ol</code></button>
+      <button data-why="Several paragraphs lose the meaning of 'these are steps'."><code>p</code> × 5</button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">The links at the top of every page.</div><div class="options">
+      <button data-why="It works, but says nothing about what it is."><code>div</code></button>
+      <button data-ok data-why="nav marks the main navigation links."><code>nav</code></button>
+      <button data-why="footer is for the bottom of the page."><code>footer</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">Make one word inside a sentence red.</div><div class="options">
+      <button data-why="div is a block: it would break the sentence onto new lines."><code>div</code></button>
+      <button data-ok data-why="span is inline and meaningless — a hook for CSS."><code>span</code></button>
+      <button data-why="h1 is a top heading, not a word in a sentence."><code>h1</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">A photo whose file is missing. What does a visitor see?</div><div class="options">
+      <button data-why="The browser shows something more helpful if you gave it alt text.">Nothing</button>
+      <button data-ok data-why="That's why alt should describe the picture.">The alt text</button>
+      <button data-why="HTML errors are never shown as pop-ups.">An error pop-up</button>
+    </div><div class="feedback"></div></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · reasoning, not recall</summary>
+    <p>Ask students to justify answers out loud. Wrong answers here are cheap and useful. Note that a <code>div</code> “works” visually for the nav — the point is that meaning matters too.</p>
+  </details>
+</template>
+
+<!-- ================= CSS ================= -->
+<template data-part="CSS" data-title="CSS is extra rules" data-time="4 MIN" data-label="CSS 01 · RULES">
+  <div class="eyebrow">THE BROWSER ALREADY HAS RULES · YOU ADD MORE</div>
+  <h2>CSS is a list of <span class="accent">extra rules</span> for the browser.</h2>
+  <p class="lead">Why is an <code>h1</code> big and bold even with no CSS? The browser has its own built-in rules (“defaults”). Your CSS adds rules on top.</p>
+  <div class="anatomy">
+    <div class="anatomy-row">
+      <div class="anatomy-part part-open"><span>h1</span><small>selector: <b>which</b> elements</small></div>
+      <div class="anatomy-part part-plain"><span>&nbsp;{&nbsp;</span></div>
+      <div class="anatomy-part part-attr"><span>color</span><small>property: <b>what</b> to change</small></div>
+      <div class="anatomy-part part-plain"><span>:&nbsp;</span></div>
+      <div class="anatomy-part part-name"><span>green</span><small>value: <b>to what</b></small></div>
+      <div class="anatomy-part part-plain"><span>;&nbsp;}</span></div>
+    </div>
+    <div class="anatomy-total">read it as: “<b>every h1</b> should have <b>color</b> set to <b>green</b>”</div>
+  </div>
+  <div class="cards">
+    <div><b>Browser defaults</b><p><code>h1 { font-size: 2em; font-weight: bold; }</code> — already there.</p></div>
+    <div><b>Your rules</b><p>Add new properties, or change the defaults.</p></div>
+    <div><b>Declarations</b><p>Each <code>property: value;</code> line. Don't forget the <code>;</code></p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · this framing matters</summary>
+    <p>The mental model for the whole CSS section: <b>there are always several rules that could apply to an element</b> — the browser's, yours, inherited ones. CSS (Cascading Style Sheets) is the system for deciding which one wins. “Cascading” = rules flow down and stack up.</p>
+  </details>
+</template>
+
+<template data-part="CSS" data-title="Where CSS goes" data-time="3 MIN" data-label="CSS 02 · THREE PLACES">
+  <div class="eyebrow">THREE WAYS TO ATTACH RULES</div>
+  <h2>We'll use a separate <span class="accent">style.css</span> file.</h2>
+  <div class="grid2">
+    <div style="display:grid;gap:10px">
+      <script type="text/plain" data-label="1 · inline: on one element">
+        <p style="color: red;">Only this paragraph.</p>
+      </script>
+      <script type="text/plain" data-label="2 · <style> in the head">
+        <head>
+          <style>
+            p { color: red; }
+          </style>
+        </head>
+      </script>
+    </div>
+    <div style="display:grid;gap:10px">
+      <script type="text/plain" data-label="3 · index.html links a file  ✓ we use this" data-mark="2">
+        <head>
+          <link rel="stylesheet" href="style.css">
+        </head>
+      </script>
+      <script type="text/plain" data-lang="css" data-label="style.css">
+        p {
+          color: red;
+        }
+      </script>
+    </div>
+  </div>
+  <div class="one-line">A separate file keeps <b>structure</b> (HTML) and <b>looks</b> (CSS) apart, and one CSS file can style every page on your site.</div>
+  <details class="speaker-notes"><summary>Teacher notes · when each is used</summary>
+    <p>Inline styles are handy for quick tests but hard to maintain — and, as we'll see, they beat almost everything, which surprises people. The <code>link</code> path follows the same relative-path rules as images.</p>
+  </details>
+</template>
+
+<template data-part="CSS" data-title="Selectors: tag, class, id" data-time="4 MIN" data-label="CSS 03 · SELECTORS">
+  <div class="eyebrow">HOW A RULE PICKS ITS ELEMENTS</div>
+  <h2>Select by <span class="accent">tag</span>, <span class="accent">.class</span>, or <span class="accent">#id</span>.</h2>
+  <script type="text/plain" data-pair data-label="index.html  (with a <style> so you can see it)">
+    <style>
+      p { color: gray; }
+      .warning { color: red; font-weight: bold; }
+      #title { color: purple; }
+      nav a { color: green; }
+    </style>
+    <h1 id="title">Selectors</h1>
+    <p>A normal paragraph.</p>
+    <p class="warning">A warning paragraph.</p>
+    <p>Another <span class="warning">warning</span> word.</p>
+    <nav><a href="#">A link in nav</a></nav>
+    <a href="#">A link outside nav</a>
+  </script>
+  <div class="cards">
+    <div><b>p</b><p>Every <code>p</code> element.</p></div>
+    <div><b>.warning</b><p>Every element with <code>class="warning"</code>. Many elements can share a class.</p></div>
+    <div><b>#title</b><p>The one element with <code>id="title"</code>. An id must be unique on the page.</p></div>
+    <div><b>nav a</b><p>Every <code>a</code> that is <b>inside</b> a <code>nav</code>, at any depth.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · dot and hash</summary>
+    <p>In HTML you write <code>class="warning"</code> (no dot). In CSS you write <code>.warning</code> (with a dot). Mixing these up is very common.</p>
+    <p><code>nav a</code> uses the tree: it's “a descendants of nav.” That's why we learned the family words.</p>
+  </details>
+</template>
+
+<template data-part="CSS" data-title="Rules flow down the tree" data-time="5 MIN" data-label="CSS 04 · INHERITANCE">
+  <div class="eyebrow">CHILDREN INHERIT FROM THEIR ANCESTORS</div>
+  <h2>Set a color on a parent, and its <span class="accent">children</span> get it too.</h2>
+  <div data-inherit-lab></div>
+  <div class="one-line">An element uses <b>its own rule</b> if it has one. If not, it takes the value from its <b>closest</b> ancestor that has one. Closer beats farther.</div>
+  <details class="speaker-notes"><summary>Teacher notes · run this in order</summary>
+    <ul>
+      <li>Only <code>body</code> on: everything is blue. Nobody has their own rule; all inherit from body.</li>
+      <li>Turn on <code>section</code>: h2 and p in the section turn orange. Their <b>closest</b> ancestor with a rule is now section, not body. Header and footer are still blue.</li>
+      <li>Turn on <code>p</code>: every p turns green — even inside section. A rule <b>aimed directly at the element</b> beats anything inherited, no matter how close.</li>
+    </ul>
+    <p>Not every property inherits: color and font do (text things); borders and backgrounds don't (otherwise every child would get its own border).</p>
+  </details>
+</template>
+
+<template data-part="CSS" data-title="When rules disagree: closest wins" data-time="5 MIN" data-label="CSS 05 · THE CASCADE">
+  <div class="eyebrow">THE MORE PRECISELY A RULE POINTS AT AN ELEMENT, THE MORE IT WINS</div>
+  <h2>The rule <span class="accent">closest</span> to the element wins.</h2>
+  <div data-cascade-lab></div>
+  <div class="ladder">
+    <div><b>1</b><span>Inherited from a parent</span><code>body { }</code></div>
+    <div><b>2</b><span>Element selector</span><code>p { }</code></div>
+    <div><b>3</b><span>Class selector</span><code>.note { }</code></div>
+    <div><b>4</b><span>Id selector</span><code>#intro { }</code></div>
+    <div><b>5</b><span>Inline style · on the element itself</span><code>style="…"</code></div>
+  </div>
+  <div class="one-line">Same strength? The rule written <b>later</b> in the file wins.</div>
+  <details class="speaker-notes"><summary>Teacher notes · “closest” = most specific</summary>
+    <p>Turn the rules on one at a time from the top. Each new rule points at the paragraph more precisely: “something it's inside” → “every p” → “things in the .note group” → “exactly #intro” → “written on the element itself.”</p>
+    <p>Then turn off the winner and watch the next one take over. Turn on both <code>p</code> rules: the later one wins (tie → order).</p>
+    <p>The real name is <b>specificity</b>; the full rules count ids, then classes, then tags. This ladder is enough for now. <code>!important</code> exists — tell them it's a sledgehammer and to avoid it.</p>
+  </details>
+</template>
+
+<template data-part="CSS" data-title="Predict the color" data-time="4 MIN" data-label="CSS 06 · PUZZLES">
+  <div class="eyebrow">COMMIT TO AN ANSWER BEFORE YOU CLICK</div>
+  <h2>What color is each <span class="accent">paragraph</span>?</h2>
+  <div class="grid2">
+    <script type="text/plain" data-lang="css" data-label="style.css" data-big>
+      body   { color: navy; }
+      p      { color: gray; }
+      .note  { color: green; }
+      #intro { color: purple; }
+      p      { color: black; }
+    </script>
+    <div>
+      <div class="quiz"><div class="q"><code>&lt;p class="note"&gt;</code></div><div class="options">
+        <button data-why="black is a p rule — class beats element.">black</button>
+        <button data-ok data-why=".note is a class; it beats both p rules.">green</button>
+        <button data-why="body's color is only inherited; any rule aimed at p beats it.">navy</button>
+      </div><div class="feedback"></div></div>
+      <div class="quiz"><div class="q"><code>&lt;p&gt;</code> (no class, no id)</div><div class="options">
+        <button data-why="Both p rules have the same strength — the later one wins.">gray</button>
+        <button data-ok data-why="Two p rules tie, so the later one (black) wins.">black</button>
+        <button data-why="A rule aimed at p beats an inherited one.">navy</button>
+      </div><div class="feedback"></div></div>
+      <div class="quiz"><div class="q"><code>&lt;p id="intro" class="note"&gt;</code></div><div class="options">
+        <button data-why="id beats class.">green</button>
+        <button data-ok data-why="#intro is the most specific rule.">purple</button>
+        <button data-why="Being later only matters for equally strong rules.">black</button>
+      </div><div class="feedback"></div></div>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · then check in the Playground</summary>
+    <p>Have students vote with fingers (1/2/3) before revealing. Then open the Playground tab and pick “Cascade practice” to see these rules in a real page. Bonus question: an <code>&lt;h1&gt;</code> with no rules of its own? (navy, inherited from body.)</p>
+  </details>
+</template>
+
+<template data-part="CSS" data-title="DevTools: see the rules" data-time="3 MIN" data-label="CSS 07 · INSPECT">
+  <div class="eyebrow">EVERY BROWSER HAS X-RAY GLASSES BUILT IN</div>
+  <h2>Right-click → <span class="accent">Inspect</span>.</h2>
+  <div class="grid2">
+    <div class="tree-panel">
+      <div class="window-label"><span>ELEMENTS · THE LIVE TREE</span></div>
+      <ul class="tree"><li><span class="node">body</span><ul><li><span class="node">main</span><ul><li><span class="node hot">p<span class="meta">#intro.note</span></span> <small style="font:11px var(--mono);color:#8a6d1f">← selected</small></li></ul></li></ul></li></ul>
+    </div>
+    <div class="code-window">
+      <div class="window-label"><span>STYLES · EVERY RULE THAT MATCHES</span></div>
+      <pre><span class="ln"><span class="t-sel">#intro</span> { <span class="t-prop">color</span>: <span class="t-val">purple</span>; }   <span class="t-com">style.css:4</span></span><span class="ln"><span class="t-sel">.note</span> { <span class="t-prop" style="text-decoration:line-through">color: green</span>; }  <span class="t-com">style.css:3</span></span><span class="ln"><span class="t-sel">p</span> { <span class="t-prop" style="text-decoration:line-through">color: gray</span>; }      <span class="t-com">style.css:2</span></span><span class="ln"><span class="t-com">Inherited from body</span></span><span class="ln"><span class="t-sel">body</span> { <span class="t-prop" style="text-decoration:line-through">color: navy</span>; }</span></pre>
+    </div>
+  </div>
+  <div class="cards">
+    <div><b>Open it</b><p>Right-click anything → Inspect. Or <code>F12</code> · Mac: <code>⌘ ⌥ I</code>.</p></div>
+    <div><b>Elements panel</b><p>The DOM tree — exactly the tree we drew. Hover a node to see its box.</p></div>
+    <div><b>Styles panel</b><p>Winning rules on top. <s>Crossed out</s> = lost the cascade. Click values to try changes live.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · do it live, now</summary>
+    <p>Inspect this slide! Find a heading, change its color in the Styles panel, then refresh to show the change was temporary — DevTools edits are experiments, not saves.</p>
+    <p>When CSS “doesn't work,” the answer is almost always in the Styles panel: the rule is crossed out (something stronger wins), or it isn't there at all (selector typo or file not linked).</p>
+  </details>
+</template>
+
+<!-- ================= CANIUSE ================= -->
+<template data-part="Can I use it?" data-title="Not every browser knows everything" data-time="3 MIN" data-label="CANIUSE 01 · THE PROBLEM">
+  <div class="eyebrow">CHROME, SAFARI, FIREFOX, PHONES, OLD LAPTOPS…</div>
+  <h2>New features don't arrive in every browser <span class="accent">at once</span>.</h2>
+  <p class="lead">Browsers are made by different companies and updated on different schedules. A feature that works on your laptop might do nothing on your friend's iPhone.</p>
+  <div class="flow">
+    <div><b>You find a cool feature</b><small>in a tutorial, on MDN, from a teammate</small></div><i>→</i>
+    <div><b>Ask: does it work for <i>our</i> users?</b><small>which browsers, which devices</small></div><i>→</i>
+    <div><b>Check caniuse.com</b><small>look it up instead of guessing</small></div><i>→</i>
+    <div><b>Decide</b><small>use it, use it with a fallback, or skip it</small></div>
+  </div>
+  <div class="one-line">The takeaway: when you meet a web feature you don't know, <b>check its documentation and browser support</b> instead of guessing.</div>
+  <details class="speaker-notes"><summary>Teacher notes · real-world framing</summary>
+    <p>On a production team, “it works on my machine” isn't enough. The basics we learned today (headings, links, lists, colors) work everywhere. caniuse matters for newer things.</p>
+  </details>
+</template>
+
+<template data-part="Can I use it?" data-title="Reading caniuse.com" data-time="3 MIN" data-label="CANIUSE 02 · HOW TO READ IT">
+  <div class="eyebrow">EXAMPLE: THE CSS :has() SELECTOR</div>
+  <h2>Green works. Red doesn't. <span class="accent">Yellow</span>: read the notes.</h2>
+  <div class="ciu">
+    <div class="ciu-head"><b>CSS :has() selector</b><span>simplified snapshot · always check the live site</span></div>
+    <div class="ciu-grid">
+      <div class="b">Chrome</div><div class="b">Edge</div><div class="b">Firefox</div><div class="b">Safari</div><div class="b">Safari iOS</div><div class="b">Samsung</div>
+      <div class="c n">≤ 104</div><div class="c n">≤ 104</div><div class="c p">103–120 flag</div><div class="c n">≤ 15.3</div><div class="c n">≤ 15.3</div><div class="c n">≤ 19</div>
+      <div class="c y">105+</div><div class="c y">105+</div><div class="c y">121+</div><div class="c y">15.4+</div><div class="c y">15.4+</div><div class="c y">20+</div>
+      <div class="c y cur">current</div><div class="c y cur">current</div><div class="c y cur">current</div><div class="c y cur">current</div><div class="c y cur">current</div><div class="c y cur">current</div>
+    </div>
+  </div>
+  <div class="ciu-callouts">
+    <div><b><i style="background:#c7e8b9"></i>Supported</b>The version number is when support began.</div>
+    <div><b><i style="background:#f3e3a8"></i>Partial / behind a flag</b>Works only partly, or only if the user turns on a setting. Read the notes below the table.</div>
+    <div><b><i style="background:#f2c7c2"></i>Not supported</b>That browser ignores it. Plan a fallback or skip it.</div>
+  </div>
+  <div class="one-line">At the top of each page, a <b>percentage</b> tells you how many users worldwide have support. Open <a href="https://caniuse.com/css-has" target="_blank" rel="noreferrer">caniuse.com/css-has</a> to see the real numbers.</div>
+  <details class="speaker-notes"><summary>Teacher notes · demo the live site</summary>
+    <p>Open caniuse.com on the projector and type “has”. Point out: the search box, the colored table (rows = versions, columns = browsers), the global % at top right, and the Notes / Known issues tabs below. Mention MDN pages have a “Browser compatibility” table at the bottom with the same data.</p>
+    <p>The table here is a simplified snapshot — numbers on the live site are the truth.</p>
+  </details>
+</template>
+
+<template data-part="Can I use it?" data-title="Class lookup: can we use it?" data-time="4 MIN" data-label="CANIUSE 03 · YOUR TURN">
+  <div class="eyebrow">IN PAIRS · PREDICT FIRST, THEN LOOK IT UP</div>
+  <h2>Would you ship these <span class="accent">today</span>?</h2>
+  <table class="lookup-table">
+    <tr><th>FEATURE</th><th>WHAT IT DOES</th><th>LOOK IT UP</th><th>YOUR VERDICT</th></tr>
+    <tr><td><code>&lt;dialog&gt;</code></td><td>A built-in pop-up box</td><td><a href="https://caniuse.com/?search=dialog" target="_blank" rel="noreferrer">caniuse: dialog ↗</a></td><td>✓ / ~ / ✗</td></tr>
+    <tr><td><code>scroll-behavior</code></td><td>Smooth scrolling for # links (we'll use it!)</td><td><a href="https://caniuse.com/?search=scroll-behavior" target="_blank" rel="noreferrer">caniuse: scroll-behavior ↗</a></td><td>✓ / ~ / ✗</td></tr>
+    <tr><td><code>popover</code></td><td>Make any element a pop-up with no JavaScript</td><td><a href="https://caniuse.com/?search=popover" target="_blank" rel="noreferrer">caniuse: popover ↗</a></td><td>✓ / ~ / ✗</td></tr>
+    <tr><td><code>field-sizing</code></td><td>Text boxes that grow as you type</td><td><a href="https://caniuse.com/?search=field-sizing" target="_blank" rel="noreferrer">caniuse: field-sizing ↗</a></td><td>✓ / ~ / ✗</td></tr>
+    <tr><td><code>&lt;marquee&gt;</code></td><td>Scrolling text from the 1990s</td><td><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/marquee" target="_blank" rel="noreferrer">MDN: marquee ↗</a></td><td>✓ / ~ / ✗</td></tr>
+  </table>
+  <button class="reveal-btn" data-reveal>What should we notice?</button>
+  <div class="answer">Support changes over time, so we check instead of remembering. And <b>“works” isn't the same as “should use”</b>: <code>&lt;marquee&gt;</code> still runs in browsers, but MDN marks it <b>deprecated</b> (no longer recommended). Check both: caniuse for support, MDN for whether it's a good idea.</div>
+  <details class="speaker-notes"><summary>Teacher notes · don't give answers from memory</summary>
+    <p>Let pairs report what they found. Answers depend on today's data — that's the point. Ask what they'd do if a feature is red in one browser: skip it, or use it as a “nice extra” that's fine to miss (smooth scrolling is a good example: without it, the link still jumps — it just isn't smooth).</p>
+  </details>
+</template>
+
+<!-- ================= WORKED EXAMPLE ================= -->
+<template data-part="Worked example" data-title="What we're building" data-time="3 MIN" data-label="EXAMPLE 00 · THE PLAN">
+  <div class="eyebrow">PLAN ON PAPER BEFORE YOU TYPE</div>
+  <h2>Together: a page for <span class="accent">our club</span>.</h2>
+  <div class="page-layout">
+    <div class="wire" style="grid-template-columns:1fr">
+      <div class="w-header" style="flex-direction:column">&lt;header&gt; club name + tagline<small style="display:block;color:#8a6d1f;margin-top:6px">&lt;nav&gt; About · Meetings · Join</small></div>
+      <div class="w-main"><span>#about · text + logo</span><span>#meetings · bullet list</span><span>#join · numbered steps</span></div>
+      <div class="w-footer">&lt;footer&gt; credits + links</div>
+    </div>
+    <div>
+      <h3>The files</h3>
+<div class="folder-tree" style="font-size:13px">📁 <b>club-page</b>
+├── 📄 index.html
+├── 📄 style.css
+└── 📁 <b>images</b>
+    └── 🖼 logo.svg</div>
+      <h3 style="margin-top:14px">The order we'll work in</h3>
+      <p style="font-size:14px">Skeleton → structure → content → links → CSS → fix a bug → check caniuse. Refresh the browser after <b>every</b> step.</p>
+    </div>
+  </div>
+  <div class="one-line">Follow along in <code>club-page/starter/index.html</code>. Green highlighted lines on each step are the <b>new</b> lines to type.</div>
+  <details class="speaker-notes"><summary>Teacher notes · class plan</summary>
+    <p>Ask the class to sketch the page as boxes first (header/nav/main/sections/footer). Then ask: which element is each box? This connects the semantic-elements slide to real work.</p>
+    <p>Students copy <code>club-page/starter/</code> into their own folder. The finished version is in <code>club-page/completed/</code> if anyone falls behind.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 1 · The skeleton" data-time="4 MIN" data-label="EXAMPLE 01 · SKELETON">
+  <h2>Start with the <span class="accent">skeleton</span>.</h2>
+  <div data-example-step="1"></div>
+  <details class="speaker-notes"><summary>Teacher notes · type it, don't paste</summary>
+    <p>Type the skeleton from memory together. Save, open in the browser, check the tab title says “CS + SG Club.” Ask: where's the title shown? (On the tab, not on the page — it's in the head.)</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 2 · Header & nav" data-time="3 MIN" data-label="EXAMPLE 02 · STRUCTURE">
+  <h2>Wrap the top in a <span class="accent">header</span>, add a nav.</h2>
+  <div data-example-step="2"></div>
+  <details class="speaker-notes"><summary>Teacher notes · links to nowhere (for now)</summary>
+    <p>The nav links point to <code>#about</code>, <code>#meetings</code>, <code>#join</code> — ids that don't exist yet. Clicking does nothing. Ask: what do we need to add to make them work? (Elements with those ids.)</p>
+    <p>Notice the indentation going one level deeper inside header.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 3 · About + image" data-time="4 MIN" data-label="EXAMPLE 03 · CONTENT">
+  <h2>Add <span class="accent">main</span>, the first section, and the logo.</h2>
+  <div data-example-step="3"></div>
+  <details class="speaker-notes"><summary>Teacher notes · paths and alt</summary>
+    <p>The image path <code>images/logo.svg</code> is relative: from index.html, go into images. Make a mistake on purpose (<code>image/logo.svg</code>) to show the alt text appearing. Now the About nav link works.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 4 · Lists" data-time="3 MIN" data-label="EXAMPLE 04 · LISTS">
+  <h2>Meetings get bullets. Joining gets <span class="accent">numbers</span>.</h2>
+  <div data-example-step="4"></div>
+  <details class="speaker-notes"><summary>Teacher notes · ul vs ol</summary>
+    <p>Ask the class to choose ul or ol for each before revealing. All three nav links now work — click them in the preview.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 5 · Footer & links" data-time="3 MIN" data-label="EXAMPLE 05 · FOOTER">
+  <h2>Finish the HTML with a <span class="accent">footer</span>.</h2>
+  <div data-example-step="5"></div>
+  <button class="reveal-btn" data-reveal>Which link is absolute and which is relative?</button>
+  <div class="answer">The MDN link starts with <code>https://</code> — absolute, works from anywhere. <code>../../index.html</code> is relative: up out of <code>completed</code>, up out of <code>club-page</code>, to the lesson's slides.</div>
+  <details class="speaker-notes"><summary>Teacher notes · HTML done</summary>
+    <p>The HTML is complete. It looks plain — that's correct! Everything here is structure. Open DevTools on the page and expand the tree to check it matches the plan.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Look at our tree" data-time="2 MIN" data-label="EXAMPLE · THE DOM">
+  <h2>Our page <span class="accent">as a tree</span>.</h2>
+  <div class="grid2">
+    <div data-club-tree></div>
+    <div>
+      <div class="quiz"><div class="q">How many children does <code>main</code> have?</div><div class="options">
+        <button data-why="Count only the direct children — the three sections.">9</button>
+        <button data-ok data-why="Three sections: #about, #meetings, #join.">3</button>
+        <button data-why="h2s are grandchildren — inside the sections.">6</button>
+      </div><div class="feedback"></div></div>
+      <div class="quiz"><div class="q">Which element is a sibling of <code>header</code>?</div><div class="options">
+        <button data-why="nav is inside header — a child.">nav</button>
+        <button data-ok data-why="main and footer share header's parent, body.">main</button>
+        <button data-why="h1 is inside header — a child.">h1</button>
+      </div><div class="feedback"></div></div>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · prep for CSS</summary>
+    <p>This tree is what the next steps' CSS will flow down. Keep it visible in mind: header → h1, p, nav → a × 3.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 6 · Link the CSS" data-time="4 MIN" data-label="EXAMPLE 06 · CSS">
+  <h2>Link <span class="accent">style.css</span> and add the first rules.</h2>
+  <div data-example-step="6"></div>
+  <button class="reveal-btn" data-reveal>Body says color #222 (dark). Why is the header text white?</button>
+  <div class="answer">The <code>h1</code> and <code>p</code> in the header have no color rule of their own, so they inherit. Their <b>closest</b> ancestor with a color is <code>header</code> (white), which beats the farther-away <code>body</code>. The nav links are pale green because <code>nav a</code> aims at them directly.</div>
+  <details class="speaker-notes"><summary>Teacher notes · inheritance for real</summary>
+    <p>This is the inheritance lab happening in a real page. Open DevTools on the h1 and show “Inherited from header” in the Styles panel, with body's color crossed out.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 7 · Classes" data-time="4 MIN" data-label="EXAMPLE 07 · CLASSES">
+  <h2>Reuse one look with a <span class="accent">class</span>.</h2>
+  <div data-example-step="7"></div>
+  <details class="speaker-notes"><summary>Teacher notes · one class, many elements</summary>
+    <p>All three sections share <code>class="card"</code> — one rule styles all of them. Only the Wednesday meeting has <code>class="highlight"</code>. Ask: why does Wednesday's color beat <code>li { color: #444 }</code>? (Class beats element.)</p>
+    <p>Notice: two files changed this step. HTML gets the class names; CSS gets the rules.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 8 · A bug appears" data-time="4 MIN" data-label="EXAMPLE 08 · DEBUGGING">
+  <h2>A teammate added a rule. Now Wednesday is <span class="accent">gray</span>?</h2>
+  <div data-example-step="8"></div>
+  <button class="reveal-btn" data-reveal>Why did the highlight color stop working — but it's still bold?</button>
+  <div class="answer"><code>#meetings li</code> contains an <b>id</b>, so it beats <code>.highlight</code> (just a class), even though the class rule is aimed at the exact element. It only sets <code>color</code>, so the bold from <code>.highlight</code> still applies: <b>each property is decided separately</b>. DevTools would show <code>.highlight</code>'s color crossed out and its font-weight still active.</div>
+  <details class="speaker-notes"><summary>Teacher notes · the real-world lesson</summary>
+    <p>This bug happens on real teams constantly: someone adds a stronger rule and something else breaks. Ask students to predict the fix before the next slide. Options: delete the teammate's rule, or make the highlight rule stronger.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 9 · The fix" data-time="3 MIN" data-label="EXAMPLE 09 · FIX">
+  <h2>Make the highlight rule <span class="accent">more specific</span>.</h2>
+  <div data-example-step="9"></div>
+  <div class="one-line">Both rules now contain one id. Tie on ids → compare classes: <code>.highlight</code> beats <code>li</code>. <b>Count ids first, then classes, then tags.</b></div>
+  <details class="speaker-notes"><summary>Teacher notes · prefer classes</summary>
+    <p>An even better fix in real projects: avoid ids in CSS selectors so rules don't escalate. Use ids for links (<code>#meetings</code>) and classes for styling. This is why many teams have a “no ids in CSS” rule.</p>
+  </details>
+</template>
+
+<template data-part="Worked example" data-title="Step 10 · Check, then use" data-time="3 MIN" data-label="EXAMPLE 10 · CANIUSE">
+  <h2>We want smooth scrolling. <span class="accent">Can we use it?</span></h2>
+  <div data-example-step="10"></div>
+  <div class="one-line">We checked <a href="https://caniuse.com/?search=scroll-behavior" target="_blank" rel="noreferrer">scroll-behavior on caniuse</a> first. Even in a browser without it, the nav links still <b>work</b> — they just jump instead of glide. A safe extra.</div>
+  <details class="speaker-notes"><summary>Teacher notes · the full workflow</summary>
+    <p>Click the nav links in the preview to see the smooth scroll. Recap the workflow: idea → look it up (MDN + caniuse) → decide → add it → test in the browser.</p>
+  </details>
+</template>
+
+<!-- ================= WRAP UP ================= -->
+<template data-part="Wrap-up" data-title="Common mistakes" data-time="3 MIN" data-label="WRAP-UP 01 · DEBUGGING">
+  <div class="eyebrow">WHEN SOMETHING LOOKS WRONG, CHECK THESE FIRST</div>
+  <h2>Nine bugs <span class="accent">everyone</span> makes.</h2>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div><span class="big">01</span><b>Didn't save</b><p>Save, <i>then</i> refresh.</p></div>
+    <div><span class="big">02</span><b>Missing closing tag</b><p>Bold or a link “leaks” into everything after.</p></div>
+    <div><span class="big">03</span><b>Overlapping tags</b><p>Last opened, first closed.</p></div>
+    <div><span class="big">04</span><b>Wrong path</b><p>Typo, wrong folder, or a capital letter.</p></div>
+    <div><span class="big">05</span><b>Dot in HTML</b><p><code>class=".note"</code> ✗ → <code>class="note"</code></p></div>
+    <div><span class="big">06</span><b>No dot in CSS</b><p><code>note { }</code> ✗ → <code>.note { }</code></p></div>
+    <div><span class="big">07</span><b>Missing ; or }</b><p>One missing character can break the next rule.</p></div>
+    <div><span class="big">08</span><b>Stronger rule wins</b><p>Inspect: is your rule crossed out?</p></div>
+    <div><span class="big">09</span><b>CSS not linked</b><p>Check the <code>link</code> path in the head.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · a debugging habit</summary>
+    <p>Teach the habit: 1) Save &amp; refresh. 2) Inspect the element. 3) Is the element in the tree where you expect? 4) Is your rule in the Styles panel? Crossed out? Most bugs are found by step 4.</p>
+  </details>
+</template>
+
+<template data-part="Wrap-up" data-title="Recap" data-time="2 MIN" data-label="WRAP-UP 02 · RECAP">
+  <div class="eyebrow">WHAT YOU NOW KNOW</div>
+  <h2>Structure, tree, rules, <span class="accent">support</span>.</h2>
+  <div class="cards">
+    <div><b>HTML is structure</b><p>Elements = opening tag + content + closing tag. Attributes add details.</p></div>
+    <div><b>The page is a tree</b><p>Nesting makes parents, children, and siblings. DevTools shows it.</p></div>
+    <div><b>Meaningful elements</b><p>Headings, lists, links, images, and semantic boxes like header, nav, main.</p></div>
+    <div><b>CSS is extra rules</b><p>Selector + property + value, on top of the browser's defaults.</p></div>
+    <div><b>Closest rule wins</b><p>Own rule beats inherited · inline &gt; id &gt; class &gt; tag · ties → later wins.</p></div>
+    <div><b>Check before you ship</b><p>MDN for what it does, caniuse for where it works.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · exit question</summary>
+    <p>Quick exit question: “A paragraph is the wrong color. What are the first two things you do?” (Save &amp; refresh; then Inspect and look for crossed-out rules.)</p>
+  </details>
+</template>
+
+<template data-part="Wrap-up" data-title="Your turn" data-time="1 MIN" data-label="WRAP-UP 03 · ASSIGNMENT">
+  <div class="title-slide" style="min-height:44vh">
+    <div>
+      <div class="eyebrow">ABOUT 45 MINUTES · PAIRS WELCOME</div>
+      <h1>Now build<br><span class="accent">your</span> page.</h1>
+      <p class="lead">An About Me page using everything from today: structure, a tree you can draw, CSS rules you can explain, and one feature you checked on caniuse.</p>
+      <button class="next-button" data-open="assignment">Open the assignment →</button>
+    </div>
+    <ul class="checklist">
+      <li>Skeleton + semantic structure</li>
+      <li>Headings, text, image, list, links</li>
+      <li>Nav links that jump to sections</li>
+      <li>style.css with a class and a conflict you predicted</li>
+      <li>One caniuse lookup</li>
+    </ul>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · circulate</summary>
+    <p>While they work, ask individuals: “Why is that text this color?” and have them prove it in DevTools. Being able to explain is the goal.</p>
+  </details>
+</template>
+
+</div>
+<script src="example.js"></script>
+<script src="deck.js"></script>
+</body>
+</html>

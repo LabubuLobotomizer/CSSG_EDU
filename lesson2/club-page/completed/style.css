@@ -1,0 +1,44 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 16px;
+  color: #222;
+  background: #f7f7f2;
+}
+
+header {
+  background: #2f4d36;
+  color: white;
+  padding: 16px 24px;
+}
+
+nav a {
+  color: #cfe8c9;
+  margin-right: 12px;
+}
+
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 12px 20px;
+  margin: 16px 0;
+}
+
+li {
+  color: #444;
+}
+
+#meetings .highlight {
+  color: #b5481f;
+  font-weight: bold;
+}
+
+/* A teammate added this later... */
+#meetings li {
+  color: gray;
+}
