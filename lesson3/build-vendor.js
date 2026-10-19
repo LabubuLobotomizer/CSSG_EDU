@@ -1,6 +1,6 @@
-// Writes vendor/inline.js: the preview libraries as strings. Only used when
-// index.html is opened straight from disk (file://), where Chrome won't let the
-// sandboxed preview frames load vendor/*.js themselves.
+// Writes vendor/inline.js: the preview libraries as strings, inlined into each
+// sandboxed preview frame. From disk (file://) the frames can't load vendor/*.js
+// themselves, and over http their errors would show only as "Script error.".
 // Run from this folder after changing anything in vendor/: node build-vendor.js
 const fs = require('fs');
 const path = require('path');

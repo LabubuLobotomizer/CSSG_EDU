@@ -17,8 +17,7 @@ from the second. React is taught as one layer on top of plain HTML, CSS, and JS.
    events, the like button in plain JS vs React, toggles, inputs, `useEffect`
 7. **A real project**: Node + npm, `npm create vite`, the files and how they connect
 8. **Build Mini Instagram**: 11 follow-along steps, plus routing with React Router
-9. **Wrap-up**: common mistakes, a plain JS → React cheat sheet, recap, the assignment,
-   attendance
+9. **Wrap-up**: common mistakes, a plain JS → React cheat sheet, recap, the assignment
 
 ## Original Week 03 slides
 
@@ -27,7 +26,8 @@ deck exactly as they were made: they're rendered images in `original/` (from the
 `.pptx` files, via LibreOffice), framed as **ORIGINAL SLIDE** and shown in italics with
 a ◆ in the sidebar. Each one sits just before the website slides that expand on it. Their
 links and speaker notes are shown under the image. Two slides in deck #2 were exact
-copies of deck 1 slides (“React!” and “React Routing”), so each appears once.
+copies of deck 1 slides (“React!” and “React Routing”), so each appears once. The last
+slide of deck #2 (“Thank you!!!” with the attendance QR code) is left out.
 
 To add one: `<template data-original="deck2-03" data-part="…" data-title="…" data-time="2 MIN" data-label="…"></template>`.
 To re-render after a deck changes:
@@ -83,4 +83,4 @@ and open <http://localhost:8000>. Everything (React, React Router, Babel) is in
   automatically. Run `node build-example.js` afterwards to update
   `mini-instagram/starter/` (step 1) and `mini-instagram/completed/` (last step).
 - `live.js` is the in-browser compiler and preview. If you update `vendor/`, run
-  `node build-vendor.js` to regenerate `vendor/inline.js` (used when opened via file://).
+  `node build-vendor.js` to regenerate `vendor/inline.js` (the previews run React from it).

@@ -292,6 +292,7 @@
       e.preventDefault();
       window.open(a.href, '_blank');
     });
+    forwardKeys(post);
     let lastTitle = '';
     setInterval(() => { if (document.title !== lastTitle) { lastTitle = document.title; post({ type: 'title', title: lastTitle }); } }, 250);
     try {
@@ -311,7 +312,8 @@
   const listeners = {};
   window.addEventListener('message', e => {
     const d = e.data;
-    if (d && d.__live && listeners[d.__live]) listeners[d.__live](d);
+    if (d && d.__live && d.type === 'key') document.body.dispatchEvent(new KeyboardEvent('keydown', { key: d.key, bubbles: true }));
+    else if (d && d.__live && listeners[d.__live]) listeners[d.__live](d);
   });
   let nextId = 1;
 
@@ -324,7 +326,7 @@
     const bridge = 'var __id=' + JSON.stringify(id) + ';';
     if (mode === 'html') {
       const html = files['index.html'] || '';
-      const inject = '<script>' + bridge + '(' + runtimeConsoleOnly.toString() + ')(__id);<\/script>';
+      const inject = '<script>' + bridge + forwardKeys.toString() + ';(' + runtimeConsoleOnly.toString() + ')(__id);<\/script>';
       return /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, m => m + inject) : inject + html;
     }
     const modules = {}, css = {};
@@ -343,7 +345,7 @@
     if (m) title = m[1];
     return '<!doctype html><html><head><meta charset="utf-8"><title>' + esc(title) + '</title>' +
       (baseCss ? '<style>' + BASE_CSS + '</style>' : '') + scripts + '</head><body><div id="root"></div><script>' +
-      '(' + runtime.toString() + ')(' + [json(id), json(modules), json(css), json(entry), json(path || '/')].join(',') + ');' +
+      forwardKeys.toString() + ';(' + runtime.toString() + ')(' + [json(id), json(modules), json(css), json(entry), json(path || '/')].join(',') + ');' +
       '<\/script></body></html>';
   }
 
@@ -359,6 +361,15 @@
     document.addEventListener('click', e => {
       const a = e.target.closest('a[href]');
       if (a && !e.defaultPrevented && a.getAttribute('href').charAt(0) !== '#') { e.preventDefault(); window.open(a.href, '_blank'); }
+    });
+    forwardKeys(post);
+  }
+
+  // Runs inside a preview frame: after a click in the preview, the arrow keys still change slides.
+  function forwardKeys(post) {
+    document.addEventListener('keydown', e => {
+      if (/^(ArrowLeft|ArrowRight|PageUp|PageDown)$/.test(e.key) && !e.target.closest('input,textarea,select,[contenteditable]'))
+        post({ type: 'key', key: e.key });
     });
   }
 
@@ -472,7 +483,7 @@
     const run = files => {
       body.innerHTML = '';
       const src = files['script.js'];
-      const doc = '<!doctype html><script>var __id=' + JSON.stringify(id) + ';(' + runtimeConsoleOnly.toString() + ')(__id);<\/script>' +
+      const doc = '<!doctype html><script>var __id=' + JSON.stringify(id) + ';' + forwardKeys.toString() + ';(' + runtimeConsoleOnly.toString() + ')(__id);<\/script>' +
         '<script>' + src.replace(/<\/script/gi, '<\\/script') + '\n<\/script>';
       const next = document.createElement('iframe');
       next.setAttribute('sandbox', 'allow-scripts');

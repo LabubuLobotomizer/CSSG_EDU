@@ -730,7 +730,7 @@ when clicked:
   <button class="reveal-btn" data-reveal>Show the three fixes</button>
   <div class="answer">① Wrap the three elements in one <code>&lt;div&gt;…&lt;/div&gt;</code> (one parent). ② Close the image: <code>&lt;img … /&gt;</code>. ③ <code>class</code> → <code>className</code> — this one doesn't stop the page, but React prints a warning in the console.</div>
   <details class="speaker-notes"><summary>Teacher notes · read errors out loud</summary>
-    <p>The red box is the same kind of message students will see in their terminal and browser. Read it together: it names the file, the line and column, and points with a <code>^</code>. The first error is “Adjacent JSX elements must be wrapped” — wrap everything in a <code>&lt;div&gt;</code>. Then a new error appears: “Expected corresponding JSX closing tag for &lt;img&gt;” — add the <code>/</code>. Once it runs, check the console for the className warning. Fixing one error often reveals the next; that's normal.</p>
+    <p>The red box is the same kind of message students will see in their terminal and browser. Read it together: it names the file, the line and column, and points with a <code>^</code>. The first error is “Adjacent JSX elements must be wrapped” — wrap everything in a <code>&lt;div&gt;</code>. Then a new error appears, “Unterminated JSX contents”: the <code>&lt;img&gt;</code> was opened but never closed, so JSX is still waiting for its end. Add the <code>/</code>. Once it runs, check the console for the className warning. Fixing one error often reveals the next; that's normal.</p>
   </details>
 </template>
 
@@ -1699,15 +1699,11 @@ src/App.jsx  → see step 1</pre></div>
   </details>
 </template>
 
-<template data-original="deck2-19" data-part="Wrap-up" data-title="Thank you!!!" data-time="1 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 19">
-</template>
-
 </div>
 <script src="vendor/babel.min.js"></script>
-<script>
-  // Opened straight from disk? Previews can't load vendor files there, so bring them along as text.
-  if (location.protocol === 'file:') document.write('<script src="vendor/inline.js"><\/script>');
-</script>
+<!-- The previews get React as inline text, not <script src>. From disk the sandboxed frames can't load
+     vendor files at all, and over http the browser hides cross-origin error messages ("Script error."). -->
+<script src="vendor/inline.js"></script>
 <script src="live.js"></script>
 <script src="example.js"></script>
 <script src="deck.js"></script>

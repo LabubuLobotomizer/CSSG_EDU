@@ -213,7 +213,7 @@
   });
   document.addEventListener('keydown', event => {
     if (event.target.matches('textarea,input,select') || document.getElementById('slidesMode').hidden) return;
-    if (event.key === 'ArrowRight' || event.key === 'PageDown' || (event.key === ' ' && !event.target.matches('button'))) {
+    if (event.key === 'ArrowRight' || event.key === 'PageDown' || (event.key === ' ' && !event.target.matches('button, summary, a'))) {
       event.preventDefault(); go(current + 1);
     } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') go(current - 1);
     else if (event.key === 'Home') go(0);
