@@ -1,0 +1,1634 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>CS + SG · React from Zero</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="All lessons"><span class="brand-mark">&lt;/&gt;</span><span>CS + SG <small>LESSON 3 · JAVASCRIPT &amp; REACT</small></span></a>
+    <nav class="mode-tabs" aria-label="Workshop mode">
+      <button class="mode-tab active" data-mode="slides">Slides</button>
+      <button class="mode-tab" data-mode="playground">Playground</button>
+      <button class="mode-tab" data-mode="assignment">Assignment</button>
+    </nav>
+    <div class="top-meta"><span id="totalTime"></span><span>← → NAVIGATE</span></div>
+  </header>
+  <div class="progress-track"><div id="progress"></div></div>
+
+  <div class="layout" id="slidesMode">
+    <aside class="sidebar">
+      <div class="side-heading">TODAY <span id="routeCount"></span></div>
+      <nav id="sectionNav" aria-label="Lesson slides"></nav>
+      <div class="sidebar-note"><b>Teacher copy</b><p>Slides marked <b>LIVE</b> are real code: edit it on the slide and the page updates. Open “Teacher notes” for what to say and what to change live. Notes hide in Present mode.</p></div>
+    </aside>
+    <main id="main" tabindex="-1">
+      <div class="slide-top"><span id="sectionLabel" class="eyebrow"></span><span id="sectionTime" class="time-pill"></span></div>
+      <article id="slide"></article>
+      <footer class="slide-footer"><span id="slideIndex"></span><div class="footer-controls"><button id="prev" class="arrow-button" aria-label="Previous slide">←</button><button id="present" class="arrow-button" aria-label="Toggle full screen presentation">⛶ <span>Present</span></button><button id="next" class="next-button">Next <span>→</span></button></div></footer>
+    </main>
+  </div>
+
+  <main class="pg-page" id="playgroundMode" hidden>
+    <div class="pg-page-head">
+      <div><div class="eyebrow">A REAL REACT APP IN YOUR BROWSER · NOTHING CAN BREAK</div><h1>React playground</h1></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <label>Start from:
+          <select id="pgSample">
+            <option value="counter">A counter (useState)</option>
+            <option value="blank">A blank Vite-style app</option>
+            <option value="insta">The finished Mini Instagram</option>
+          </select>
+        </label>
+        <button id="pgAddFile" class="arrow-button" type="button">+ file</button>
+      </div>
+    </div>
+    <div id="pgHolder"></div>
+  </main>
+
+  <main class="assignment-page" id="assignmentMode" hidden>
+    <div class="eyebrow">ON YOUR OWN OR IN PAIRS · ABOUT 60 MINUTES</div>
+    <h1>Make Mini Instagram <span class="accent">yours</span>.</h1>
+    <p class="lead">Start from the app we built together and turn it into your own profile. Check a box when it works in your browser, not just when you typed it.</p>
+    <p><a href="mini-instagram/README.md" target="_blank" rel="noreferrer">How to run the project ↗</a> · starter: <code>mini-instagram/starter/</code> · finished: <code>mini-instagram/completed/</code></p>
+    <div class="task-grid">
+      <section class="task"><div class="task-number">01</div><div><span class="tag">10 MIN · SETUP</span><h2>Get it running</h2>
+        <label><input type="checkbox"> <code>node -v</code> and <code>npm -v</code> both print a version number</label>
+        <label><input type="checkbox"> I accepted the GitHub Classroom assignment and cloned my repo</label>
+        <label><input type="checkbox"> <code>npm install</code> finished inside the project folder</label>
+        <label><input type="checkbox"> <code>npm run dev</code> is running and the localhost link shows the app</label>
+      </div></section>
+      <section class="task"><div class="task-number">02</div><div><span class="tag">10 MIN · DATA</span><h2>Your data</h2>
+        <label><input type="checkbox"> <code>data.js</code> has your name, username, and bio</label>
+        <label><input type="checkbox"> At least 4 posts, each with an <code>id</code>, <code>image</code>, <code>caption</code>, <code>likes</code></label>
+        <label><input type="checkbox"> Every post shows up without changing any component (that's what <code>map()</code> is for)</label>
+      </div></section>
+      <section class="task"><div class="task-number">03</div><div><span class="tag">10 MIN · PROPS</span><h2>A new component</h2>
+        <p>Make <code>Stats.jsx</code> that shows “4 posts · 96 likes” on the profile.</p>
+        <label><input type="checkbox"> It takes the posts as a prop: <code>&lt;Stats posts={user.posts} /&gt;</code></label>
+        <label><input type="checkbox"> The post count uses <code>posts.length</code></label>
+        <label><input type="checkbox"> I imported it in <code>Profile.jsx</code> and exported it from <code>Stats.jsx</code></label>
+      </div></section>
+      <section class="task"><div class="task-number">04</div><div><span class="tag">10 MIN · STATE</span><h2>Like and unlike</h2>
+        <p>Right now Like only goes up. Make it a toggle.</p>
+        <label><input type="checkbox"> A <code>liked</code> state that starts as <code>false</code></label>
+        <label><input type="checkbox"> The button shows ♥ when liked and ♡ when not (ternary!)</label>
+        <label><input type="checkbox"> Clicking twice brings the count back to where it started</label>
+      </div></section>
+      <section class="task"><div class="task-number">05</div><div><span class="tag">10 MIN · ROUTING</span><h2>A third page</h2>
+        <label><input type="checkbox"> <code>About.jsx</code> with a few sentences about you</label>
+        <label><input type="checkbox"> A <code>&lt;Route path="/about"&gt;</code> in <code>App.jsx</code></label>
+        <label><input type="checkbox"> A <code>&lt;Link&gt;</code> to it in the navbar, and the page doesn't reload when I click it</label>
+        <label><input type="checkbox"> The tab title changes on the About page (<code>useEffect</code>)</label>
+      </div></section>
+      <section class="task"><div class="task-number">06</div><div><span class="tag">5 MIN · CHECK YOUR WORK</span><h2>Look underneath</h2>
+        <label><input type="checkbox"> I opened DevTools → Elements and found the plain HTML React made</label>
+        <label><input type="checkbox"> The Console has no red errors or yellow “key” warnings</label>
+        <label><input type="checkbox"> I committed and pushed to GitHub</label>
+      </div></section>
+      <section class="task wide"><div class="task-number">★</div><div><span class="tag">STRETCH · IF YOU FINISH EARLY</span><h2>Go further</h2>
+        <label><input type="checkbox"> A comment box under each post: an <code>&lt;input&gt;</code> with state, and a list of comments</label>
+        <label><input type="checkbox"> A dark mode button in the navbar (state + a class on <code>.app</code>)</label>
+        <label><input type="checkbox"> A search box on Home that only shows posts whose caption includes what you typed (<code>filter()</code>)</label>
+        <label><input type="checkbox"> A “New post” form that adds a post to the feed (keep the posts in <code>useState</code>)</label>
+      </div></section>
+    </div>
+    <p class="progress-note"><span id="checkCount"></span> · saved in this browser only</p>
+  </main>
+</div>
+
+<div id="slideTemplates" hidden>
+
+<!-- ================= START ================= -->
+<template data-part="Start" data-title="Welcome" data-time="2 MIN" data-label="START · WELCOME">
+  <div class="title-slide">
+    <div>
+      <div class="eyebrow">LESSON 3 · FOLLOW ALONG ON YOUR LAPTOP</div>
+      <h1>JavaScript &amp;<br><span class="accent">React</span> from zero.</h1>
+      <p class="lead">First the few JavaScript ideas React needs. Then why changing a page by hand gets painful, and how React makes it easier. Then we build a Mini Instagram together, one step at a time.</p>
+    </div>
+    <div class="title-art">function Post({ caption }) {
+  return (
+    &lt;article&gt;
+      &lt;p&gt;{caption}&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}</div>
+  </div>
+  <div class="agenda">
+    <span><b>01</b>JS you need</span><span><b>02</b>The DOM by hand</span><span><b>03</b>Components &amp; JSX</span><span><b>04</b>Props</span><span><b>05</b>State &amp; hooks</span><span><b>06</b>A real project</span><span><b>07</b>Build Mini Instagram</span>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · set expectations</summary>
+    <p>Say clearly: nobody is expected to know React already, and most people find it confusing at first. We will name every new idea before we use it.</p>
+    <p>Point out the three tabs at the top: Slides (this), Playground (a real React app in the browser to mess with), Assignment (what they build after). Every slide marked LIVE has real code they can edit.</p>
+  </details>
+</template>
+
+<template data-part="Start" data-title="Where React fits" data-time="3 MIN" data-label="START · ONE LAYER UP">
+  <div class="eyebrow">REACT IS NOT A NEW LANGUAGE</div>
+  <h2>React is one layer <span class="accent">on top of</span> HTML, CSS &amp; JS.</h2>
+  <div class="stack-diagram">
+    <div class="react"><b>React</b><small>A JavaScript <b>library</b>: code someone else wrote so you don't have to. You describe what the page should look like; React writes the HTML for you.</small></div>
+    <div class="web"><b>HTML · CSS · JS</b><small>What you already know: structure (lesson 2), looks (lesson 2), behavior (lesson 1's Minesweeper).</small></div>
+    <div class="browser"><b>The browser</b><small>Only understands HTML, CSS, and JavaScript. That never changes.</small></div>
+  </div>
+  <div class="one-line">At the end of the day, a React app is <b>still just HTML, CSS, and JavaScript</b> in the browser. React is a tool for writing it in a more organized way.</div>
+  <details class="speaker-notes"><summary>Teacher notes · the big picture</summary>
+    <p>Analogy: you could build furniture by cutting every piece of wood yourself (plain HTML/JS), or with a kit of pre-made parts (React). Both end up as furniture. The kit is faster once you learn how the parts fit.</p>
+    <p>We'll prove this later: open DevTools on a React app and the Elements panel shows plain <code>div</code>s, <code>p</code>s, and <code>button</code>s. No “React” in sight.</p>
+  </details>
+</template>
+
+<template data-part="Start" data-title="How today works" data-time="2 MIN" data-label="START · FOLLOW ALONG">
+  <div class="eyebrow">THREE KINDS OF SLIDES</div>
+  <h2>Watch, <span class="accent">try</span>, then build.</h2>
+  <div class="cards">
+    <div><b><span class="badge demo">LIVE</span>Live demo</b><p>The code on the slide is real. Change it and the page next to it updates. Try the ideas here first — nothing can break.</p></div>
+    <div><b><span class="badge follow">FOLLOW ALONG</span>In your project</b><p>Type the green lines into your own files in VS Code. Save, and look at your browser.</p></div>
+    <div><b><span class="badge check">CHECKPOINT</span>Quick check</b><p>A question to make sure the idea landed before we build on it.</p></div>
+  </div>
+  <div class="try"><b>Before we start, have open:</b> VS Code · a browser · a terminal (in VS Code: <i>Terminal → New Terminal</i>). We'll install Node.js together later.</div>
+  <details class="speaker-notes"><summary>Teacher notes · pace</summary>
+    <p>The first half is mostly live demos on the slides, so students can try ideas without setup trouble. The project setup comes once they know what the files mean. If someone falls behind in the build, they can copy from <code>mini-instagram/completed/</code>.</p>
+  </details>
+</template>
+
+<!-- ================= JAVASCRIPT ================= -->
+<template data-part="JS you need" data-title="What JavaScript does" data-time="3 MIN" data-label="JS 01 · BEHAVIOR">
+  <div class="eyebrow">HTML = STRUCTURE · CSS = LOOKS · JS = BEHAVIOR</div>
+  <h2>JavaScript gives a page <span class="accent">life</span>.</h2>
+  <div class="grid2">
+    <div class="cards" style="grid-template-columns:1fr 1fr;margin-top:0">
+      <div><b>Interactivity</b><p>Show and hide things, change colors and text when you click.</p></div>
+      <div><b>User input</b><p>Read what someone typed. Check it's valid.</p></div>
+      <div><b>Calculations</b><p>Count likes, add up a score, sort a list.</p></div>
+      <div><b>Talk to servers</b><p>Load new posts without reloading (a later lesson).</p></div>
+    </div>
+    <div>
+      <p>Without JavaScript, a page is a poster: nice to look at, but clicking does nothing.</p>
+      <p>On the next few slides, code runs when you press <b>▶ run</b> (or <b>Ctrl+Enter</b>). <code>console.log(…)</code> prints into the black <b>console</b> box. Every browser has one: right-click → Inspect → Console.</p>
+    </div>
+  </div>
+  <script type="text/plain" data-js data-stack>
+    console.log("Hello from JavaScript!");
+    console.log(2 + 3);
+  </script>
+  <details class="speaker-notes"><summary>Teacher notes · the console</summary>
+    <p>Change the text and press run. Then open the real browser console (F12) on any website and type <code>2 + 3</code>. The console is a calculator, a notepad, and a debugger all in one — the most useful tool they'll learn today.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Variables: let & const" data-time="4 MIN" data-label="JS 02 · VARIABLES">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>A VARIABLE IS A LABELED BOX THAT HOLDS A VALUE</div>
+  <h2>Store values with <span class="accent">const</span> and <span class="accent">let</span>.</h2>
+  <div class="grid2">
+    <div class="cards" style="grid-template-columns:1fr;margin-top:14px">
+      <div><b><code>const</code> · can't be reassigned</b><p>Use it by default. Most values never need to change.</p></div>
+      <div><b><code>let</code> · can be reassigned</b><p>Use it when the value will change, like a score.</p></div>
+      <div><b><code>var</code> · the old way</b><p>You'll see it in old tutorials. Don't use it — it has confusing rules.</p></div>
+    </div>
+    <script type="text/plain" data-js>
+      // Kinds of values
+      const name = "Goose";       // string (text, in quotes)
+      const age = 3;              // number
+      const isCute = true;        // boolean (true or false)
+
+      let score = 0;
+      score = score + 10;         // let can change
+      console.log(name, "is", age, "· score:", score);
+
+      // Try it: uncomment the next line and press run.
+      // age = 4;
+    </script>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · break it on purpose</summary>
+    <p>Uncomment <code>age = 4;</code> and run: the console shows a red error, “Assignment to constant variable.” Errors are the computer telling you exactly what's wrong — read them out loud.</p>
+    <p>Also try removing the quotes around Goose. Now it's looking for a variable called Goose, which doesn't exist.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Objects & arrays" data-time="5 MIN" data-label="JS 03 · OBJECTS & ARRAYS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>GROUPING VALUES TOGETHER</div>
+  <h2>Objects have <span class="accent">named</span> parts. Arrays are <span class="accent">lists</span>.</h2>
+  <div class="grid2">
+    <div>
+      <div class="cards" style="grid-template-columns:1fr;margin-top:14px">
+        <div><b>Object <code>{ }</code></b><p>A thing with named properties. Read one with a dot: <code>cat.name</code>.</p></div>
+        <div><b>Array <code>[ ]</code></b><p>An ordered list. Read one by position, <b>starting at 0</b>: <code>cats[0]</code>.</p></div>
+        <div><b>Array of objects</b><p>The shape of almost all app data — a list of posts, users, songs…</p></div>
+      </div>
+    </div>
+    <script type="text/plain" data-js>
+      const cat = { name: "Goose", color: "grey" };
+      console.log(cat.name);
+
+      const cats = ["Kiki", "Goose", "Mochi"];
+      console.log(cats[0], "·", cats.length, "cats");
+
+      const posts = [
+        { id: 1, caption: "First day!", likes: 42 },
+        { id: 2, caption: "Team dinner", likes: 18 },
+      ];
+      console.log(posts[1].caption, "has", posts[1].likes, "likes");
+    </script>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · this is our app's data</summary>
+    <p>Point at <code>posts</code>: this exact shape is what our Mini Instagram will use. Ask: how would you get the likes of the <i>first</i> post? (<code>posts[0].likes</code>.) Try <code>cats[3]</code> — you get <code>undefined</code>, because there's no fourth cat.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Functions" data-time="4 MIN" data-label="JS 04 · FUNCTIONS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>A FUNCTION IS A NAMED SET OF STEPS</div>
+  <h2>Declare it once, <span class="accent">call</span> it many times.</h2>
+  <div class="grid2">
+    <div class="cards" style="grid-template-columns:1fr;margin-top:14px">
+      <div><b>Declaration</b><p><code>function</code> + a name + <b>parameters</b> (the inputs) + a body in <code>{ }</code>.</p></div>
+      <div><b>Call</b><p>Use it by name with <code>( )</code> and give it the inputs: <code>multiply(4, 3)</code>.</p></div>
+      <div><b>Return</b><p><code>return</code> hands a value back to whoever called it.</p></div>
+    </div>
+    <script type="text/plain" data-js>
+      // Declaration
+      function multiply(a, b) {
+        return a * b;
+      }
+
+      // Call
+      const x = multiply(4, 3);
+      console.log(x);
+
+      // A function can return anything — even text
+      function greet(name) {
+        return "Hi, " + name + "!";
+      }
+      console.log(greet("CS + SG"));
+    </script>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · why it matters for React</summary>
+    <p>Hold onto this sentence: <b>a React component is just a function that returns what to show.</b> Instead of returning a number or a string, it returns something that looks like HTML.</p>
+    <p>Try: delete the <code>return</code> keyword and run. <code>x</code> becomes <code>undefined</code> — a function without return hands back nothing.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Arrow functions" data-time="4 MIN" data-label="JS 05 · ARROWS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>A SHORTER WAY TO WRITE A FUNCTION</div>
+  <h2>Arrow functions: <span class="accent">=&gt;</span></h2>
+  <div class="grid2">
+    <div>
+      <script type="text/plain" data-label="the same function, three ways">
+        function double(n) { return n * 2; }
+
+        const double = (n) => { return n * 2; };
+
+        const double = (n) => n * 2;
+      </script>
+      <div class="one-line">No <code>{ }</code> after the arrow? Then the value is <b>returned automatically</b>. You'll see arrows everywhere in React, especially for click handlers.</div>
+    </div>
+    <script type="text/plain" data-js>
+      const double = (n) => n * 2;
+      console.log(double(21));
+
+      const sayHi = () => console.log("hi!");
+      sayHi();
+
+      // A function can be stored and called later,
+      // like when someone clicks a button.
+      const handleLike = () => console.log("liked!");
+      handleLike();
+    </script>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · don't overthink it</summary>
+    <p>For this course, arrow functions and normal functions do the same job. Read <code>=&gt;</code> out loud as “goes to”: “n goes to n times two.” <code>() =&gt;</code> with empty parentheses means no inputs.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="map(): a list into a new list" data-time="5 MIN" data-label="JS 06 · MAP">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>THE MOST IMPORTANT ARRAY TOOL IN REACT</div>
+  <h2><code style="font-size:inherit">map()</code> runs a function on <span class="accent">every item</span>.</h2>
+  <div class="flow" style="margin-bottom:10px">
+    <div><b>[1, 2, 3]</b><small>the array you start with</small></div><i>→</i>
+    <div><b>.map(n =&gt; n * 10)</b><small>a function that changes <b>one</b> item</small></div><i>→</i>
+    <div><b>[10, 20, 30]</b><small>a <b>new</b> array, same length</small></div>
+  </div>
+  <script type="text/plain" data-js>
+    const numbers = [1, 2, 3];
+    console.log(numbers.map((n) => n * 10));
+
+    const posts = [
+      { id: 1, caption: "First day!" },
+      { id: 2, caption: "Team dinner" },
+    ];
+    // Turn each post object into a line of text
+    const lines = posts.map((post) => "📷 " + post.caption);
+    console.log(lines);
+  </script>
+  <details class="speaker-notes"><summary>Teacher notes · the React connection</summary>
+    <p>In React we'll turn an array of post <i>objects</i> into an array of post <i>elements</i> on the page — with exactly this. Ask students to change the map so each line also shows the id.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Choosing with ? :" data-time="3 MIN" data-label="JS 07 · TERNARY">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>AN IF/ELSE THAT FITS ON ONE LINE</div>
+  <h2>The ternary: <span class="accent">condition ? yes : no</span></h2>
+  <div class="grid2">
+    <div>
+      <div class="anatomy"><div class="anatomy-row">
+        <div class="anatomy-part part-attr"><span>isFollowing</span><small>a true/false question</small></div>
+        <div class="anatomy-part part-plain"><span>?</span></div>
+        <div class="anatomy-part part-content"><span>"Following"</span><small>if true</small></div>
+        <div class="anatomy-part part-plain"><span>:</span></div>
+        <div class="anatomy-part part-close"><span>"Follow"</span><small>if false</small></div>
+      </div></div>
+      <div class="one-line">Read it as: “<b>Is</b> isFollowing true? <b>Then</b> ‘Following’, <b>otherwise</b> ‘Follow’.” React uses this to pick what to show.</div>
+    </div>
+    <script type="text/plain" data-js>
+      let isFollowing = false;
+
+      // The long way: if / else
+      if (isFollowing) {
+        console.log("Following");
+      } else {
+        console.log("Follow");
+      }
+
+      // The short way: a ternary. Same result.
+      console.log(isFollowing ? "Following" : "Follow");
+
+      isFollowing = true;
+      console.log(isFollowing ? "Following" : "Follow");
+
+      const likes = 1;
+      console.log(likes + (likes === 1 ? " like" : " likes"));
+    </script>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · same as if/else</summary>
+    <p>The if/else at the top and the ternary under it print the same thing. Why bother with the short one? In React we write the page inside <code>{ }</code>, and only a <i>value</i> fits there, not a whole <code>if</code> block. <code>===</code> means “is equal to” (three equals signs; one <code>=</code> means “store this”). Try <code>likes = 2</code> in the last example.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Unpacking with { } and [ ]" data-time="4 MIN" data-label="JS 08 · DESTRUCTURING">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>A SHORTCUT YOU'LL SEE IN EVERY REACT FILE</div>
+  <h2>Pull values <span class="accent">out</span> of objects and arrays.</h2>
+  <div class="grid2">
+    <div class="compare" style="grid-template-columns:1fr;margin-top:14px">
+      <div class="good"><b>Object → by name</b><pre>const { name, bio } = user;
+// same as:
+const name = user.name;
+const bio = user.bio;</pre></div>
+      <div class="good"><b>Array → by position</b><pre>const [first, second] = cats;
+// same as:
+const first = cats[0];
+const second = cats[1];</pre></div>
+    </div>
+    <script type="text/plain" data-js>
+      const user = { name: "CS + SG", bio: "We build websites." };
+      const { name, bio } = user;
+      console.log(name, "—", bio);
+
+      const cats = ["Kiki", "Goose"];
+      const [first, second] = cats;
+      console.log(first, "and", second);
+    </script>
+  </div>
+  <div class="one-line">The official name is <b>destructuring</b>. You'll see the <code>{ }</code> kind with <b>props</b> and the <code>[ ]</code> kind with <b>useState</b>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · it only looks scary</summary>
+    <p>The curly braces on the <i>left</i> of the <code>=</code> don't make an object — they unpack one. Have students add <code>age: 3</code> to user and unpack it too.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Code in many files" data-time="3 MIN" data-label="JS 09 · IMPORT / EXPORT">
+  <div class="eyebrow">ONE JOB PER FILE</div>
+  <h2>Share code between files with <span class="accent">export</span> and <span class="accent">import</span>.</h2>
+  <div class="grid2">
+    <script type="text/plain" data-label="math.js · gives things away" data-big>
+      export function add(a, b) {
+        return a + b;
+      }
+
+      function multiply(a, b) {
+        return a * b;
+      }
+      export default multiply;
+    </script>
+    <script type="text/plain" data-label="app.js · uses them" data-big>
+      import multiply from "./math.js";
+      import { add } from "./math.js";
+
+      console.log(add(2, 3));
+      console.log(multiply(2, 3));
+    </script>
+  </div>
+  <div class="cards">
+    <div><b>Default export</b><p>The <b>one main thing</b> in a file. Import it with no braces. Every React component file has one.</p></div>
+    <div><b>Named export</b><p>Extra things, imported <b>by exact name</b> inside <code>{ }</code>.</p></div>
+    <div><b><code>"./math.js"</code></b><p>A file path, just like lesson 2: <code>./</code> means “in this same folder.”</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · paths again</summary>
+    <p>Students already know relative paths from images in lesson 2. Same rules here. A typo in the path or the wrong capital letter is the #1 import error.</p>
+  </details>
+</template>
+
+<template data-part="JS you need" data-title="Checkpoint: JavaScript" data-time="4 MIN" data-label="JS · CHECKPOINT">
+  <div class="eyebrow"><span class="badge check">CHECKPOINT</span>PREDICT, THEN CHECK IN THE CONSOLE</div>
+  <h2>What does each line <span class="accent">print</span>?</h2>
+  <div class="quiz-grid">
+    <div class="quiz"><div class="q"><code>[1, 2, 3].map(n =&gt; n + 1)</code></div><div class="options">
+      <button data-why="map doesn't add up the items; it changes each one.">6</button>
+      <button data-ok data-why="Each item gets +1, and you get a new array of the same length.">[2, 3, 4]</button>
+      <button data-why="map never changes the original array; it makes a new one.">[1, 2, 3, 1]</button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q"><code>const x = 5;</code> then <code>x &gt; 3 ? "big" : "small"</code></div><div class="options">
+      <button data-ok data-why="5 > 3 is true, so you get the part after the ?.">"big"</button>
+      <button data-why="That's the result when the condition is false.">"small"</button>
+      <button data-why="The ternary picks one value; it doesn't return the condition.">true</button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q"><code>const { likes } = { id: 1, likes: 9 }</code> then <code>likes</code></div><div class="options">
+      <button data-why="Destructuring pulls out the property by its name.">1</button>
+      <button data-ok data-why="{ likes } unpacks the property called likes.">9</button>
+      <button data-why="It's not the whole object — just the one property.">{ likes: 9 }</button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">Which variable can you change later?</div><div class="options">
+      <button data-why="const can't be reassigned.">const score = 0</button>
+      <button data-ok data-why="let can be reassigned.">let score = 0</button>
+      <button data-why="Neither: it's a function call.">score(0)</button>
+    </div><div class="feedback"></div></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · test it</summary>
+    <p>For any disagreement, paste the line into the real browser console (F12) and settle it. That habit — “I'm not sure, let me test it” — is the real skill.</p>
+  </details>
+</template>
+
+<!-- ================= THE DOM BY HAND ================= -->
+<template data-part="The DOM by hand" data-title="JavaScript can change the page" data-time="4 MIN" data-label="DOM 01 · THE TREE">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>REMEMBER THE TREE FROM LESSON 2?</div>
+  <h2>The DOM: the page as <span class="accent">objects</span> JS can touch.</h2>
+  <p class="lead">The browser turns every element into a JavaScript object. JS can find one, read it, and <b>change</b> it after the page has loaded. The JS goes in a <code>&lt;script&gt;</code> tag at the <b>bottom</b> of the page, so the elements already exist when it looks for them.</p>
+  <script type="text/plain" data-html-live>
+    <h1 id="title">Hello!</h1>
+    <p>This paragraph is plain HTML.</p>
+
+    <script>
+      // 1. find the element
+      const title = document.querySelector("#title");
+      console.log("found:", title.textContent);
+
+      // 2. change it
+      title.textContent = "Changed by JavaScript!";
+      title.style.color = "tomato";
+    <\/script>
+  </script>
+  <details class="speaker-notes"><summary>Teacher notes · find, then change</summary>
+    <p>Two steps every time: <b>find</b> the element (<code>querySelector</code> uses CSS selectors from lesson 2!), then <b>change</b> it. Delete the last two lines — the original “Hello!” comes back. The HTML file never changed; JS changed the page <i>after</i> it loaded.</p>
+  </details>
+</template>
+
+<template data-part="The DOM by hand" data-title="A like button, by hand" data-time="5 MIN" data-label="DOM 02 · PLAIN JS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>HTML + JAVASCRIPT, NO REACT</div>
+  <h2>Click → update a number → <span class="accent">update the page</span>.</h2>
+  <script type="text/plain" data-html-live data-mark="9-17">
+    <article class="post">
+      <p>📷 First day of CS + SG!</p>
+      <button id="like">♥ Like</button>
+      <span id="count">0 likes</span>
+    </article>
+
+    <script>
+      let likes = 0;
+      const button = document.querySelector("#like");
+      const countText = document.querySelector("#count");
+
+      button.addEventListener("click", () => {
+        likes = likes + 1;               // 1. change the data
+        countText.textContent = likes + " likes";  // 2. change the page
+        console.log("likes is now", likes);
+      });
+    <\/script>
+  </script>
+  <div class="one-line"><code>addEventListener("click", fn)</code> means “<b>when</b> this is clicked, run <code>fn</code>.” A click is an <b>event</b>. The arrow function doesn't run now. The browser keeps it and runs it on every click.</div>
+  <details class="speaker-notes"><summary>Teacher notes · two things to keep in sync</summary>
+    <p>Click it. Then comment out step 2 and click again: the console says likes is going up, but the page still says 0. <b>Changing the data doesn't change the page.</b> You have to do both, every time, by hand. Remember this — it's the exact problem React solves.</p>
+  </details>
+</template>
+
+<template data-part="The DOM by hand" data-title="Making elements from data" data-time="5 MIN" data-label="DOM 03 · BUILD BY HAND">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>NO HTML FOR THE POSTS. JAVASCRIPT MAKES THEM.</div>
+  <h2>A function that <span class="accent">builds</span> a piece of the page.</h2>
+    <script type="text/plain" data-html-live data-mark="11-17">
+      <h2>My feed</h2>
+      <div id="feed"></div>
+
+      <script>
+        const posts = [
+          { caption: "First day!", likes: 42 },
+          { caption: "Team dinner", likes: 18 },
+        ];
+
+        // Takes ONE post's data, returns ONE element
+        function makePost(post) {
+          const article = document.createElement("article");
+          const text = document.createElement("p");
+          text.textContent = post.caption + " · ♥ " + post.likes;
+          article.appendChild(text);
+          return article;
+        }
+
+        // Do this for every post in the array
+        const feed = document.querySelector("#feed");
+        posts.forEach((post) => {
+          feed.appendChild(makePost(post));
+        });
+      <\/script>
+    </script>
+    <div class="cards">
+      <div><b><code>document.createElement("p")</code></b><p>Makes a brand-new, empty <code>&lt;p&gt;</code>. It isn't on the page yet.</p></div>
+      <div><b><code>.textContent = …</code></b><p>Puts text inside it.</p></div>
+      <div><b><code>parent.appendChild(child)</code></b><p>Puts the element <b>inside</b> another one. That's how it gets onto the page.</p></div>
+      <div><b><code>forEach</code></b><p>Like <code>map()</code>: runs a function for every item. It just doesn't make a new list.</p></div>
+    </div>
+  <div class="one-line">Look at <code>makePost</code>: it takes some data and returns a piece of the page. <b>That is a component.</b> React components are the same idea with an easier way to write the HTML part.</div>
+  <details class="speaker-notes"><summary>Teacher notes · remember makePost</summary>
+    <p>Add a third post to the array: a new article appears and no HTML changes. Then ask: “What if we want an image and a like button in every post?” That means more <code>createElement</code> and <code>appendChild</code> lines for every part. It works, but it's hard to read: you can't <i>see</i> the shape of a post anymore.</p>
+    <p>We'll come back to <code>makePost</code> when we write our first React component.</p>
+  </details>
+</template>
+
+<template data-part="The DOM by hand" data-title="Why that gets painful" data-time="4 MIN" data-label="DOM 04 · THE PROBLEM">
+  <div class="eyebrow">NOW IMAGINE 100 POSTS, COMMENTS, A FOLLOW BUTTON…</div>
+  <h2>By hand, <span class="accent">you</span> keep the page and the data in sync.</h2>
+  <div class="compare">
+    <div class="bad"><b>Plain JS · “do these steps”</b><pre>find the count element
+find the button
+when clicked:
+  add 1 to likes
+  find the text again
+  change the text
+  (did you update the other
+   place it's shown too?)</pre><p style="margin:8px 0 0;font-size:14px">Every change = a list of instructions. Forget one, and the page shows something wrong.</p></div>
+    <div class="good"><b>React · “here's what it should look like”</b><pre>&lt;p&gt;{likes} likes&lt;/p&gt;
+
+when clicked:
+  setLikes(likes + 1)
+
+// React updates the page for you</pre><p style="margin:8px 0 0;font-size:14px">You describe the page <b>for any value</b> of the data. When the data changes, React redraws what's different.</p></div>
+  </div>
+  <div class="one-line">React doesn't do anything you couldn't do by hand. It does the <b>boring, error-prone part</b> for you: keeping the page matched to the data.</div>
+  <details class="speaker-notes"><summary>Teacher notes · the one idea</summary>
+    <p>Analogy: plain JS is giving someone turn-by-turn directions. React is giving them the address. If the address changes, you just give the new address — no new directions.</p>
+    <p>Fancy words they may hear: plain JS is <i>imperative</i> (do these steps), React is <i>declarative</i> (here's the result I want).</p>
+  </details>
+</template>
+
+<!-- ================= REACT BASICS ================= -->
+<template data-part="Components & JSX" data-title="What is React?" data-time="4 MIN" data-label="REACT 01 · COMPONENTS">
+  <div class="eyebrow">THINK IN LEGO BRICKS</div>
+  <h2>React builds pages out of <span class="accent">components</span>.</h2>
+  <div class="grid2">
+    <div>
+      <div class="cards" style="grid-template-columns:1fr;margin-top:0">
+        <div><b>A component is a JS function</b><p>…that returns what a piece of the page should look like.</p></div>
+        <div><b>Write once, reuse</b><p>Make <code>Post</code> once, use it for every post. Feed it different details each time.</p></div>
+        <div><b>When to make one?</b><p>Things that repeat on every page (navbar, footer), or things with the <b>same structure but different details</b> (posts, comments, cards).</p></div>
+      </div>
+    </div>
+    <div class="w-box" data-name="App" style="border:2px dashed var(--blue);padding:16px 10px 10px;background:#fff;position:relative">
+      <div class="insta">
+        <div class="w-box" data-name="Navbar">Mini Instagram · Home · Profile</div>
+        <div class="w-box" data-name="Profile">
+          <div style="display:flex;gap:10px;align-items:center;margin-top:6px">● <b>CS + SG</b> <span class="w-box" data-name="FollowButton" style="margin-left:auto">Follow</span></div>
+          <div class="row" style="margin-top:16px">
+            <div class="w-box" data-name="Post"><div class="ph"></div>♥ 42</div>
+            <div class="w-box" data-name="Post"><div class="ph"></div>♥ 18</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · spot the components</summary>
+    <p>Open Instagram (or YouTube) and ask students to point out the components. Every video thumbnail is the same component with different details. That's the exact kind of thing React is for.</p>
+    <p>React is a <b>library</b> made by Meta. It's the most used way to build web apps today.</p>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="Your first component" data-time="4 MIN" data-label="REACT 02 · FIRST COMPONENT">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>A FUNCTION THAT RETURNS WHAT TO SHOW</div>
+  <h2>A component returns <span class="accent">JSX</span>.</h2>
+  <script type="text/plain" data-react data-big>
+    function App() {
+      return (
+        <div>
+          <h1>Hello, CS + SG!</h1>
+          <p>This is my first component.</p>
+        </div>
+      );
+    }
+
+    export default App;
+  </script>
+  <div class="cards">
+    <div><b>Capital letter</b><p><code>App</code>, not <code>app</code>. That's how React tells your components apart from HTML tags.</p></div>
+    <div><b>Returns JSX</b><p>The HTML-looking part. It's called <b>JSX</b>: JavaScript that looks like HTML.</p></div>
+    <div><b><code>export default</code></b><p>So another file can import it. Here, the slide imports it and shows it.</p></div>
+  </div>
+  <div class="one-line">This is <code>makePost</code> from the DOM slides again: <b>a function that returns a piece of the page</b>. The difference: you write the shape as HTML instead of <code>createElement</code> + <code>appendChild</code>, and React puts it on the page for you.</div>
+  <details class="speaker-notes"><summary>Teacher notes · live edits to make</summary>
+    <ul>
+      <li>Change the text — the page updates as you type.</li>
+      <li>Add a <code>&lt;ul&gt;</code> with two <code>&lt;li&gt;</code>s. Everything from lesson 2 works.</li>
+      <li>Delete <code>export default App;</code> — the preview explains there's nothing to show.</li>
+    </ul>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="JSX is JavaScript in disguise" data-time="4 MIN" data-label="REACT 03 · UNDER THE HOOD">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>THE BROWSER DOESN'T UNDERSTAND JSX</div>
+  <h2>A tool turns JSX into <span class="accent">plain JavaScript</span>.</h2>
+  <script type="text/plain" data-compile data-big>
+    function Hello() {
+      return <h1 className="title">Hello!</h1>;
+    }
+  </script>
+  <div class="one-line">Every JSX tag becomes a <code>React.createElement(…)</code> call: the tag, its attributes, its contents. That's why JSX can live inside a function: it's <b>just a value</b>, like a number or a string.</div>
+  <div class="flow">
+    <div><b>JSX</b><small>what you write: <code>&lt;h1&gt;Hello!&lt;/h1&gt;</code></small></div><i>→</i>
+    <div><b>React.createElement</b><small>makes a small JS object that describes the h1. Nothing is on the page yet.</small></div><i>→</i>
+    <div><b>document.createElement</b><small>React turns that description into a real element, with the same DOM code we wrote by hand.</small></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · nobody writes the right side</summary>
+    <p>Type more JSX on the left (add a <code>&lt;p&gt;</code> inside a <code>&lt;div&gt;</code>) and watch the right side grow. Nobody writes the right side by hand — that's why JSX exists. In a real project, a tool called <b>Vite</b> does this translation for us every time we save.</p>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="JSX rules" data-time="5 MIN" data-label="REACT 04 · JSX RULES">
+  <div class="eyebrow">JSX LOOKS LIKE HTML, BUT IT'S STRICTER</div>
+  <h2>Five rules that fix <span class="accent">most</span> JSX errors.</h2>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div><span class="big">01</span><b>One parent element</b><p>Return one thing. Wrap siblings in a <code>&lt;div&gt;</code> or an empty <code>&lt;&gt;…&lt;/&gt;</code> (a “fragment”).</p></div>
+    <div><span class="big">02</span><b><code>className</code>, not <code>class</code></b><p><code>class</code> already means something in JavaScript.</p></div>
+    <div><span class="big">03</span><b>Close every tag</b><p>Empty elements need a slash: <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>, <code>&lt;input /&gt;</code>.</p></div>
+    <div><span class="big">04</span><b><code>{ }</code> for JavaScript</b><p>Anything in curly braces runs as JS: <code>&lt;p&gt;{user.name}&lt;/p&gt;</code>.</p></div>
+    <div><span class="big">05</span><b>camelCase attributes</b><p><code>onClick</code>, not <code>onclick</code>. Styles are objects: <code>style={{ fontSize: 20 }}</code>.</p></div>
+    <div><span class="big">+</span><b>File rules</b><p>One component per <code>.jsx</code> file, named the same as the file (<code>Post.jsx</code> → <code>Post</code>), with one default export.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · why so strict?</summary>
+    <p>Remember JSX becomes function calls. A function can only return <i>one</i> value — that's rule 01. <code>class</code> is a reserved word in JavaScript — that's rule 02. The rules aren't random; they come from JSX being JavaScript.</p>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="Fix the broken JSX" data-time="5 MIN" data-label="REACT 05 · DEBUGGING">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>THIS IS HTML PASTED INTO A COMPONENT. IT HAS 3 PROBLEMS.</div>
+  <h2>Read the error, <span class="accent">fix</span> one thing, repeat.</h2>
+  <script type="text/plain" data-react data-console>
+    function Card() {
+      return (
+        <h2 class="title">Goose the cat</h2>
+        <img src="https://picsum.photos/seed/goose/300/160" alt="A cat">
+        <p>Goose is grey and very loud.</p>
+      );
+    }
+
+    export default Card;
+  </script>
+  <button class="reveal-btn" data-reveal>Show the three fixes</button>
+  <div class="answer">① Wrap the three elements in one <code>&lt;div&gt;…&lt;/div&gt;</code> (one parent). ② Close the image: <code>&lt;img … /&gt;</code>. ③ <code>class</code> → <code>className</code> — this one doesn't stop the page, but React prints a warning in the console.</div>
+  <details class="speaker-notes"><summary>Teacher notes · read errors out loud</summary>
+    <p>The red box is the same kind of message students will see in their terminal and browser. Read it together: it names the file, the line and column, and points with a <code>^</code>. The first error is “Adjacent JSX elements must be wrapped” — wrap everything in a <code>&lt;div&gt;</code>. Then a new error appears: “Expected corresponding JSX closing tag for &lt;img&gt;” — add the <code>/</code>. Once it runs, check the console for the className warning. Fixing one error often reveals the next; that's normal.</p>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="Curly braces: JS inside JSX" data-time="4 MIN" data-label="REACT 06 · { }">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>{ } MEANS “RUN THIS AS JAVASCRIPT AND SHOW THE RESULT”</div>
+  <h2>Put data into the page with <span class="accent">{ }</span>.</h2>
+  <script type="text/plain" data-react>
+    const user = {
+      name: "CS + SG",
+      bio: "We build real websites as a team.",
+      avatar: "https://picsum.photos/seed/cssg-avatar/120",
+      followers: 120,
+    };
+
+    function Profile() {
+      return (
+        <div>
+          <img src={user.avatar} alt={user.name} style={{ borderRadius: "50%" }} />
+          <h2>{user.name.toUpperCase()}</h2>
+          <p>{user.bio}</p>
+          <p>{user.followers + 1} followers</p>
+        </div>
+      );
+    }
+
+    export default Profile;
+  </script>
+  <div class="one-line">Inside <code>{ }</code> goes a <b>value</b>: a variable, math, a function call, a ternary. Not a whole statement like <code>if</code> — use <code>? :</code> instead. In <code>style={{ }}</code>, the outer braces mean “JS”, the inner ones are an object.</div>
+  <details class="speaker-notes"><summary>Teacher notes · try these</summary>
+    <ul>
+      <li>Change <code>followers</code> in the object — the page follows the data.</li>
+      <li>Add <code>{user.followers &gt; 100 ? "⭐ Popular" : ""}</code>.</li>
+      <li>Remove the braces from <code>{user.bio}</code> — now it literally shows the text “user.bio”.</li>
+    </ul>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="How React shows a component" data-time="3 MIN" data-label="REACT 07 · RENDERING">
+  <div class="eyebrow">WHAT HAPPENS WHEN REACT “RENDERS”</div>
+  <h2>Run the function. Get JSX. <span class="accent">Update the DOM.</span></h2>
+  <div class="flow">
+    <div><b>1 · Call</b><small>React calls your component function, like <code>Profile()</code>.</small></div><i>→</i>
+    <div><b>2 · Return</b><small>The function returns JSX: a description of what to show.</small></div><i>→</i>
+    <div><b>3 · Compare</b><small>React compares it with what's on the page right now.</small></div><i>→</i>
+    <div><b>4 · Update</b><small>React changes <b>only</b> the DOM elements that are different.</small></div>
+  </div>
+  <div class="one-line">Step 4 is the plain-JS work from the like button (<code>textContent = …</code>). React just does it <b>for you</b>. Right-click any preview → Inspect: it's ordinary HTML.</div>
+  <details class="speaker-notes"><summary>Teacher notes · prove it</summary>
+    <p>Right-click inside the last slide's preview → Inspect. Show the Elements panel: <code>div</code>, <code>img</code>, <code>h2</code>, <code>p</code>. No components, no JSX. This is the “React is a layer on top” idea from the start of class.</p>
+  </details>
+</template>
+
+<template data-part="Components & JSX" data-title="Checkpoint: JSX" data-time="3 MIN" data-label="REACT · CHECKPOINT">
+  <div class="eyebrow"><span class="badge check">CHECKPOINT</span>WHICH ONE WORKS?</div>
+  <h2>Spot the <span class="accent">valid</span> JSX.</h2>
+  <div class="quiz-grid">
+    <div class="quiz"><div class="q">Show a user's name in a heading</div><div class="options">
+      <button data-why="Without braces, this shows the literal text 'user.name'."><code>&lt;h1&gt;user.name&lt;/h1&gt;</code></button>
+      <button data-ok data-why="Braces run JS and show the result."><code>&lt;h1&gt;{user.name}&lt;/h1&gt;</code></button>
+      <button data-why="That's how some other tools do it, not React."><code>&lt;h1&gt;{{user.name}}&lt;/h1&gt;</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">Give a div a CSS class</div><div class="options">
+      <button data-why="class is a JavaScript keyword. JSX uses className."><code>&lt;div class="card"&gt;</code></button>
+      <button data-ok data-why="className becomes class in the real HTML."><code>&lt;div className="card"&gt;</code></button>
+      <button data-why="No such attribute."><code>&lt;div css="card"&gt;</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">Which component name is right?</div><div class="options">
+      <button data-why="Lowercase names are treated as HTML tags, like <post>."><code>function post()</code></button>
+      <button data-ok data-why="Components start with a capital letter."><code>function Post()</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">A component returns a heading and a paragraph side by side. You need…</div><div class="options">
+      <button data-ok data-why="One parent. A fragment adds no extra element to the page.">to wrap them in <code>&lt;&gt;…&lt;/&gt;</code></button>
+      <button data-why="A function can only return one value.">two <code>return</code>s</button>
+      <button data-why="Commas would make it a JS list expression — not what you want here.">a comma between them</button>
+    </div><div class="feedback"></div></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · tie back to rules</summary>
+    <p>For each wrong answer, ask which rule from the JSX rules slide it breaks.</p>
+  </details>
+</template>
+
+<!-- ================= PROPS ================= -->
+<template data-part="Props" data-title="Components inside components" data-time="4 MIN" data-label="PROPS 01 · NESTING">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>CLICK THE FILE TABS</div>
+  <h2>Use a component like an <span class="accent">HTML tag</span>.</h2>
+  <div data-live data-open="App.jsx">
+    <script type="text/plain" data-file="App.jsx" data-mark="1-2,7,9">
+      import Header from "./Header.jsx";
+      import Footer from "./Footer.jsx";
+
+      function App() {
+        return (
+          <div>
+            <Header />
+            <p>The main content of the page.</p>
+            <Footer />
+          </div>
+        );
+      }
+
+      export default App;
+    </script>
+    <script type="text/plain" data-file="Header.jsx">
+      function Header() {
+        return (
+          <header style={{ background: "#344d3b", color: "white", padding: 12 }}>
+            <h1>Mini Instagram</h1>
+          </header>
+        );
+      }
+
+      export default Header;
+    </script>
+    <script type="text/plain" data-file="Footer.jsx">
+      function Footer() {
+        return <footer>Made by CS + SG</footer>;
+      }
+
+      export default Footer;
+    </script>
+  </div>
+  <div class="one-line"><b>Export</b> it from its own file, <b>import</b> it where you need it, then write <code>&lt;Header /&gt;</code>. React calls the <code>Header</code> function and puts what it returns right there.</div>
+  <details class="speaker-notes"><summary>Teacher notes · reuse</summary>
+    <p>Copy the <code>&lt;Footer /&gt;</code> line and paste it twice — three footers, zero extra code. Then rename <code>Footer.jsx</code> in the import to <code>footer.jsx</code> to show the “Cannot find” error: capital letters matter in file names.</p>
+  </details>
+</template>
+
+<template data-part="Props" data-title="Props: same shape, different details" data-time="5 MIN" data-label="PROPS 02 · PROPS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>PROPS ARE LIKE ATTRIBUTES FOR YOUR OWN COMPONENTS</div>
+  <h2>Pass details in with <span class="accent">props</span>.</h2>
+  <div data-live data-open="App.jsx">
+    <script type="text/plain" data-file="App.jsx" data-mark="7-8">
+      import Post from "./Post.jsx";
+
+      function App() {
+        return (
+          <div style={{ display: "flex", gap: 12 }}>
+            <Post caption="First day!" likes={42} />
+            <Post caption="Team dinner" likes={18} />
+            <Post caption="Demo day" likes={27} />
+          </div>
+        );
+      }
+
+      export default App;
+    </script>
+    <script type="text/plain" data-file="Post.jsx" data-mark="1">
+      function Post({ caption, likes }) {
+        return (
+          <article style={{ border: "1px solid #ddd", padding: 12, borderRadius: 8 }}>
+            <p>📷 {caption}</p>
+            <b>♥ {likes}</b>
+          </article>
+        );
+      }
+
+      export default Post;
+    </script>
+  </div>
+  <div class="one-line">React collects the props into one object: <code>{ caption: "First day!", likes: 42 }</code>. The <code>{ caption, likes }</code> in the function's parentheses <b>unpacks</b> it (destructuring!). Text goes in quotes; numbers and JS go in <code>{ }</code>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · one component, many posts</summary>
+    <p>Add a fourth <code>&lt;Post /&gt;</code>. Then add a new prop: <code>author="Kiki"</code> in App and show it in Post. Point out props flow <b>one way: parent → child</b>. Post can't change its own props.</p>
+  </details>
+</template>
+
+<template data-part="Props" data-title="Lists with map() and key" data-time="5 MIN" data-label="PROPS 03 · LISTS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>DATA IN AN ARRAY → ONE COMPONENT PER ITEM</div>
+  <h2>Turn an array into elements with <span class="accent">map()</span>.</h2>
+  <script type="text/plain" data-react data-console data-mark="10-12">
+    const posts = [
+      { id: 1, caption: "First day!", likes: 42 },
+      { id: 2, caption: "Team dinner", likes: 18 },
+      { id: 3, caption: "Demo day", likes: 27 },
+    ];
+
+    function Feed() {
+      return (
+        <ul>
+          {posts.map((post) => (
+            <li key={post.id}>📷 {post.caption} · ♥ {post.likes}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    export default Feed;
+  </script>
+  <div class="one-line">Each item needs a <code>key</code>: something <b>unique</b> (an id) so React can tell the items apart when the list changes. Delete <code>key={post.id}</code> and watch the console.</div>
+  <details class="speaker-notes"><summary>Teacher notes · the JS map slide, for real</summary>
+    <p>This is the map slide from earlier, but instead of turning posts into strings we turn them into <code>&lt;li&gt;</code>s. Add a fourth post to the array — no other change needed. That's the whole point: <b>change the data, the page follows.</b></p>
+    <p>Show the yellow warning when <code>key</code> is removed: “Each child in a list should have a unique key prop.”</p>
+  </details>
+</template>
+
+<!-- ================= STATE ================= -->
+<template data-part="State & hooks" data-title="Normal variables don't update the page" data-time="4 MIN" data-label="STATE 01 · THE PROBLEM">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>THIS CODE HAS A BUG. CLICK THE BUTTON.</div>
+  <h2>The count goes up… but the page <span class="accent">doesn't change</span>.</h2>
+  <script type="text/plain" data-react data-console>
+    function Counter() {
+      let count = 0;
+
+      function handleClick() {
+        count = count + 1;
+        console.log("count is", count);
+      }
+
+      return (
+        <div>
+          <h1>{count} likes</h1>
+          <button onClick={handleClick}>♥ Like</button>
+        </div>
+      );
+    }
+
+    export default Counter;
+  </script>
+  <div class="one-line">The console proves <code>count</code> changes. But React has no idea it should <b>run the function again</b> to redraw. And if it did, <code>let count = 0</code> would start over at zero anyway.</div>
+  <details class="speaker-notes"><summary>Teacher notes · same as the plain JS bug</summary>
+    <p>This is exactly the like-button bug from earlier when we commented out the line that updated the page. We need two things: a value React <b>remembers</b> between runs, and a way to tell React “this changed, redraw.” That's <code>useState</code>.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="useState" data-time="4 MIN" data-label="STATE 02 · useState">
+  <div class="eyebrow">STATE = DATA THAT CAN CHANGE WHILE THE PAGE IS OPEN</div>
+  <h2><code style="font-size:inherit">useState</code> gives you a value and a <span class="accent">setter</span>.</h2>
+  <div class="anatomy">
+    <div class="anatomy-row">
+      <div class="anatomy-part part-plain"><span>const [</span></div>
+      <div class="anatomy-part part-content"><span>count</span><small>the current value</small></div>
+      <div class="anatomy-part part-plain"><span>,</span></div>
+      <div class="anatomy-part part-attr"><span>setCount</span><small>function to change it</small></div>
+      <div class="anatomy-part part-plain"><span>] =</span></div>
+      <div class="anatomy-part part-open"><span>useState(</span></div>
+      <div class="anatomy-part part-name"><span>0</span><small>starting value</small></div>
+      <div class="anatomy-part part-open"><span>)</span></div>
+    </div>
+    <div class="anatomy-total">the <code>[ ]</code> is array destructuring — useState returns a pair</div>
+  </div>
+  <div class="cards">
+    <div><b>Import it first</b><p><code>import { useState } from "react";</code></p></div>
+    <div><b>Never change it directly</b><p><code>count = 5</code> ✗ → <code>setCount(5)</code> ✓. The setter is how React finds out.</p></div>
+    <div><b>Setting = redraw</b><p>Calling <code>setCount</code> makes React run your component again with the new value.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · hooks</summary>
+    <p>Functions that start with <code>use</code> are called <b>hooks</b>. They let a component “hook into” React features like remembering values. Two rules: call them at the top of your component (not inside an <code>if</code> or a loop), and only inside components.</p>
+    <p>Naming convention: <code>thing</code> and <code>setThing</code>.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="Watch React re-render" data-time="4 MIN" data-label="STATE 03 · RE-RENDER">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>THE BUG, FIXED. WATCH THE CONSOLE.</div>
+  <h2>Every <code style="font-size:inherit">setCount</code> runs the function <span class="accent">again</span>.</h2>
+  <script type="text/plain" data-react data-console data-mark="1,4,5,8">
+    import { useState } from "react";
+
+    function Counter() {
+      const [count, setCount] = useState(0);
+      console.log("Counter ran. count =", count);
+
+      function handleClick() {
+        setCount(count + 1);
+      }
+
+      return (
+        <div>
+          <h1>{count} likes</h1>
+          <button onClick={handleClick}>♥ Like</button>
+        </div>
+      );
+    }
+
+    export default Counter;
+  </script>
+  <div class="one-line">Click → <code>setCount</code> → React <b>calls Counter() again</b> → this time <code>useState</code> hands back the new number → new JSX → React updates the <code>h1</code>. That's the whole loop.</div>
+  <details class="speaker-notes"><summary>Teacher notes · try these</summary>
+    <ul>
+      <li>Add a “Reset” button: <code>onClick={() =&gt; setCount(0)}</code>.</li>
+      <li>Change the starting value to 100.</li>
+      <li>Show “like” vs “likes” with a ternary.</li>
+    </ul>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="Events: onClick" data-time="4 MIN" data-label="STATE 04 · EVENTS">
+  <div class="eyebrow">GIVE REACT THE FUNCTION. DON'T CALL IT.</div>
+  <h2><code style="font-size:inherit">onClick={handleLike}</code>, not <code style="font-size:inherit">handleLike()</code>.</h2>
+  <div class="compare">
+    <div class="good"><b>✓ Pass the function</b><pre>&lt;button onClick={handleLike}&gt;
+&lt;button onClick={() =&gt; setLikes(likes + 1)}&gt;</pre><p style="margin:8px 0 0;font-size:14px">“Here's what to do <b>when</b> it's clicked.”</p></div>
+    <div class="bad"><b>✗ Call it right away</b><pre>&lt;button onClick={handleLike()}&gt;
+&lt;button onClick={setLikes(likes + 1)}&gt;</pre><p style="margin:8px 0 0;font-size:14px">The <code>()</code> runs it <b>while drawing</b>, not on click. With a setter, that's an endless loop.</p></div>
+  </div>
+  <div class="cards">
+    <div><b><code>onClick</code></b><p>Buttons, links, anything clickable.</p></div>
+    <div><b><code>onChange</code></b><p>Typing in an <code>&lt;input&gt;</code>, picking from a <code>&lt;select&gt;</code>.</p></div>
+    <div><b><code>onSubmit</code></b><p>A form being sent.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · same as addEventListener</summary>
+    <p>This is the plain-JS <code>button.addEventListener("click", …)</code> from earlier, written right on the element. Go back to the counter slide and change it to <code>onClick={handleClick()}</code> to show what happens.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="The same button, two ways" data-time="4 MIN" data-label="STATE 05 · SIDE BY SIDE">
+  <div class="eyebrow">THE LIKE BUTTON FROM THE DOM SLIDES, NEXT TO ITS REACT VERSION</div>
+  <h2>Same button. React does the <span class="accent">updating</span>.</h2>
+  <div class="grid2">
+    <script type="text/plain" data-label="plain HTML + JS" data-lang="html">
+      <p id="count">0 likes</p>
+      <button id="like">♥ Like</button>
+
+      <script>
+        let likes = 0;
+        const countText = document.querySelector("#count");
+        const button = document.querySelector("#like");
+
+        button.addEventListener("click", () => {
+          likes = likes + 1;
+          countText.textContent = likes + " likes";
+        });
+      <\/script>
+    </script>
+    <script type="text/plain" data-label="React" data-file="LikeButton.jsx">
+      import { useState } from "react";
+
+      function LikeButton() {
+        const [likes, setLikes] = useState(0);
+
+        return (
+          <div>
+            <p>{likes} likes</p>
+            <button onClick={() => setLikes(likes + 1)}>
+              ♥ Like
+            </button>
+          </div>
+        );
+      }
+
+      export default LikeButton;
+    </script>
+  </div>
+  <table class="tag-table">
+    <tr><th>THE JOB</th><th>PLAIN JS</th><th>REACT</th></tr>
+    <tr><td>remember a number</td><td><code>let likes = 0</code></td><td><code>useState(0)</code></td></tr>
+    <tr><td>find the elements</td><td><code>document.querySelector(…)</code></td><td>not needed: <code>{likes}</code> sits right where it's shown</td></tr>
+    <tr><td>react to a click</td><td><code>addEventListener("click", fn)</code></td><td><code>onClick={fn}</code></td></tr>
+    <tr><td>update the page</td><td><code>textContent = …</code>, by hand</td><td><code>setLikes(…)</code>, and React updates the text</td></tr>
+  </table>
+  <details class="speaker-notes"><summary>Teacher notes · the whole point of today</summary>
+    <p>Go row by row. Every job still gets done in the React version. You just do fewer of them yourself. The last row is the big one: in plain JS, if you forget the <code>textContent</code> line the page is wrong. In React there's nothing to forget.</p>
+    <p>Ask: “If the like count was shown in three places, what would you add to each version?” Plain JS: three more <code>querySelector</code>s and three more <code>textContent</code> lines. React: write <code>{likes}</code> in two more places.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="Toggles: FollowButton" data-time="4 MIN" data-label="STATE 06 · TRUE / FALSE">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>STATE + TERNARY = A BUTTON THAT FLIPS</div>
+  <h2>Flip a boolean with <span class="accent">!</span></h2>
+  <script type="text/plain" data-react data-mark="4,8,10,19">
+    import { useState } from "react";
+
+    function FollowButton() {
+      const [isFollowing, setIsFollowing] = useState(false);
+
+      return (
+        <button
+          onClick={() => setIsFollowing(!isFollowing)}
+          style={{
+            background: isFollowing ? "#ddd" : "#0095f6",
+            color: isFollowing ? "#222" : "white",
+            border: "none",
+            borderRadius: 6,
+            padding: "8px 16px",
+            fontWeight: "bold",
+          }}
+        >
+          {isFollowing ? "Following" : "Follow"}
+        </button>
+      );
+    }
+
+    export default FollowButton;
+  </script>
+  <div class="one-line"><code>!</code> means “not”: <code>!false</code> is <code>true</code>, <code>!true</code> is <code>false</code>. One state value controls the <b>text</b> and the <b>colors</b> — they can never get out of sync.</div>
+  <details class="speaker-notes"><summary>Teacher notes · inline styles</summary>
+    <p>This uses the <code>style={{ }}</code> object so it's all in one file. CSS property names become camelCase: <code>border-radius</code> → <code>borderRadius</code>. In our project we'll use classes in <code>style.css</code> instead, which is usually tidier.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="Typing into inputs" data-time="4 MIN" data-label="STATE 07 · INPUTS">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>STATE THAT CHANGES ON EVERY KEY PRESS</div>
+  <h2>An input that React <span class="accent">controls</span>.</h2>
+  <script type="text/plain" data-react data-mark="4,9-10">
+    import { useState } from "react";
+
+    function CaptionEditor() {
+      const [caption, setCaption] = useState("");
+
+      return (
+        <div>
+          <input
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+            placeholder="Write a caption…"
+          />
+          <p>Preview: <b>{caption || "(empty)"}</b></p>
+          <p>{caption.length} / 50 characters</p>
+        </div>
+      );
+    }
+
+    export default CaptionEditor;
+  </script>
+  <div class="one-line">Every key press: <code>onChange</code> → <code>setCaption</code> with what's in the box (<code>e.target.value</code>) → redraw. The preview and counter update <b>for free</b>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · e is the event</summary>
+    <p><code>e</code> is the event object the browser gives you; <code>e.target</code> is the input. Challenge: turn the counter red when there are more than 50 characters (ternary in a style). You'll need this for the comment-box stretch goal.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="useEffect" data-time="5 MIN" data-label="STATE 08 · useEffect">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>DO SOMETHING AFTER REACT DRAWS THE PAGE</div>
+  <h2><code style="font-size:inherit">useEffect</code> runs code <span class="accent">after</span> rendering.</h2>
+  <div class="grid2">
+    <div>
+      <p>For work that isn't “what to show”: changing the tab title, starting a timer, loading data from a server. These are called <b>side effects</b>.</p>
+      <table class="tag-table">
+        <tr><th>YOU WRITE</th><th>IT RUNS…</th></tr>
+        <tr><td>useEffect(fn, [])</td><td>once, after the first render</td></tr>
+        <tr><td>useEffect(fn, [likes])</td><td>first render + whenever <code>likes</code> changes</td></tr>
+        <tr><td>useEffect(fn)</td><td>after <b>every</b> render (rarely what you want)</td></tr>
+      </table>
+    </div>
+    <script type="text/plain" data-react data-console data-mark="7-10">
+      import { useState, useEffect } from "react";
+
+      function Likes() {
+        const [likes, setLikes] = useState(0);
+        const [name, setName] = useState("Goose");
+
+        useEffect(() => {
+          console.log("effect ran: likes is", likes);
+          document.title = likes + " likes";
+        }, [likes]);
+
+        return (
+          <div>
+            <button onClick={() => setLikes(likes + 1)}>♥ {likes}</button>
+            <input value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+        );
+      }
+
+      export default Likes;
+    </script>
+  </div>
+  <div class="one-line">The <code>[likes]</code> list is “<b>only re-run when these change</b>.” Click ♥: the effect runs and the tab title (top of the preview) changes. Type a name: it doesn't.</div>
+  <details class="speaker-notes"><summary>Teacher notes · watch the console</summary>
+    <p>Change <code>[likes]</code> to <code>[]</code>: the effect runs once and the title gets stuck at 0. Remove the array: now it runs on every keystroke in the name box too. In Mini Instagram we'll use the <code>[]</code> version to set each page's title.</p>
+  </details>
+</template>
+
+<template data-part="State & hooks" data-title="Checkpoint: state" data-time="3 MIN" data-label="STATE · CHECKPOINT">
+  <div class="eyebrow"><span class="badge check">CHECKPOINT</span>PREDICT WHAT HAPPENS</div>
+  <h2>State, events, <span class="accent">effects</span>.</h2>
+  <div class="quiz-grid">
+    <div class="quiz"><div class="q"><code>const [likes, setLikes] = useState(5)</code>. How do you add one?</div><div class="options">
+      <button data-why="Changing it directly doesn't tell React to redraw."><code>likes = likes + 1</code></button>
+      <button data-ok data-why="The setter changes the value and makes React redraw."><code>setLikes(likes + 1)</code></button>
+      <button data-why="useState is only called once at the top to create the state."><code>useState(6)</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">What does <code>setLikes</code> cause?</div><div class="options">
+      <button data-why="React doesn't reload the page. It only updates what changed.">the whole page reloads</button>
+      <button data-ok data-why="The component function runs again with the new value.">the component runs again</button>
+      <button data-why="It updates the screen too — that's the point.">only the variable changes</button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q">Which is right for a button?</div><div class="options">
+      <button data-ok data-why="Arrow function: runs on click."><code>onClick={() =&gt; setOpen(true)}</code></button>
+      <button data-why="This calls setOpen while drawing, not when clicked."><code>onClick={setOpen(true)}</code></button>
+    </div><div class="feedback"></div></div>
+    <div class="quiz"><div class="q"><code>useEffect(fn, [])</code> runs…</div><div class="options">
+      <button data-why="That's useEffect(fn) with no array.">after every render</button>
+      <button data-ok data-why="Empty list = nothing to watch = once.">once, after the first render</button>
+      <button data-why="Effects run after rendering, not before.">before the first render</button>
+    </div><div class="feedback"></div></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · the loop</summary>
+    <p>Have one student explain the full loop out loud: click → setter → component runs again → new JSX → React updates the DOM → effects whose dependencies changed run.</p>
+  </details>
+</template>
+
+<!-- ================= REAL PROJECT ================= -->
+<template data-part="A real project" data-title="Node.js & npm" data-time="4 MIN" data-label="SETUP 01 · TOOLS">
+  <div class="eyebrow"><span class="badge follow">FOLLOW ALONG</span>YOU INSTALLED THESE IN LESSON 1</div>
+  <h2>Check that <span class="accent">Node.js</span> is still installed.</h2>
+  <div class="cards">
+    <div><b>Node.js</b><p>Runs JavaScript <b>outside</b> the browser, on your computer. Our build tool (Vite) is a JavaScript program, so it needs Node.</p></div>
+    <div><b>npm</b><p>The <b>n</b>ode <b>p</b>ackage <b>m</b>anager. Downloads libraries like React into your project's <code>node_modules</code> folder.</p></div>
+    <div><b>Vite</b><p>Turns your JSX into plain JS, serves your app at <code>localhost</code>, and refreshes the browser every time you save.</p></div>
+  </div>
+  <p style="margin-top:16px">Check in the terminal. If you get “command not found”, download the <b>LTS</b> version from <a href="https://nodejs.org" target="_blank" rel="noreferrer">nodejs.org</a>, install it, then <b>restart VS Code</b> and check again:</p>
+  <div class="terminal"><span class="p">$</span> node -v
+<span class="o">v24.11.0</span>     <span class="c"># any version number = it worked</span>
+<span class="p">$</span> npm -v
+<span class="o">11.6.1</span></div>
+  <details class="speaker-notes"><summary>Teacher notes · common install problems</summary>
+    <p>“command not found”: the terminal was opened before installing — close and reopen VS Code. On Windows, if PowerShell blocks npm scripts, switch the VS Code terminal to Command Prompt (the dropdown next to the +).</p>
+    <p>Don't type the <code>$</code>. It just means “type this in the terminal.”</p>
+  </details>
+</template>
+
+<template data-part="A real project" data-title="Create the app" data-time="5 MIN" data-label="SETUP 02 · VITE">
+  <div class="eyebrow"><span class="badge follow">FOLLOW ALONG</span>IN THE VS CODE TERMINAL</div>
+  <h2>One command makes a <span class="accent">whole React project</span>.</h2>
+  <div class="terminal"><span class="c"># 1. get your repo: accept the GitHub Classroom link, then</span>
+<span class="p">$</span> git clone <i>your-repo-url</i>      <span class="c"># download it to your computer</span>
+<span class="p">$</span> cd <i>your-repo-folder</i>           <span class="c"># move into that folder</span>
+
+<span class="c"># 2. make a React app inside it (answer the questions with Enter)</span>
+<span class="p">$</span> npm create vite@latest mini-instagram -- --template react
+<span class="p">$</span> cd mini-instagram
+<span class="p">$</span> npm install                    <span class="c"># download React into node_modules</span>
+
+<span class="c"># 3. start the dev server</span>
+<span class="p">$</span> npm run dev
+<span class="o">  ➜  Local:   http://localhost:5173/</span>    <span class="c"># ctrl+click this link</span></div>
+  <div class="cards">
+    <div><b><code>npm create vite</code></b><p>Copies a ready-made starter project into a new folder called <code>mini-instagram</code>. <code>--template react</code> picks the React starter.</p></div>
+    <div><b><code>npm install</code></b><p>Reads <code>package.json</code> (the project's shopping list) and downloads everything on it.</p></div>
+    <div><b><code>npm run dev</code></b><p>Starts a <b>dev server</b>: a small program that shows your site at <code>localhost</code>, meaning “this computer.” Only you can see it.</p></div>
+  </div>
+  <div class="one-line">Leave <code>npm run dev</code> running while you work. Every time you <b>save</b>, the browser updates by itself. Stop it with <b>Ctrl+C</b>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · where are you?</summary>
+    <p>Most setup bugs are “wrong folder.” <code>npm install</code> and <code>npm run dev</code> must run in the folder that has <code>package.json</code>. Teach <code>pwd</code> (where am I) and <code>ls</code> / <code>dir</code> (what's here).</p>
+    <p>If Vite asks extra questions (TypeScript? Rolldown?), pick plain JavaScript / the defaults. Anyone stuck can copy <code>mini-instagram/starter/</code> and run <code>npm install</code> in it.</p>
+  </details>
+</template>
+
+<template data-part="A real project" data-title="Tour the files" data-time="4 MIN" data-label="SETUP 03 · THE FILES">
+  <div class="eyebrow">MOST FILES YOU NEVER TOUCH</div>
+  <h2>Only a few files are <span class="accent">yours</span>.</h2>
+  <div class="grid2">
+<div class="folder-tree" style="font-size:14px">📁 <b>mini-instagram</b>
+├── 📄 index.html       <span class="c">← the one HTML page</span>
+├── 📄 package.json     <span class="c">auto · lists libraries</span>
+├── 📄 vite.config.js   <span class="c">auto · leave it</span>
+├── 📁 node_modules     <span class="c">auto · never edit</span>
+└── 📁 <b>src</b>             <span class="c">← your code lives here</span>
+    ├── 📄 main.jsx     <span class="c">starts React</span>
+    ├── 📄 App.jsx      <span class="c">the top component</span>
+    ├── 📄 style.css    <span class="c">global styles</span>
+    └── 📁 <b>components</b>
+        ├── 📄 Profile.jsx
+        ├── 📄 Post.jsx
+        └── 📄 FollowButton.jsx</div>
+    <table class="tag-table">
+      <tr><th>FILE</th><th>ITS JOB</th></tr>
+      <tr><td>index.html</td><td>Has one empty <code>&lt;div id="root"&gt;</code>. React fills it.</td></tr>
+      <tr><td>main.jsx</td><td>Finds <code>#root</code> and tells React to draw <code>&lt;App /&gt;</code> in it.</td></tr>
+      <tr><td>App.jsx</td><td>The root component. It uses all the others.</td></tr>
+      <tr><td>style.css</td><td>Normal CSS, exactly like lesson 2.</td></tr>
+      <tr><td>components/</td><td>One file per component, named with a capital letter.</td></tr>
+    </table>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · node_modules</summary>
+    <p><code>node_modules</code> is huge (React, Vite, and everything they use). It's never committed to GitHub — <code>.gitignore</code> leaves it out — and anyone can recreate it with <code>npm install</code>.</p>
+  </details>
+</template>
+
+<template data-part="A real project" data-title="How the files connect" data-time="4 MIN" data-label="SETUP 04 · FROM HTML TO REACT">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>A WORKING PROJECT · CLICK EACH TAB IN ORDER</div>
+  <h2>From one empty div to a <span class="accent">whole app</span>.</h2>
+  <div class="flow" style="margin-bottom:6px">
+    <div><b>index.html</b><small>empty <code>&lt;div id="root"&gt;</code> + loads main.jsx</small></div><i>→</i>
+    <div><b>main.jsx</b><small><code>createRoot(…root…)</code><br><code>.render(&lt;App /&gt;)</code></small></div><i>→</i>
+    <div><b>App.jsx</b><small>returns JSX, uses other components</small></div><i>→</i>
+    <div><b>the page</b><small>plain HTML inside <code>#root</code></small></div>
+  </div>
+  <div data-live data-open="index.html">
+    <script type="text/plain" data-file="index.html" data-mark="9-10">
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Mini Instagram</title>
+        </head>
+        <body>
+          <div id="root"></div>
+          <script type="module" src="/src/main.jsx"><\/script>
+        </body>
+      </html>
+    </script>
+    <script type="text/plain" data-file="src/main.jsx" data-mark="4">
+      import { createRoot } from "react-dom/client";
+      import App from "./App.jsx";
+
+      createRoot(document.getElementById("root")).render(<App />);
+    </script>
+    <script type="text/plain" data-file="src/App.jsx">
+      function App() {
+        return <h1>Mini Instagram</h1>;
+      }
+
+      export default App;
+    </script>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · the one line to remember</summary>
+    <p>Read main.jsx's last line out loud: “Find the element with id root. Make it a React root. Render App inside it.” That's <code>document.getElementById</code> from the DOM slides — React starts from plain DOM code.</p>
+  </details>
+</template>
+
+<template data-part="A real project" data-title="Clean up the starter" data-time="3 MIN" data-label="SETUP 05 · CLEAN SLATE">
+  <div class="eyebrow"><span class="badge follow">FOLLOW ALONG</span>VITE'S DEMO PAGE HAS STUFF WE DON'T NEED</div>
+  <h2>Delete the demo, keep the <span class="accent">skeleton</span>.</h2>
+  <div class="compare">
+    <div class="bad"><b>✗ Delete</b><pre>src/App.css
+src/index.css
+src/assets/       (the React logo)
+public/vite.svg</pre></div>
+    <div class="good"><b>✓ Keep and change</b><pre>index.html   → title: Mini Instagram
+               (delete the vite.svg icon line)
+src/main.jsx → see step 1
+src/App.jsx  → see step 1</pre></div>
+  </div>
+  <div class="one-line">After deleting, the page will show errors about missing files. That's expected — <b>step 1</b> fixes them.</div>
+  <details class="speaker-notes"><summary>Teacher notes · StrictMode</summary>
+    <p>Vite's <code>main.jsx</code> wraps App in <code>&lt;StrictMode&gt;</code>. It's a helper that runs some code twice in development to catch bugs — which confuses beginners watching <code>console.log</code>. We remove it today to keep things simple.</p>
+  </details>
+</template>
+
+<!-- ================= WORKED EXAMPLE ================= -->
+<template data-part="Build Mini Instagram" data-title="What we're building" data-time="3 MIN" data-label="BUILD 00 · THE PLAN">
+  <div class="eyebrow">PLAN THE COMPONENTS BEFORE YOU TYPE</div>
+  <h2>Together: a <span class="accent">Mini Instagram</span>.</h2>
+  <div class="grid2">
+    <div class="w-box" data-name="App" style="border:2px dashed var(--blue);padding:16px 10px 10px;background:#fff;position:relative">
+      <div class="insta" style="max-width:none">
+        <div class="w-box" data-name="Navbar">Mini Instagram <span style="float:right">Home · Profile</span></div>
+        <div class="w-box" data-name="Profile  (the /profile page)">
+          <div style="display:flex;gap:10px;align-items:center;margin-top:6px">● <b>CS + SG</b> @cssg.education <span class="w-box" data-name="FollowButton" style="margin-left:auto">Follow</span></div>
+          <div class="row" style="margin-top:16px">
+            <div class="w-box" data-name="Post"><div class="ph"></div>♥ Like · 42 likes</div>
+            <div class="w-box" data-name="Post"><div class="ph"></div>♥ Like · 18 likes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>The order we'll work in</h3>
+      <ol style="font-size:14px;line-height:1.7;margin-top:0">
+        <li>Clean slate, then global CSS</li>
+        <li>A <b>Profile</b> component, then a <b>Post</b> with props</li>
+        <li><b>map()</b> over the posts, then <b>useState</b> likes</li>
+        <li>A <b>FollowButton</b>, then move the data into <code>data.js</code></li>
+        <li><b>Routes</b> for two pages, a <b>Navbar</b>, tab titles with <b>useEffect</b></li>
+      </ol>
+      <p style="font-size:14px">Each step: the <b>green lines</b> are new. The <b>●</b> tabs are the files to change. The preview is the real app at that step — try clicking things.</p>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · class plan</summary>
+    <p>Students type into their own project from the setup slides. Anyone behind can copy <code>mini-instagram/starter/</code> (step 1) and keep going. The finished app is in <code>mini-instagram/completed/</code>.</p>
+    <p>The code on each step slide is editable, so you can demo a mistake live and press <i>reset</i> to get back.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 1 · Clean slate" data-time="4 MIN" data-label="BUILD 01 · CLEAN SLATE">
+  <h2><span class="badge follow">FOLLOW ALONG</span>The smallest React app that <span class="accent">works</span>.</h2>
+  <div data-example-step="1"></div>
+  <details class="speaker-notes"><summary>Teacher notes · check it runs</summary>
+    <p>Replace everything in App.jsx and main.jsx with this. Save. The browser should show “Mini Instagram.” If it's blank, open the browser console (F12) — the error is there, and also in the terminal running <code>npm run dev</code>.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 2 · Global CSS" data-time="3 MIN" data-label="BUILD 02 · CSS">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Make <span class="accent">style.css</span> and import it once.</h2>
+  <div data-example-step="2"></div>
+  <div class="one-line">In React, you import CSS from JavaScript: <code>import "./style.css";</code> in main.jsx. The rules then apply to <b>every</b> component. JSX uses <code>className</code>; the browser sees <code>class</code>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · it's just CSS</summary>
+    <p>Everything from lesson 2 still applies — selectors, the cascade, DevTools. Inspect the h1 to show the class landed on the real element.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 3 · Profile component" data-time="5 MIN" data-label="BUILD 03 · COMPONENT">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Our first component in its <span class="accent">own file</span>.</h2>
+  <div data-example-step="3"></div>
+  <details class="speaker-notes"><summary>Teacher notes · make the folder</summary>
+    <p>Create <code>src/components/</code> and <code>Profile.jsx</code> inside it. Three moves every time you make a component: <b>write</b> the function, <b>export</b> it, <b>import</b> and use it in the parent. The <code>user</code> object is plain JS from the objects slide; <code>{ }</code> puts its values in the page.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 4 · Post with props" data-time="5 MIN" data-label="BUILD 04 · PROPS">
+  <h2><span class="badge follow">FOLLOW ALONG</span>One <span class="accent">Post</span> component, different details.</h2>
+  <div data-example-step="4"></div>
+  <button class="reveal-btn" data-reveal>Why is copying these Post lines a bad idea for 100 posts?</button>
+  <div class="answer">Each new post means another hand-written line, and the data (image, caption) is mixed into the layout. Next step we move the posts into an <b>array</b> and let <code>map()</code> write one <code>&lt;Post /&gt;</code> per item.</div>
+  <details class="speaker-notes"><summary>Teacher notes · props in, JSX out</summary>
+    <p>Point at Post's first line: <code>{ image, caption }</code> unpacks the props. The attributes we write in Profile become those variables in Post.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 5 · map() the posts" data-time="4 MIN" data-label="BUILD 05 · LISTS">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Data in an array, <span class="accent">map()</span> to components.</h2>
+  <div data-example-step="5"></div>
+  <div class="one-line">Add a fifth post to the array — the page grows and no component changes. <b>Change the data, the page follows.</b></div>
+  <details class="speaker-notes"><summary>Teacher notes · key again</summary>
+    <p><code>key={post.id}</code> isn't a prop Post can read — it's for React itself, to keep track of which post is which. Every item in a <code>map()</code> needs one.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 6 · Likes with useState" data-time="5 MIN" data-label="BUILD 06 · STATE">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Each post <span class="accent">remembers</span> its own likes.</h2>
+  <div data-example-step="6"></div>
+  <div class="one-line">The <code>likes</code> prop is only the <b>starting</b> value. Click Like on two different posts — each <code>Post</code> has its own separate state.</div>
+  <details class="speaker-notes"><summary>Teacher notes · props vs state</summary>
+    <p><b>Props</b> come from the parent and the component can't change them. <b>State</b> lives inside the component and changes over time. Here a prop seeds the state. Note: refreshing the page resets the likes — nothing is saved yet (that needs a server, a later lesson).</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 7 · FollowButton" data-time="4 MIN" data-label="BUILD 07 · TOGGLE">
+  <h2><span class="badge follow">FOLLOW ALONG</span>A button that <span class="accent">flips</span>.</h2>
+  <div data-example-step="7"></div>
+  <div class="one-line">The ternary picks the <b>class</b> and the <b>text</b> from one boolean. The colors live in <code>style.css</code> under <code>.follow-btn.following</code>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · compare with the demo</summary>
+    <p>Earlier we styled this with an inline <code>style={{ }}</code>. Now the same idea uses classes and a CSS file. Both work — classes keep the JSX shorter.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 8 · Share the data" data-time="3 MIN" data-label="BUILD 08 · data.js">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Move the data into its <span class="accent">own file</span>.</h2>
+  <div data-example-step="8"></div>
+  <div class="one-line">Next step, the Home page needs the posts too. <code>export const user</code> is a <b>named</b> export, so Profile imports it with braces: <code>import { user } from "../data.js"</code>. <code>../</code> means “up one folder.”</div>
+  <details class="speaker-notes"><summary>Teacher notes · nothing changes on screen</summary>
+    <p>This is a refactor: the page looks identical, but the code is better organized. Cut the whole <code>user</code> object out of Profile and paste it into <code>src/data.js</code>.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Routing: pages without reloading" data-time="5 MIN" data-label="BUILD · ROUTING IDEA">
+  <div class="eyebrow"><span class="badge demo">LIVE</span>ONE HTML FILE, MANY “PAGES”</div>
+  <h2>A <span class="accent">router</span> picks a component for each URL.</h2>
+  <div class="grid2">
+    <div class="cards" style="grid-template-columns:1fr;margin-top:14px">
+      <div><b><code>&lt;BrowserRouter&gt;</code></b><p>Wraps the whole app (in main.jsx) and watches the URL.</p></div>
+      <div><b><code>&lt;Routes&gt;</code> + <code>&lt;Route&gt;</code></b><p>“When the path is <code>/profile</code>, show <code>&lt;Profile /&gt;</code>.” The first match wins.</p></div>
+      <div><b><code>&lt;Link to="/profile"&gt;</code></b><p>Like <code>&lt;a href&gt;</code>, but it swaps the component <b>without reloading</b> the whole site.</p></div>
+    </div>
+    <script type="text/plain" data-react>
+      import { BrowserRouter, Routes, Route, Link } from "react-router";
+
+      const Home = () => <h2>🏠 Home feed</h2>;
+      const Profile = () => <h2>👤 Profile page</h2>;
+
+      function App() {
+        return (
+          <BrowserRouter>
+            <nav>
+              <Link to="/">Home</Link> · <Link to="/profile">Profile</Link>
+            </nav>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </BrowserRouter>
+        );
+      }
+
+      export default App;
+    </script>
+  </div>
+  <div class="try"><b>Install it in your project</b> (stop the dev server with Ctrl+C first): <code>npm install react-router</code>, then <code>npm run dev</code> again. Older tutorials say <code>react-router-dom</code> — it's the same library.</div>
+  <details class="speaker-notes"><summary>Teacher notes · watch the address bar</summary>
+    <p>Click the links: the URL in the preview's address bar changes, but the page never reloads. Add a third route: <code>&lt;Route path="/about" element={&lt;h2&gt;About&lt;/h2&gt;} /&gt;</code> and a Link to it.</p>
+    <p>(The slide preview keeps the URL in memory because it lives inside a frame. In your project the real browser address bar changes.)</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 9 · Routes" data-time="5 MIN" data-label="BUILD 09 · ROUTES">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Two pages: <span class="accent">Home</span> and <span class="accent">Profile</span>.</h2>
+  <div data-example-step="9"></div>
+  <div class="one-line"><code>BrowserRouter</code> goes in main.jsx around <code>&lt;App /&gt;</code>. Home <b>reuses</b> the same <code>Post</code> component — build once, use on any page. There are no links yet, so you can only see Home… next step fixes that.</div>
+  <details class="speaker-notes"><summary>Teacher notes · test by typing the URL</summary>
+    <p>In their real browser, students can type <code>localhost:5173/profile</code> to check the second route works before the navbar exists.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 10 · Navbar" data-time="4 MIN" data-label="BUILD 10 · LINKS">
+  <h2><span class="badge follow">FOLLOW ALONG</span>A <span class="accent">Navbar</span> with Links.</h2>
+  <div data-example-step="10"></div>
+  <div class="one-line">Click between pages: the address changes, the page <b>never reloads</b>. Now like a post on Home, go to Profile and come back — the likes reset. When a page goes away, its components (and their state) are <b>removed</b>.</div>
+  <details class="speaker-notes"><summary>Teacher notes · where does state live?</summary>
+    <p>Ask the class why the likes reset. Each Post owns its own state, and Home's Posts are thrown away when we switch to Profile. To keep likes across pages, the state has to live <i>above</i> both pages, in App, and be passed down as props. That's called “lifting state up” — a great next-lesson topic.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Our component tree" data-time="2 MIN" data-label="BUILD · THE TREE">
+  <div class="eyebrow">REMEMBER THE DOM TREE? COMPONENTS MAKE ONE TOO</div>
+  <h2>Our app as a <span class="accent">tree of components</span>.</h2>
+  <div class="grid2">
+<div class="comp-tree"><b>main.jsx</b>
+└── <i>BrowserRouter</i>
+    └── <b>App</b>
+        ├── <b>Navbar</b>
+        │   └── <i>Link</i> × 3
+        └── <i>Routes</i>
+            ├── "/"        → <b>Home</b>
+            │                 └── <b>Post</b> × 4
+            └── "/profile" → <b>Profile</b>
+                              ├── <b>FollowButton</b>
+                              └── <b>Post</b> × 4</div>
+    <div>
+      <div class="quiz"><div class="q">Who gives <code>Post</code> its caption?</div><div class="options">
+        <button data-why="Post receives the caption; it doesn't decide it.">Post itself</button>
+        <button data-ok data-why="The parent (Home or Profile) passes caption as a prop.">its parent, as a prop</button>
+        <button data-why="App doesn't know about posts at all.">App</button>
+      </div><div class="feedback"></div></div>
+      <div class="quiz"><div class="q">Where does <code>isFollowing</code> live?</div><div class="options">
+        <button data-ok data-why="It's state inside FollowButton. Nobody else can see it.">FollowButton's state</button>
+        <button data-why="Profile never sees it — it lives one level down.">Profile's state</button>
+        <button data-why="It's not in the data file; it's created by useState.">data.js</button>
+      </div><div class="feedback"></div></div>
+    </div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · data flows down</summary>
+    <p>Props flow down the tree, from parent to child. State lives in the component that owns it. Install the “React Developer Tools” browser extension to see this tree on any React site.</p>
+  </details>
+</template>
+
+<template data-part="Build Mini Instagram" data-title="Step 11 · Tab titles" data-time="4 MIN" data-label="BUILD 11 · useEffect">
+  <h2><span class="badge follow">FOLLOW ALONG</span>Set each page's title with <span class="accent">useEffect</span>.</h2>
+  <div data-example-step="11"></div>
+  <div class="one-line">The title is part of the <b>browser</b>, not part of our JSX, so changing it is a side effect. <code>[]</code> means “once, when this page appears.” Watch the tab title in the preview bar as you switch pages.</div>
+  <details class="speaker-notes"><summary>Teacher notes · done!</summary>
+    <p>That's the whole app: components, props, lists, state, events, routing, and an effect. Compare with <code>mini-instagram/completed/</code>. Have everyone commit and push now: <code>git add .</code> → <code>git commit -m "Mini Instagram"</code> → <code>git push</code>.</p>
+  </details>
+</template>
+
+<!-- ================= WRAP UP ================= -->
+<template data-part="Wrap-up" data-title="Common mistakes" data-time="3 MIN" data-label="WRAP-UP 01 · DEBUGGING">
+  <div class="eyebrow">WHEN SOMETHING BREAKS, CHECK THESE FIRST</div>
+  <h2>Nine bugs <span class="accent">everyone</span> makes.</h2>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div><span class="big">01</span><b>Wrong folder</b><p><code>npm run dev</code> must run where <code>package.json</code> is.</p></div>
+    <div><span class="big">02</span><b>Two things returned</b><p>Wrap them in one <code>&lt;div&gt;</code> or <code>&lt;&gt;…&lt;/&gt;</code>.</p></div>
+    <div><span class="big">03</span><b><code>class=</code></b><p>Use <code>className</code> in JSX.</p></div>
+    <div><span class="big">04</span><b>Import path typo</b><p><code>./post.jsx</code> ≠ <code>./Post.jsx</code>. Capitals matter.</p></div>
+    <div><span class="big">05</span><b>Forgot the export</b><p>Every component file ends with <code>export default Name;</code></p></div>
+    <div><span class="big">06</span><b>lowercase component</b><p><code>&lt;post /&gt;</code> is treated as an HTML tag. Use <code>Post</code>.</p></div>
+    <div><span class="big">07</span><b><code>onClick={fn()}</code></b><p>Pass <code>fn</code>, or <code>() =&gt; fn(x)</code>.</p></div>
+    <div><span class="big">08</span><b>Changing state directly</b><p><code>likes++</code> ✗ → <code>setLikes(likes + 1)</code> ✓</p></div>
+    <div><span class="big">09</span><b>Missing <code>key</code></b><p>Every item from <code>map()</code> needs a unique <code>key</code>.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · where errors show up</summary>
+    <p>Three places to look: the red overlay in the browser, the browser console (F12), and the terminal running <code>npm run dev</code>. Read the first line of the error — it usually names the file and line.</p>
+  </details>
+</template>
+
+<template data-part="Wrap-up" data-title="Cheat sheet: plain JS → React" data-time="3 MIN" data-label="WRAP-UP 02 · ONE LAYER UP">
+  <div class="eyebrow">EVERY REACT IDEA TODAY HAS A PLAIN-JS VERSION UNDERNEATH</div>
+  <h2>React is the same jobs, <span class="accent">one layer up</span>.</h2>
+  <table class="tag-table">
+    <tr><th>WHAT YOU WANT</th><th>PLAIN HTML / CSS / JS</th><th>REACT</th></tr>
+    <tr><td>a piece of the page</td><td>HTML tags, or <code>document.createElement</code></td><td>JSX: <code>&lt;p&gt;Hi&lt;/p&gt;</code></td></tr>
+    <tr><td>a reusable piece</td><td>a function like <code>makePost(post)</code> that returns an element</td><td>a component: <code>function Post(props)</code></td></tr>
+    <tr><td>give it details</td><td>function arguments: <code>makePost(post)</code></td><td>props: <code>&lt;Post caption="Hi" /&gt;</code></td></tr>
+    <tr><td>one per item in a list</td><td><code>posts.forEach(…)</code> + <code>appendChild</code></td><td><code>{posts.map(…)}</code> with a <code>key</code></td></tr>
+    <tr><td>a value that changes</td><td><code>let likes = 0</code></td><td><code>const [likes, setLikes] = useState(0)</code></td></tr>
+    <tr><td>react to a click</td><td><code>addEventListener("click", fn)</code></td><td><code>onClick={fn}</code></td></tr>
+    <tr><td>update the page</td><td>find the element, set <code>textContent</code></td><td>call the setter. React does the rest</td></tr>
+    <tr><td>add a class</td><td><code>class="card"</code></td><td><code>className="card"</code></td></tr>
+    <tr><td>another page</td><td>another <code>.html</code> file + <code>&lt;a href&gt;</code> (full reload)</td><td><code>&lt;Route&gt;</code> + <code>&lt;Link&gt;</code> (no reload)</td></tr>
+  </table>
+  <div class="one-line">Stuck on something in React? Ask: “<b>How would I do this in plain JS?</b>” Then find the row that matches.</div>
+  <details class="speaker-notes"><summary>Teacher notes · cover a column</summary>
+    <p>Cover the React column and ask students to fill it in from memory, then do the reverse. Remind them CSS didn't change at all: <code>style.css</code> is the same CSS from lesson 2.</p>
+  </details>
+</template>
+
+<template data-part="Wrap-up" data-title="Recap" data-time="2 MIN" data-label="WRAP-UP 03 · RECAP">
+  <div class="eyebrow">WHAT YOU NOW KNOW</div>
+  <h2>Components, props, state, <span class="accent">routes</span>.</h2>
+  <div class="cards">
+    <div><b>React sits on top</b><p>It writes the HTML for you. The browser still only sees HTML, CSS, and JS.</p></div>
+    <div><b>Components are functions</b><p>Capital name, return JSX, export default. Use like a tag: <code>&lt;Post /&gt;</code>.</p></div>
+    <div><b>JSX + { }</b><p>HTML-like syntax; curly braces drop JavaScript values in.</p></div>
+    <div><b>Props flow down</b><p>Parents pass details to children. <code>map()</code> makes one component per item.</p></div>
+    <div><b>State changes things</b><p><code>useState</code> + the setter → React re-runs the component and updates the page.</p></div>
+    <div><b>Routes &amp; effects</b><p>A router swaps pages without reloading. <code>useEffect</code> runs side effects after rendering.</p></div>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · exit question</summary>
+    <p>“You click Like and the number doesn't change. What are two things you'd check?” (Am I calling the setter, not changing the variable? Is onClick given the function, not calling it?)</p>
+  </details>
+</template>
+
+<template data-part="Wrap-up" data-title="Your turn" data-time="1 MIN" data-label="WRAP-UP 04 · ASSIGNMENT">
+  <div class="title-slide" style="min-height:44vh">
+    <div>
+      <div class="eyebrow">ABOUT 60 MINUTES · PAIRS WELCOME</div>
+      <h1>Make it<br><span class="accent">yours</span>.</h1>
+      <p class="lead">Turn Mini Instagram into your own profile: your data, a new component, a like toggle, a third page.</p>
+      <button class="next-button" data-open="assignment">Open the assignment →</button>
+    </div>
+    <ul class="checklist">
+      <li>Project running with <code>npm run dev</code></li>
+      <li>Your own data in data.js</li>
+      <li>A Stats component with props</li>
+      <li>Like ↔ unlike with state</li>
+      <li>An About page with a route and a link</li>
+    </ul>
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · circulate</summary>
+    <p>While they work, ask individuals: “Is that a prop or state? Who owns it?” Being able to answer is the goal.</p>
+  </details>
+</template>
+
+<template data-part="Wrap-up" data-title="Thank you · attendance" data-time="1 MIN" data-label="WRAP-UP 05 · ATTENDANCE">
+  <div class="title-slide" style="min-height:44vh">
+    <div>
+      <div class="eyebrow">BEFORE YOU GO</div>
+      <h1>Thank <span class="accent">you</span>!</h1>
+      <p class="lead">Scan the code to mark your attendance. Questions? Bring them to the next meeting, or ask in the club chat.</p>
+    </div>
+    <img src="images/attendance-qr.png" alt="Attendance QR code" width="260" height="260" style="justify-self:center;background:#fff;padding:12px;border:1px solid var(--line)">
+  </div>
+  <details class="speaker-notes"><summary>Teacher notes · update the code</summary>
+    <p>Replace <code>images/attendance-qr.png</code> if the attendance form changes for this session.</p>
+  </details>
+</template>
+
+</div>
+<script src="vendor/babel.min.js"></script>
+<script>
+  // Opened straight from disk? Previews can't load vendor files there, so bring them along as text.
+  if (location.protocol === 'file:') document.write('<script src="vendor/inline.js"><\/script>');
+</script>
+<script src="live.js"></script>
+<script src="example.js"></script>
+<script src="deck.js"></script>
+</body>
+</html>
