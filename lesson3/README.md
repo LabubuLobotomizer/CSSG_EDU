@@ -1,33 +1,47 @@
-# Lesson 3 · JavaScript & React from zero
+# Lesson 3 · React + TypeScript
 
-An interactive slide deck for beginners, built as a follow-along. It combines the two
-Week 03 decks: the JavaScript + DOM intro from the first, and the Mini Instagram build
-from the second. React is taught as one layer on top of plain HTML, CSS, and JS.
+“Objects in, JSX out.” An interactive slide deck for beginners, built as a follow-along.
+It teaches React with TypeScript as one layer on top of plain HTML, CSS, and JS, and
+builds a typed Mini Instagram. It follows the lesson's ten stops:
 
-1. **Start**: where React fits (a layer above HTML/CSS/JS), how the session works
-2. **JS you need**: let/const, objects & arrays, functions, arrow functions, `map()`,
-   ternaries, destructuring, import/export, a checkpoint quiz
-3. **The DOM by hand**: `<script>` tags, changing the page with plain JS, a like button
-   with no React, building elements from data with `createElement` (a component by hand),
-   and why keeping the page in sync by hand gets painful
-4. **Components & JSX**: first component, JSX → `React.createElement` (live), JSX rules,
-   fixing broken JSX, `{ }`, how rendering works
-5. **Props**: components in components, props, lists with `map()` and `key`
-6. **State & hooks**: why normal variables don't work, `useState`, re-rendering,
-   events, the like button in plain JS vs React, toggles, inputs, `useEffect`
-7. **A real project**: Node + npm, `npm create vite`, the files and how they connect
-8. **Build Mini Instagram**: 11 follow-along steps, plus routing with React Router
-9. **Wrap-up**: common mistakes, a plain JS → React cheat sheet, recap, the assignment
+- **Intro**: cover, today's ten stops (no `useEffect` or fetching until next week), where
+  React fits, why React (UI = f(state)), plain JS rendering from data (and losing focus,
+  typed text and escaping), the same app in React
+- **01 · Setup**: Node 20+, `npm create vite@latest -- --template react-ts`, deleting the
+  demo, where things live (`.tsx` vs `.ts`, one component per file, capitalized names),
+  how the files connect, step 1
+- **02 · Types**: components are functions and props are objects, a type describes a shape
+  (unions, arrays, optional keys, nested objects), types are erased (live), the types you'll
+  use and inference, TypeScript checking data (real compiler messages), steps 2–3, a quiz
+- **03 · Objects & arrays**: dot access, `??`, destructuring, spread; `map`, `filter`,
+  `find`, `some`, copy-then-`sort`; arrows and ternaries; import/export and
+  `import type`; a quiz
+- **04 · Components**: props as one typed object (data in, actions out), the full PostCard,
+  attributes → `jsx(Component, props)` (live), read-only props and `children`, steps 4–5
+- **05 · JSX**: six differences from HTML, fixing broken JSX, JSX → JavaScript, `{ }`
+  expressions and class strings, one root (fragments, semantic tags), rendering, a quiz
+- **06 · Lists**: `.map` + stable keys (key isn't a prop), why not index keys (live),
+  `&&` / ternary / empty states / the `0` gotcha, step 6
+- **07 · Events**: pass the function, don't call it; `onClick`, `onChange`, `onSubmit`,
+  `onKeyDown`; typing events (`ChangeEvent`, `SubmitEvent` + `preventDefault`, inference)
+- **08 · State**: `useState` with explicit types for `[]` and `null`, re-rendering, steps 7–8,
+  new values never mutation, controlled inputs and derived values, lifting state, a quiz
+- **09 · Build it**: Parts 1–4 in `App.tsx`: favorites + `toggleFavorite` + derived
+  `visible`, header with count and search, `TAGS.map` tag buttons, `visible.map` + empty state
+- **10 · Wrap-up**: five bugs everyone writes (live), quick checks, cheat sheet, recap,
+  stretch: React Router (live), homework (port your content, build and deploy), next week
+  (`useEffect`, `fetch`, loading and error states)
 
 ## Original Week 03 slides
 
-All slides from the two original Week 03 decks (by the CS+SG Education Team) are in the
-deck exactly as they were made: they're rendered images in `original/` (from the
-`.pptx` files, via LibreOffice), framed as **ORIGINAL SLIDE** and shown in italics with
-a ◆ in the sidebar. Each one sits just before the website slides that expand on it. Their
-links and speaker notes are shown under the image. Two slides in deck #2 were exact
-copies of deck 1 slides (“React!” and “React Routing”), so each appears once. The last
-slide of deck #2 (“Thank you!!!” with the attendance QR code) is left out.
+The original Week 03 slides (by the CS+SG Education Team) are in the deck exactly as
+they were made: they're rendered images in `original/` (from the `.pptx` files, via
+LibreOffice), framed as **ORIGINAL SLIDE** and shown in italics with a ◆ in the sidebar.
+Each one sits just before the website slides that expand on it, with a short note where
+the TypeScript version differs (`.tsx` file names, `PostCard` instead of `Post`). Two
+slides in deck #2 were exact copies of deck 1 slides (“React!” and “React Routing”), so
+each appears once. The last slide of deck #2 (“Thank you!!!” with the attendance QR code)
+is left out.
 
 To add one: `<template data-original="deck2-03" data-part="…" data-title="…" data-time="2 MIN" data-label="…"></template>`.
 To re-render after a deck changes:
@@ -52,30 +66,37 @@ and open <http://localhost:8000>. Everything (React, React Router, Babel) is in
   The URL hash (`#12`) keeps your place. **Present** goes full screen and hides teacher notes.
 - **LIVE slides**: the code is editable. The preview updates as you type, syntax errors
   appear over the preview, and `console.log` output shows in the console box.
-  **reset** restores the original code. JavaScript-only slides run on **▶ run** / Ctrl+Enter.
-- **Playground**: a multi-file React app in the browser (counter, blank app, or the
+  **reset** restores the original code. Code-only slides run on **▶ run** / Ctrl+Enter.
+  The slides strip TypeScript types (like `npm run dev`) but don't type-check: that's
+  VS Code's and `npm run build`'s job. The “TS checks your data” slide shows real
+  TypeScript 7 messages.
+- **Playground**: a multi-file React + TypeScript app in the browser (counter, blank app, or the
   finished Mini Instagram). **+ file** adds a component file.
 - **Assignment**: the “make it yours” checklist (remembered in that browser).
 
 ## The real project
 
-`mini-instagram/` has the same app as a real Vite project. See its README.
+`mini-instagram/` has the same app as a real Vite + TypeScript project (the same config as
+`npm create vite@latest -- --template react-ts`). See its README.
 
 ## Editing
 
 - Slides are `<template>` elements in `index.html`. Code goes in
-  `<script type="text/plain">` blocks so you can write JSX/HTML without escaping
+  `<script type="text/plain">` blocks so you can write TSX/HTML without escaping
   (write `<\/script>` for a closing script tag inside one):
   - `data-react` → editable component + live preview (`data-console` adds a console,
-    `data-file="Name.jsx"` names the tab)
-  - `data-js` → editable JavaScript + console, runs on ▶ run
-  - `data-compile` → JSX on the left, the compiled JavaScript on the right
+    `data-file="Name.tsx"` names the tab; the default is `App.tsx`)
+  - `data-js` → editable TypeScript (`script.ts`) + console, runs on ▶ run
+  - `data-compile` → TSX on the left, the compiled JavaScript (`jsx(…)` calls, no types)
+    on the right; `data-file="x.ts"` for a types-only example
   - `data-html-live` → editable plain HTML page (with `<script>`) + console
   - none of the above → read-only code; `data-lang`, `data-label`, `data-big`
   - `data-mark="2-4"` highlights lines on any of them
-- Multi-file demos: `<div data-live data-open="App.jsx">` holding several
+  - a `<ul class="problems">` right after a read-only block draws VS Code-style type
+    errors: `<li data-line="4">message</li>` squiggles line 4
+- Multi-file demos: `<div data-live data-open="App.tsx">` holding several
   `<script type="text/plain" data-file="...">` blocks. Imports between them work, and
-  `import "./style.css"` applies the CSS.
+  `import "./index.css"` applies the CSS.
 - Previews swap `BrowserRouter` for an in-memory router (a frame can't change its own
   address); the browser bar shows the current path and the tab title.
 - `.quiz` blocks: put `data-ok` on the right button and `data-why` on every button.

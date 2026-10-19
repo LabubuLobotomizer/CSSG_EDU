@@ -26,12 +26,30 @@
     return marks;
   }
 
-  function codeWindow(code, { lang = 'js', label = '', marks = null, big = false, right = '' } = {}) {
+  function codeWindow(code, { lang = 'js', label = '', marks = null, errs = null, big = false, right = '' } = {}) {
     const box = document.createElement('div');
     box.className = 'code-window' + (big ? ' big' : '');
     box.innerHTML = '<div class="window-label"><span>' + esc(label) + '</span><span>' + right + '</span></div>' +
-      '<pre>' + highlight(code.replace(/\n$/, ''), lang, marks) + '</pre>';
+      '<pre>' + highlight(code.replace(/\n$/, ''), lang, marks, errs) + '</pre>';
     return box;
+  }
+
+  // A <ul class="problems"> right after a code block lists type errors, VS Code style:
+  // <li data-line="4">message</li>. Those lines get a red squiggle; hovering an error
+  // or clicking it lights up its line.
+  function problems(list, codeBox) {
+    const head = document.createElement('div');
+    head.className = 'problems-head';
+    head.textContent = 'PROBLEMS · ' + list.children.length;
+    list.before(head);
+    list.querySelectorAll('li[data-line]').forEach(li => {
+      li.tabIndex = 0;
+      const line = () => codeBox && codeBox.querySelectorAll('.ln')[li.dataset.line - 1];
+      const on = () => { list.querySelectorAll('li').forEach(x => x.classList.remove('hot')); li.classList.add('hot'); line() && line().classList.add('hot'); };
+      const off = () => { li.classList.remove('hot'); line() && line().classList.remove('hot'); };
+      li.addEventListener('mouseenter', on); li.addEventListener('mouseleave', off);
+      li.addEventListener('focus', on); li.addEventListener('blur', off);
+    });
   }
 
   // Which lines are new in `after` compared with `before` (longest common subsequence).
@@ -124,16 +142,21 @@
     root.querySelectorAll('script[type="text/plain"]').forEach(block => {
       const code = dedent(block.textContent);
       const d = block.dataset;
-      const name = d.file || 'App.jsx';
+      const name = d.file || ('js' in d ? 'script.ts' : 'App.tsx');
       const marks = parseMarks(d.mark);
-      const common = { big: 'big' in d, stack: 'stack' in d, marks: { [name]: marks } };
+      const common = { big: 'big' in d, stack: 'stack' in d, file: name, marks: { [name]: marks } };
       let node;
       if ('react' in d) node = window.Live.live({ [name]: code }, Object.assign(common, { console: 'console' in d, path: d.path }));
-      else if ('js' in d) node = window.Live.jsRunner(code, Object.assign(common, { marks: { 'script.js': marks } }));
-      else if ('compile' in d) node = window.Live.jsxCompiler(code, Object.assign(common, { marks: { 'App.jsx': marks } }));
+      else if ('js' in d) node = window.Live.jsRunner(code, common);
+      else if ('compile' in d) node = window.Live.jsxCompiler(code, common);
       else if ('htmlLive' in d) node = window.Live.live({ 'index.html': code },
         Object.assign(common, { mode: 'html', console: true, label: 'index.html', marks: { 'index.html': marks } }));
-      else node = codeWindow(code, { lang: d.lang || window.Live.langOf(name), label: d.label || '', marks, big: 'big' in d });
+      else {
+        const list = block.nextElementSibling && block.nextElementSibling.matches('ul.problems') ? block.nextElementSibling : null;
+        const errs = list ? new Set([...list.querySelectorAll('li[data-line]')].map(li => Number(li.dataset.line))) : null;
+        node = codeWindow(code, { lang: d.lang || window.Live.langOf(name), label: d.label || '', marks, errs, big: 'big' in d });
+        if (list) problems(list, node);
+      }
       if (d.style) node.style.cssText += d.style;
       block.replaceWith(node);
     });
@@ -238,12 +261,12 @@
 
   const finished = example.files(example.last);
   const samples = {
-    counter: { 'App.jsx': 'import { useState } from "react";\n\nfunction App() {\n  const [count, setCount] = useState(0);\n  console.log("App rendered. count is", count);\n\n  return (\n    <div>\n      <h1>You clicked {count} times</h1>\n      <button onClick={() => setCount(count + 1)}>Click me</button>\n    </div>\n  );\n}\n\nexport default App;\n' },
+    counter: { 'App.tsx': "import { useState } from \"react\";\n\nfunction App() {\n  const [count, setCount] = useState(0);\n  console.log(\"App rendered. count is\", count);\n\n  return (\n    <div>\n      <h1>You clicked {count} times</h1>\n      <button onClick={() => setCount(count + 1)}>Click me</button>\n    </div>\n  );\n}\n\nexport default App;\n" },
     blank: {
       'index.html': finished['index.html'].replace('Mini Instagram', 'My React app'),
-      'src/main.jsx': 'import { createRoot } from "react-dom/client";\nimport App from "./App.jsx";\nimport "./style.css";\n\ncreateRoot(document.getElementById("root")).render(<App />);\n',
-      'src/App.jsx': 'function App() {\n  return (\n    <div className="app">\n      <h1>Hello!</h1>\n      <p>Edit src/App.jsx. Add files with “+ file”.</p>\n    </div>\n  );\n}\n\nexport default App;\n',
-      'src/style.css': 'body {\n  font-family: system-ui, sans-serif;\n  margin: 0;\n}\n\n.app {\n  padding: 16px;\n}\n'
+      'src/main.tsx': finished['src/main.tsx'],
+      'src/App.tsx': "function App() {\n  return (\n    <main className=\"app\">\n      <h1>Hello!</h1>\n      <p>Edit src/App.tsx. Add files with “+ file”.</p>\n    </main>\n  );\n}\n\nexport default App;\n",
+      'src/index.css': "body {\n  font-family: system-ui, sans-serif;\n  margin: 0;\n}\n\n.app {\n  padding: 16px;\n}\n"
     },
     insta: finished
   };
@@ -253,11 +276,11 @@
     const select = document.getElementById('pgSample');
     pg = window.Live.live(samples.counter, { console: true, full: true });
     document.getElementById('pgHolder').append(pg);
-    select.addEventListener('change', () => pg.editor.setFiles(samples[select.value], select.value === 'insta' ? 'src/App.jsx' : undefined));
+    select.addEventListener('change', () => pg.editor.setFiles(samples[select.value], select.value === 'insta' ? 'src/App.tsx' : undefined));
     document.getElementById('pgAddFile').addEventListener('click', () => {
-      const name = prompt('New file name (for example src/components/Card.jsx):', 'src/components/');
-      if (name && /\.(jsx?|css)$/.test(name.trim())) pg.editor.addFile(name.trim());
-      else if (name) alert('Use a name ending in .jsx, .js, or .css');
+      const name = prompt('New file name (for example src/components/Card.tsx):', 'src/components/');
+      if (name && /\.([jt]sx?|css)$/.test(name.trim())) pg.editor.addFile(name.trim());
+      else if (name) alert('Use a name ending in .tsx, .ts, .jsx, .js, or .css');
     });
   }
 
@@ -281,7 +304,7 @@
   });
 
   /* ---------- Assignment checklist (remembered in this browser only) ---------- */
-  const KEY = 'cssg-lesson3-checklist';
+  const KEY = 'cssg-lesson3-ts-checklist';
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch { saved = {}; }
   const boxes = [...document.querySelectorAll('#assignmentMode input[type="checkbox"]')];

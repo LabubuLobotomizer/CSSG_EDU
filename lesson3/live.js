@@ -1,14 +1,14 @@
 // Live demos for lesson 3: a small "Vite in the browser".
 // - Live.highlight(code, lang, marks)  read-only syntax highlighting
 // - Live.editor(...)                    editable, highlighted code with file tabs
-// - Live.preview(files, opts)           compile JSX with Babel, run it with React in a sandbox
+// - Live.preview(files, opts)           compile TSX/JSX with Babel, run it with React in a sandbox
 // Everything runs from ./vendor, so it works offline.
 (function (root) {
   const esc = text => String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const vendor = name => new URL('vendor/' + name, document.baseURI).href;
 
   /* ---------- Syntax highlighting ---------- */
-  const JS_KEYWORDS = /^(import|from|export|default|function|return|const|let|var|if|else|for|of|in|new|true|false|null|undefined|typeof|while|async|await)$/;
+  const JS_KEYWORDS = /^(import|from|export|default|function|return|const|let|var|if|else|for|of|in|new|true|false|null|undefined|typeof|while|async|await|type|interface|as|keyof|readonly|string|number|boolean|void|never|unknown|any)$/;
   const JS_TOKENS = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/|\{\/\*[\s\S]*?\*\/\})|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|(=>)|(<\/?[A-Za-z][\w.]*|\/?>|<>|<\/>)|\b([A-Za-z_$][\w$]*)\b(?==[{"'])|\b([A-Za-z_$][\w$]*)\b(?=\()|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_$][\w$]*)\b/g;
 
   function hlJs(code) {
@@ -70,9 +70,11 @@
     return result;
   }
 
-  function highlight(code, lang, marks) {
+  // marks: lines to highlight. errs: lines to underline like a type error in VS Code.
+  function highlight(code, lang, marks, errs) {
     return highlightLines(code, lang).map((line, i) =>
-      '<span class="ln' + (marks && marks.has(i + 1) ? ' mark' : '') + '">' + (line || ' ') + '</span>').join('');
+      '<span class="ln' + (marks && marks.has(i + 1) ? ' mark' : '') + (errs && errs.has(i + 1) ? ' err' : '') + '">' +
+      (line || ' ') + '</span>').join('');
   }
 
   const langOf = name => /\.css$/.test(name) ? 'css' : /\.html$/.test(name) ? 'html' : /\.(txt|sh)$/.test(name) ? 'text' : 'js';
@@ -133,9 +135,13 @@
       ta.setAttribute('aria-label', current + ' source code');
       paint();
       ta.scrollTop = 0;
-      const first = pre.querySelector('.mark');
-      if (first) ta.scrollTop = Math.max(0, first.offsetTop - 40);
       sync();
+      // Scroll to the first highlighted line once the editor is on the page and has a size.
+      requestAnimationFrame(() => {
+        const first = pre.querySelector('.mark');
+        if (first) ta.scrollTop = Math.max(0, first.offsetTop - 40);
+        sync();
+      });
     }
     let timer;
     function changedNow() { clearTimeout(timer); if (onChange) onChange(files); }
@@ -182,11 +188,17 @@
   }
 
   /* ---------- Compiling ---------- */
-  function compile(code, filename, modules = true) {
+  // TypeScript files lose their types here, like Vite does. Nothing is type-checked:
+  // that's VS Code's (and `npm run build`'s) job.
+  // runtime 'automatic' writes jsx(...) calls, like a real Vite build; the previews use
+  // 'classic' (React.createElement) because they load React as one global.
+  function compile(code, filename, modules = true, runtime = 'classic') {
+    const presets = [['react', { runtime }]];
+    if (/\.tsx?$/.test(filename)) presets.unshift(['typescript', { isTSX: /\.tsx$/.test(filename), allExtensions: true }]);
     return root.Babel.transform(code, {
       filename,
       sourceType: 'module',
-      presets: [['react', { runtime: 'classic' }]],
+      presets,
       plugins: modules ? ['transform-modules-commonjs'] : []
     }).code;
   }
@@ -246,7 +258,8 @@
       const parts = from.split('/').slice(0, -1);
       spec.split('/').forEach(p => { if (p === '..') parts.pop(); else if (p !== '.' && p !== '') parts.push(p); });
       const base = (spec.startsWith('/') ? spec.slice(1) : parts.join('/'));
-      return [base, base + '.jsx', base + '.js', base + '/index.jsx'].find(p => p in modules || p in css) || base;
+      return [base, base + '.tsx', base + '.ts', base + '.jsx', base + '.js', base + '/index.tsx', base + '/index.ts']
+        .find(p => p in modules || p in css) || base;
     };
     let routerLib = null;
     const router = () => {
@@ -297,7 +310,7 @@
     setInterval(() => { if (document.title !== lastTitle) { lastTitle = document.title; post({ type: 'title', title: lastTitle }); } }, 250);
     try {
       const exp = require('', './' + entry);
-      if (!/main\.jsx?$/.test(entry)) {
+      if (!/main\.[jt]sx?$/.test(entry)) {
         const Comp = exp.default;
         if (typeof Comp !== 'function') throw new Error(entry + ' has no default export to show.\nAdd: export default YourComponent;');
         ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(Comp));
@@ -332,9 +345,10 @@
     const modules = {}, css = {};
     for (const [name, text] of Object.entries(files)) {
       if (/\.css$/.test(name)) css[name] = text;
-      else if (/\.jsx?$/.test(name)) modules[name] = compile(text, name);
+      else if (/\.[jt]sx?$/.test(name)) modules[name] = compile(text, name);
     }
-    if (!entry) entry = 'src/main.jsx' in files ? 'src/main.jsx' : Object.keys(modules)[0];
+    // Start where a real app starts (main), else at App, else the first file.
+    if (!entry) entry = ['src/main.tsx', 'src/main.jsx', 'App.tsx', 'App.jsx'].find(n => n in files) || Object.keys(modules)[0];
     const needsRouter = Object.values(files).some(t => /from\s+["']react-router/.test(t));
     const scripts = ['react.development.js', 'react-dom.development.js']
       .concat(needsRouter ? ['router.umd.min.js', 'react-router.production.min.js', 'react-router-dom.production.min.js'] : [])
@@ -461,8 +475,9 @@
     return wrap;
   }
 
-  // Plain JavaScript: press run, see the console.
+  // JavaScript or TypeScript (types removed first): press run, see the console.
   function jsRunner(code, opts = {}) {
+    const file = opts.file || 'script.ts';
     const wrap = document.createElement('div');
     wrap.className = 'live js-runner' + (opts.stack ? ' stack' : '');
     const id = 'p' + (nextId++);
@@ -482,7 +497,13 @@
     };
     const run = files => {
       body.innerHTML = '';
-      const src = files['script.js'];
+      let src;
+      try {
+        src = compile(files[file], file, false);
+      } catch (err) {
+        listeners[id]({ type: 'log', level: 'error', text: 'Syntax error: ' + String(err.message).replace(/^\/?/, '') });
+        return;
+      }
       const doc = '<!doctype html><script>var __id=' + JSON.stringify(id) + ';' + forwardKeys.toString() + ';(' + runtimeConsoleOnly.toString() + ')(__id);<\/script>' +
         '<script>' + src.replace(/<\/script/gi, '<\\/script') + '\n<\/script>';
       const next = document.createElement('iframe');
@@ -492,14 +513,15 @@
       frame = next;
       frame.srcdoc = doc;
     };
-    const ed = editor({ 'script.js': code }, Object.assign({}, opts, { onRun: run }));
+    const ed = editor({ [file]: code }, Object.assign({}, opts, { onRun: run }));
     wrap.append(ed, out);
     run(ed.getFiles());
     return wrap;
   }
 
-  // JSX on the left, the plain JavaScript Babel turns it into on the right.
+  // TSX/JSX on the left, the plain JavaScript a build turns it into on the right.
   function jsxCompiler(code, opts = {}) {
+    const file = opts.file || 'App.tsx';
     const wrap = document.createElement('div');
     wrap.className = 'live';
     const out = document.createElement('div');
@@ -508,7 +530,7 @@
     const pre = out.querySelector('pre');
     const show = files => {
       try {
-        const js = compile(files['App.jsx'], 'App.jsx', false).replace(/\/\*#__PURE__\*\//g, '');
+        const js = compile(files[file], file, false, 'automatic').replace(/\/\*#__PURE__\*\//g, '').replace(/^\n+/, '');
         pre.innerHTML = highlight(js, 'js');
         out.classList.remove('bad');
       } catch (err) {
@@ -516,7 +538,7 @@
         out.classList.add('bad');
       }
     };
-    const ed = editor({ 'App.jsx': code }, Object.assign({}, opts, { onChange: show }));
+    const ed = editor({ [file]: code }, Object.assign({}, opts, { onChange: show }));
     wrap.append(ed, out);
     show(ed.getFiles());
     return wrap;

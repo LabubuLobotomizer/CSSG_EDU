@@ -1,0 +1,17 @@
+/* Global styles: every component can use these classes. */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+  color: #222;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.logo {
+  font-size: 24px;
+}

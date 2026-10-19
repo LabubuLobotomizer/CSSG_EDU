@@ -16,7 +16,7 @@ body {
   font-size: 24px;
 }
 
-.profile-header {
+.profile {
   display: flex;
   gap: 20px;
   align-items: center;
@@ -38,10 +38,8 @@ body {
   margin: 0;
 }
 
-.posts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+.stats {
+  font-size: 14px;
 }
 
 .post {
@@ -60,8 +58,26 @@ body {
   padding: 10px 12px;
 }
 
+.likes {
+  font-weight: bold;
+  margin: 4px 0;
+}
+
 .caption {
   margin: 0;
+}
+
+.location,
+.tags {
+  color: #888;
+  font-size: 13px;
+  margin: 4px 0 0;
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .like-btn {
@@ -70,11 +86,6 @@ body {
   font-size: 16px;
   padding: 0;
   cursor: pointer;
-}
-
-.likes {
-  font-weight: bold;
-  margin: 4px 0;
 }
 
 .follow-btn {
@@ -92,27 +103,50 @@ body {
   color: #222;
 }
 
-.feed {
-  display: grid;
-  gap: 16px;
+.fav {
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  cursor: pointer;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
+.fav.on {
+  background: #fff4c2;
+  border-color: #e0b300;
+}
+
+.header input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 8px 10px;
   margin-bottom: 16px;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.navbar a {
-  color: #222;
-  text-decoration: none;
-  margin-left: 16px;
+nav.tags {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 12px;
 }
 
-.navbar .logo {
-  margin-left: 0;
-  font-weight: bold;
+.tag {
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 999px;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.tag.active {
+  background: #222;
+  color: white;
+}
+
+.empty {
+  color: #888;
+  font-style: italic;
 }
