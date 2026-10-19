@@ -20,6 +20,23 @@ from the second. React is taught as one layer on top of plain HTML, CSS, and JS.
 9. **Wrap-up**: common mistakes, a plain JS → React cheat sheet, recap, the assignment,
    attendance
 
+## Original Week 03 slides
+
+All slides from the two original Week 03 decks (by the CS+SG Education Team) are in the
+deck exactly as they were made: they're rendered images in `original/` (from the
+`.pptx` files, via LibreOffice), framed as **ORIGINAL SLIDE** and shown in italics with
+a ◆ in the sidebar. Each one sits just before the website slides that expand on it. Their
+links and speaker notes are shown under the image. Two slides in deck #2 were exact
+copies of deck 1 slides (“React!” and “React Routing”), so each appears once.
+
+To add one: `<template data-original="deck2-03" data-part="…" data-title="…" data-time="2 MIN" data-label="…"></template>`.
+To re-render after a deck changes:
+
+```sh
+soffice --headless --convert-to pdf "Week 03_ JS and React.pptx"
+pdftoppm -r 180 -jpeg -jpegopt quality=85 "Week 03_ JS and React.pdf" original/deck1
+```
+
 ## Running it
 
 No install needed. Double-click `index.html`, or serve the folder:

@@ -82,6 +82,28 @@
     return box;
   }
 
+  /* ---------- Original Week 03 slides, shown exactly as they were made ---------- */
+  const DECKS = {
+    deck1: { title: 'Introduction to JavaScript & (some) React', count: 12 },
+    deck2: { title: 'Introduction to React (#2)', count: 19 }
+  };
+
+  function originalSlide(template) {
+    const [deck, num] = template.dataset.original.split('-');
+    const info = DECKS[deck];
+    const box = document.createElement('div');
+    box.className = 'original-slide';
+    box.innerHTML = '<div class="orig-head"><span class="badge orig">ORIGINAL SLIDE</span><span></span></div>' +
+      '<figure><img></figure>';
+    box.querySelector('.orig-head span:last-child').textContent =
+      'Week 03 · “' + info.title + '” · slide ' + Number(num) + ' of ' + info.count + ' · CS+SG Education Team';
+    const img = box.querySelector('img');
+    img.src = 'original/' + template.dataset.original + '.jpg';
+    img.alt = 'Original slide: ' + template.dataset.title;
+    box.append(template.content.cloneNode(true));
+    return box;
+  }
+
   /* ---------- Turn slide markup into live pieces ---------- */
   function enhance(root) {
     // A multi-file demo: <div data-live> with <script type="text/plain" data-file="..."> inside.
@@ -143,7 +165,7 @@
       nav.append(head);
     }
     const button = document.createElement('button');
-    button.className = 'nav-item';
+    button.className = 'nav-item' + ('original' in template.dataset ? ' orig' : '');
     button.innerHTML = '<span class="nav-number">' + pad(index + 1) + '</span><span></span><span class="nav-duration">' +
       (template.dataset.time || '') + '</span>';
     button.children[1].textContent = template.dataset.title;
@@ -165,7 +187,8 @@
     document.getElementById('slideIndex').textContent = 'SLIDE ' + pad(current + 1) + ' / ' + templates.length;
     document.getElementById('routeCount').textContent = pad(current + 1) + ' / ' + templates.length;
     document.getElementById('progress').style.width = ((current + 1) / templates.length * 100) + '%';
-    slide.replaceChildren(template.content.cloneNode(true));
+    slide.classList.toggle('is-original', 'original' in template.dataset);
+    slide.replaceChildren('original' in template.dataset ? originalSlide(template) : template.content.cloneNode(true));
     enhance(slide);
     slide.classList.remove('fade-in');
     void slide.offsetWidth;

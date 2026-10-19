@@ -441,3 +441,19 @@ body.presenting #slide{max-width:1180px}
 .grid2 .js-runner .ed-body{min-height:200px}
 .grid2 .js-runner .console.tall .console-body{min-height:90px}
 .comp-tree,.folder-tree,.terminal{overflow-x:auto;max-width:100%}
+
+/* Original Week 03 slides: kept exactly as made, framed so they're easy to tell apart */
+.badge.orig{background:#19d3a2;color:#0f1a16}
+.original-slide{background:#151817;border:1px solid #2c3330;padding:12px 14px 16px;color:#cfd6d2}
+.orig-head{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font:11px var(--mono);letter-spacing:.04em;color:#9aa7a1;margin-bottom:10px}
+.original-slide figure{margin:0}
+.original-slide img{display:block;width:100%;max-height:calc(100vh - 290px);object-fit:contain;background:#1e1e1e}
+.orig-links{margin:10px 0 0;font-size:14px;color:#cfd6d2}
+.orig-links a{color:#19d3a2}
+.original-slide .speaker-notes{margin-top:12px;border-color:#3a433f}
+.original-slide .speaker-notes summary,.original-slide .speaker-notes p{color:#aeb9b4}
+.nav-item.orig{color:#3c6f60;font-style:italic}
+.nav-item.orig .nav-number::after{content:"◆";color:#19d3a2;font-size:8px;margin-left:3px;font-style:normal}
+.sidebar-note .orig-key{color:#19a582}
+body.presenting #slide.is-original .original-slide img{max-height:calc(100vh - 120px)}
+.original-slide .speaker-notes{background:transparent}

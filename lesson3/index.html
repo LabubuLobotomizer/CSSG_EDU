@@ -24,7 +24,7 @@
     <aside class="sidebar">
       <div class="side-heading">TODAY <span id="routeCount"></span></div>
       <nav id="sectionNav" aria-label="Lesson slides"></nav>
-      <div class="sidebar-note"><b>Teacher copy</b><p>Slides marked <b>LIVE</b> are real code: edit it on the slide and the page updates. Open “Teacher notes” for what to say and what to change live. Notes hide in Present mode.</p></div>
+      <div class="sidebar-note"><b>Teacher copy</b><p>Slides marked <b>LIVE</b> are real code: edit it on the slide and the page updates. Open “Teacher notes” for what to say and what to change live. Notes hide in Present mode.</p><p><b class="orig-key">◆ Italic slides</b> are the original Week 03 slides by the CS+SG Education Team, shown exactly as made. The slides after each one expand on it.</p></div>
     </aside>
     <main id="main" tabindex="-1">
       <div class="slide-top"><span id="sectionLabel" class="eyebrow"></span><span id="sectionTime" class="time-pill"></span></div>
@@ -104,6 +104,12 @@
 <div id="slideTemplates" hidden>
 
 <!-- ================= START ================= -->
+<template data-original="deck1-01" data-part="Start" data-title="Intro to JavaScript &amp; (some) React" data-time="1 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 1">
+</template>
+
+<template data-original="deck1-02" data-part="Start" data-title="Topics" data-time="1 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 2">
+</template>
+
 <template data-part="Start" data-title="Welcome" data-time="2 MIN" data-label="START · WELCOME">
   <div class="title-slide">
     <div>
@@ -158,6 +164,9 @@
 </template>
 
 <!-- ================= JAVASCRIPT ================= -->
+<template data-original="deck1-03" data-part="JS you need" data-title="JavaScript" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 3">
+</template>
+
 <template data-part="JS you need" data-title="What JavaScript does" data-time="3 MIN" data-label="JS 01 · BEHAVIOR">
   <div class="eyebrow">HTML = STRUCTURE · CSS = LOOKS · JS = BEHAVIOR</div>
   <h2>JavaScript gives a page <span class="accent">life</span>.</h2>
@@ -180,6 +189,10 @@
   <details class="speaker-notes"><summary>Teacher notes · the console</summary>
     <p>Change the text and press run. Then open the real browser console (F12) on any website and type <code>2 + 3</code>. The console is a calculator, a notepad, and a debugger all in one — the most useful tool they'll learn today.</p>
   </details>
+</template>
+
+<template data-original="deck1-04" data-part="JS you need" data-title="Variables" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 4">
+  <p class="orig-links">Links on this slide: <a href="https://sentry.io/answers/difference-between-let-and-var-in-javascript/" target="_blank" rel="noreferrer">Let vs. Var ↗</a></p>
 </template>
 
 <template data-part="JS you need" data-title="Variables: let & const" data-time="4 MIN" data-label="JS 02 · VARIABLES">
@@ -241,6 +254,9 @@
   </details>
 </template>
 
+<template data-original="deck1-05" data-part="JS you need" data-title="Functions" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 5">
+</template>
+
 <template data-part="JS you need" data-title="Functions" data-time="4 MIN" data-label="JS 04 · FUNCTIONS">
   <div class="eyebrow"><span class="badge demo">LIVE</span>A FUNCTION IS A NAMED SET OF STEPS</div>
   <h2>Declare it once, <span class="accent">call</span> it many times.</h2>
@@ -271,6 +287,13 @@
     <p>Hold onto this sentence: <b>a React component is just a function that returns what to show.</b> Instead of returning a number or a string, it returns something that looks like HTML.</p>
     <p>Try: delete the <code>return</code> keyword and run. <code>x</code> becomes <code>undefined</code> — a function without return hands back nothing.</p>
   </details>
+</template>
+
+<template data-original="deck1-06" data-part="JS you need" data-title="Skipping - Function Examples" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 6">
+  <p class="orig-links">Links on this slide: <a href="https://codepen.io/mmtaylo/pen/pvgrWQY?editors=0010" target="_blank" rel="noreferrer">codepen.io/mmtaylo/pen/pvgrWQY ↗</a></p>
+</template>
+
+<template data-original="deck2-13" data-part="JS you need" data-title="Arrow Functions" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 13">
 </template>
 
 <template data-part="JS you need" data-title="Arrow functions" data-time="4 MIN" data-label="JS 05 · ARROWS">
@@ -462,6 +485,9 @@ const second = cats[1];</pre></div>
 </template>
 
 <!-- ================= THE DOM BY HAND ================= -->
+<template data-original="deck1-07" data-part="The DOM by hand" data-title="Document Object Model (DOM)" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 7">
+</template>
+
 <template data-part="The DOM by hand" data-title="JavaScript can change the page" data-time="4 MIN" data-label="DOM 01 · THE TREE">
   <div class="eyebrow"><span class="badge demo">LIVE</span>REMEMBER THE TREE FROM LESSON 2?</div>
   <h2>The DOM: the page as <span class="accent">objects</span> JS can touch.</h2>
@@ -483,6 +509,10 @@ const second = cats[1];</pre></div>
   <details class="speaker-notes"><summary>Teacher notes · find, then change</summary>
     <p>Two steps every time: <b>find</b> the element (<code>querySelector</code> uses CSS selectors from lesson 2!), then <b>change</b> it. Delete the last two lines — the original “Hello!” comes back. The HTML file never changed; JS changed the page <i>after</i> it loaded.</p>
   </details>
+</template>
+
+<template data-original="deck1-08" data-part="The DOM by hand" data-title="DOM Manipulation" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 8">
+  <p class="orig-links">Links on this slide: <a href="https://codepen.io/mmtaylo/pen/LEGjOpy" target="_blank" rel="noreferrer">codepen.io/mmtaylo/pen/LEGjOpy ↗</a></p>
 </template>
 
 <template data-part="The DOM by hand" data-title="A like button, by hand" data-time="5 MIN" data-label="DOM 02 · PLAIN JS">
@@ -582,6 +612,9 @@ when clicked:
 </template>
 
 <!-- ================= REACT BASICS ================= -->
+<template data-original="deck1-09" data-part="Components & JSX" data-title="React!" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 9">
+</template>
+
 <template data-part="Components & JSX" data-title="What is React?" data-time="4 MIN" data-label="REACT 01 · COMPONENTS">
   <div class="eyebrow">THINK IN LEGO BRICKS</div>
   <h2>React builds pages out of <span class="accent">components</span>.</h2>
@@ -661,6 +694,9 @@ when clicked:
   </details>
 </template>
 
+<template data-original="deck1-11" data-part="Components & JSX" data-title="React Rules" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 11">
+</template>
+
 <template data-part="Components & JSX" data-title="JSX rules" data-time="5 MIN" data-label="REACT 04 · JSX RULES">
   <div class="eyebrow">JSX LOOKS LIKE HTML, BUT IT'S STRICTER</div>
   <h2>Five rules that fix <span class="accent">most</span> JSX errors.</h2>
@@ -730,6 +766,9 @@ when clicked:
       <li>Remove the braces from <code>{user.bio}</code> — now it literally shows the text “user.bio”.</li>
     </ul>
   </details>
+</template>
+
+<template data-original="deck1-10" data-part="Components & JSX" data-title="How does React work?" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 10">
 </template>
 
 <template data-part="Components & JSX" data-title="How React shows a component" data-time="3 MIN" data-label="REACT 07 · RENDERING">
@@ -916,6 +955,9 @@ when clicked:
   <details class="speaker-notes"><summary>Teacher notes · same as the plain JS bug</summary>
     <p>This is exactly the like-button bug from earlier when we commented out the line that updated the page. We need two things: a value React <b>remembers</b> between runs, and a way to tell React “this changed, redraw.” That's <code>useState</code>.</p>
   </details>
+</template>
+
+<template data-original="deck2-14" data-part="State & hooks" data-title="React Hooks" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 14">
 </template>
 
 <template data-part="State & hooks" data-title="useState" data-time="4 MIN" data-label="STATE 02 · useState">
@@ -1185,6 +1227,12 @@ when clicked:
 </template>
 
 <!-- ================= REAL PROJECT ================= -->
+<template data-original="deck2-01" data-part="A real project" data-title="Introduction to React (#2)" data-time="1 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 1">
+</template>
+
+<template data-original="deck2-02" data-part="A real project" data-title="Topics" data-time="1 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 2">
+</template>
+
 <template data-part="A real project" data-title="Node.js & npm" data-time="4 MIN" data-label="SETUP 01 · TOOLS">
   <div class="eyebrow"><span class="badge follow">FOLLOW ALONG</span>YOU INSTALLED THESE IN LESSON 1</div>
   <h2>Check that <span class="accent">Node.js</span> is still installed.</h2>
@@ -1202,6 +1250,11 @@ when clicked:
     <p>“command not found”: the terminal was opened before installing — close and reopen VS Code. On Windows, if PowerShell blocks npm scripts, switch the VS Code terminal to Command Prompt (the dropdown next to the +).</p>
     <p>Don't type the <code>$</code>. It just means “type this in the terminal.”</p>
   </details>
+</template>
+
+<template data-original="deck2-04" data-part="A real project" data-title="Setting up your first React App" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 4">
+  <p class="orig-links">Links on this slide: <a href="https://nodejs.org/en/download/current" target="_blank" rel="noreferrer">Download node.js! ↗</a></p>
+  <details class="speaker-notes"><summary>Original speaker notes</summary><p>Not for today!!! Ue github classroom</p></details>
 </template>
 
 <template data-part="A real project" data-title="Create the app" data-time="5 MIN" data-label="SETUP 02 · VITE">
@@ -1231,6 +1284,12 @@ when clicked:
   </details>
 </template>
 
+<template data-original="deck2-05" data-part="A real project" data-title="After Initialization" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 5">
+</template>
+
+<template data-original="deck2-06" data-part="A real project" data-title="List of core files" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 6">
+</template>
+
 <template data-part="A real project" data-title="Tour the files" data-time="4 MIN" data-label="SETUP 03 · THE FILES">
   <div class="eyebrow">MOST FILES YOU NEVER TOUCH</div>
   <h2>Only a few files are <span class="accent">yours</span>.</h2>
@@ -1257,9 +1316,19 @@ when clicked:
       <tr><td>components/</td><td>One file per component, named with a capital letter.</td></tr>
     </table>
   </div>
+  <div class="one-line">The original slide shows <code>style.css</code> next to <code>index.html</code>. We keep it in <code>src/</code> next to <code>main.jsx</code> so the import is just <code>"./style.css"</code>. Either works, as long as the import path matches where the file is.</div>
   <details class="speaker-notes"><summary>Teacher notes · node_modules</summary>
     <p><code>node_modules</code> is huge (React, Vite, and everything they use). It's never committed to GitHub — <code>.gitignore</code> leaves it out — and anyone can recreate it with <code>npm install</code>.</p>
   </details>
+</template>
+
+<template data-original="deck2-07" data-part="A real project" data-title="index.html" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 7">
+</template>
+
+<template data-original="deck2-09" data-part="A real project" data-title="main.jsx" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 9">
+</template>
+
+<template data-original="deck2-10" data-part="A real project" data-title="App.jsx" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 10">
 </template>
 
 <template data-part="A real project" data-title="How the files connect" data-time="4 MIN" data-label="SETUP 04 · FROM HTML TO REACT">
@@ -1301,6 +1370,7 @@ when clicked:
     </script>
   </div>
   <details class="speaker-notes"><summary>Teacher notes · the one line to remember</summary>
+    <p>The original main.jsx slide writes <code>import ReactDOM from "react-dom/client"</code> and <code>ReactDOM.createRoot(…)</code>. Ours writes <code>import { createRoot } from "react-dom/client"</code> and <code>createRoot(…)</code>. Same function: one takes the whole toolbox, the other takes just the one tool (a named import). Its <code>&lt;React.StrictMode&gt;</code> wrapper is optional; we drop it in “Clean up the starter.”</p>
     <p>Read main.jsx's last line out loud: “Find the element with id root. Make it a React root. Render App inside it.” That's <code>document.getElementById</code> from the DOM slides — React starts from plain DOM code.</p>
   </details>
 </template>
@@ -1367,6 +1437,9 @@ src/App.jsx  → see step 1</pre></div>
   </details>
 </template>
 
+<template data-original="deck2-08" data-part="Build Mini Instagram" data-title="style.css" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 8">
+</template>
+
 <template data-part="Build Mini Instagram" data-title="Step 2 · Global CSS" data-time="3 MIN" data-label="BUILD 02 · CSS">
   <h2><span class="badge follow">FOLLOW ALONG</span>Make <span class="accent">style.css</span> and import it once.</h2>
   <div data-example-step="2"></div>
@@ -1376,9 +1449,13 @@ src/App.jsx  → see step 1</pre></div>
   </details>
 </template>
 
+<template data-original="deck2-11" data-part="Build Mini Instagram" data-title="profile.jsx" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 11">
+</template>
+
 <template data-part="Build Mini Instagram" data-title="Step 3 · Profile component" data-time="5 MIN" data-label="BUILD 03 · COMPONENT">
   <h2><span class="badge follow">FOLLOW ALONG</span>Our first component in its <span class="accent">own file</span>.</h2>
   <div data-example-step="3"></div>
+  <div class="one-line">The original slide's title says <code>profile.jsx</code>, but name your file <code>Profile.jsx</code>, with a capital P, to match the component and the import. Its first line, <code>import React from "react"</code>, was needed in older React. You can leave it out now.</div>
   <details class="speaker-notes"><summary>Teacher notes · make the folder</summary>
     <p>Create <code>src/components/</code> and <code>Profile.jsx</code> inside it. Three moves every time you make a component: <b>write</b> the function, <b>export</b> it, <b>import</b> and use it in the parent. The <code>user</code> object is plain JS from the objects slide; <code>{ }</code> puts its values in the page.</p>
   </details>
@@ -1394,6 +1471,9 @@ src/App.jsx  → see step 1</pre></div>
   </details>
 </template>
 
+<template data-original="deck2-12" data-part="Build Mini Instagram" data-title="Usage of map()" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 12">
+</template>
+
 <template data-part="Build Mini Instagram" data-title="Step 5 · map() the posts" data-time="4 MIN" data-label="BUILD 05 · LISTS">
   <h2><span class="badge follow">FOLLOW ALONG</span>Data in an array, <span class="accent">map()</span> to components.</h2>
   <div data-example-step="5"></div>
@@ -1403,6 +1483,9 @@ src/App.jsx  → see step 1</pre></div>
   </details>
 </template>
 
+<template data-original="deck2-15" data-part="Build Mini Instagram" data-title="Post.jsx" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 15">
+</template>
+
 <template data-part="Build Mini Instagram" data-title="Step 6 · Likes with useState" data-time="5 MIN" data-label="BUILD 06 · STATE">
   <h2><span class="badge follow">FOLLOW ALONG</span>Each post <span class="accent">remembers</span> its own likes.</h2>
   <div data-example-step="6"></div>
@@ -1410,6 +1493,9 @@ src/App.jsx  → see step 1</pre></div>
   <details class="speaker-notes"><summary>Teacher notes · props vs state</summary>
     <p><b>Props</b> come from the parent and the component can't change them. <b>State</b> lives inside the component and changes over time. Here a prop seeds the state. Note: refreshing the page resets the likes — nothing is saved yet (that needs a server, a later lesson).</p>
   </details>
+</template>
+
+<template data-original="deck2-16" data-part="Build Mini Instagram" data-title="FollowButton.jsx" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 16">
 </template>
 
 <template data-part="Build Mini Instagram" data-title="Step 7 · FollowButton" data-time="4 MIN" data-label="BUILD 07 · TOGGLE">
@@ -1428,6 +1514,9 @@ src/App.jsx  → see step 1</pre></div>
   <details class="speaker-notes"><summary>Teacher notes · nothing changes on screen</summary>
     <p>This is a refactor: the page looks identical, but the code is better organized. Cut the whole <code>user</code> object out of Profile and paste it into <code>src/data.js</code>.</p>
   </details>
+</template>
+
+<template data-original="deck1-12" data-part="Build Mini Instagram" data-title="React Routing" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 1 · SLIDE 12">
 </template>
 
 <template data-part="Build Mini Instagram" data-title="Routing: pages without reloading" data-time="5 MIN" data-label="BUILD · ROUTING IDEA">
@@ -1467,6 +1556,9 @@ src/App.jsx  → see step 1</pre></div>
     <p>Click the links: the URL in the preview's address bar changes, but the page never reloads. Add a third route: <code>&lt;Route path="/about" element={&lt;h2&gt;About&lt;/h2&gt;} /&gt;</code> and a Link to it.</p>
     <p>(The slide preview keeps the URL in memory because it lives inside a frame. In your project the real browser address bar changes.)</p>
   </details>
+</template>
+
+<template data-original="deck2-18" data-part="Build Mini Instagram" data-title="Instagram Routing" data-time="2 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 18">
 </template>
 
 <template data-part="Build Mini Instagram" data-title="Step 9 · Routes" data-time="5 MIN" data-label="BUILD 09 · ROUTES">
@@ -1607,18 +1699,7 @@ src/App.jsx  → see step 1</pre></div>
   </details>
 </template>
 
-<template data-part="Wrap-up" data-title="Thank you · attendance" data-time="1 MIN" data-label="WRAP-UP 05 · ATTENDANCE">
-  <div class="title-slide" style="min-height:44vh">
-    <div>
-      <div class="eyebrow">BEFORE YOU GO</div>
-      <h1>Thank <span class="accent">you</span>!</h1>
-      <p class="lead">Scan the code to mark your attendance. Questions? Bring them to the next meeting, or ask in the club chat.</p>
-    </div>
-    <img src="images/attendance-qr.png" alt="Attendance QR code" width="260" height="260" style="justify-self:center;background:#fff;padding:12px;border:1px solid var(--line)">
-  </div>
-  <details class="speaker-notes"><summary>Teacher notes · update the code</summary>
-    <p>Replace <code>images/attendance-qr.png</code> if the attendance form changes for this session.</p>
-  </details>
+<template data-original="deck2-19" data-part="Wrap-up" data-title="Thank you!!!" data-time="1 MIN" data-label="ORIGINAL · WEEK 03 DECK 2 (#2) · SLIDE 19">
 </template>
 
 </div>
