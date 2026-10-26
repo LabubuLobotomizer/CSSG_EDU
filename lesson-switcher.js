@@ -4,7 +4,8 @@
   var LESSONS = [
     { n: 1, title: 'Build Minesweeper' },
     { n: 2, title: 'HTML & CSS' },
-    { n: 3, title: 'React + TypeScript' }
+    { n: 3, title: 'React + TypeScript' },
+    { n: 4, title: 'Async, APIs & fetch' }
   ];
 
   var match = location.pathname.match(/lesson(\d+)\//);
